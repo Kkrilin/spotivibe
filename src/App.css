@@ -1,42 +1,88 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
+:root {
+  --background-base: #121212;
+  --background-highlight: #1f1f1f;
+  --background-press: #000;
+  --background-elevated-base: #1f1f1f;
+  --background-elevated-highlight: #2a2a2a;
+  --background-elevated-press: #191919;
+  --background-tinted-base: hsla(0, 0%, 100%, 0.1);
+  --background-tinted-highlight: hsla(0, 0%, 100%, 0.14);
+  --background-tinted-press: hsla(0, 0%, 100%, 0.21);
+  --text-base: #fff;
+  --text-subdued: #b3b3b3;
+  --text-bright-accent: #1ed760;
+  --text-negative: #f3727f;
+  --text-warning: #ffa42b;
+  --text-positive: #1ed760;
+  --text-announcement: #4cb3ff;
+  --essential-base: #fff;
+  --essential-subdued: #7c7c7c;
+  --essential-bright-accent: #1ed760;
+  --essential-negative: #ed2c3f;
+  --essential-warning: #ffa42b;
+  --essential-positive: #1ed760;
+  --essential-announcement: #4cb3ff;
+  --decorative-base: #fff;
+  --decorative-subdued: #292929;
 }
 
-.read-the-docs {
-  color: #888;
+body {
+  background-color: var(--background-base);
+  position: absolute;
+  z-index: -1;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+label {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+input {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  width: 25rem;
+  height: 3rem;
+  font-size: 1rem;
+  padding-left: 10px;
+  border-color: black;
+  outline: none;
+  border-radius: 10px;
+  transition: border-color 0.3s ;
+}
+
+input:focus {
+  border-color: #131314;
+}
+
+input::placeholder {
+  padding-left: 1rem;
+  color: #aaa;
+}
+
+
+.library {
+  width: 28rem;
+  box-shadow: rgba(51, 48, 48, 0.24) 0px 3px 8px;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: #1a1717;
+}
+
+.playlist, .artist {
+  color: rgb(222, 218, 218);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  font-size: 0.8rem;
+  background-color: rgb(80, 77, 77);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 6px;
+  border-radius: 220px;
+  margin-right: 10px;
 }

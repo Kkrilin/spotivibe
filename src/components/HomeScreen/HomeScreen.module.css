@@ -1,0 +1,11 @@
+
+.homeScreen {
+    padding:  0 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+    "library profile"
+    "library profile"
+    "library profile";
+}
