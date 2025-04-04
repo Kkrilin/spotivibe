@@ -22,7 +22,7 @@ async function redirectToSpotifyAuthorize(clientId, redirectUri) {
   const hashed = await sha256(codeVerifier);
   const codeChallenge = base64encode(hashed);
 
-  const scope = "user-read-private user-read-email user-follow-read";
+  const scope = "user-read-private user-read-email user-follow-read user-follow-modify playlist-modify-public";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
 
   // generated in the previous step

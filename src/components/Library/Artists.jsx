@@ -68,7 +68,7 @@ export const Artist = ({ item, profile }) => {
       <div>
         {item ? (
           <Typography style={{ fontSize: "1.2rem" }} variant="h6">
-            {item.name}
+            {item.name.substring(0, 20)}
           </Typography>
         ) : (
           <Skeleton

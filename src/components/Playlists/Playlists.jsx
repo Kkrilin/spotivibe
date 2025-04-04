@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Avatar, Skeleton } from "@mui/material";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
+import { addPlaylist, removePlaylist } from "../../slice/profileSlice";
 
 const gradientPairs = [
   [
@@ -36,50 +38,94 @@ const gradientPairs = [
 const PlayLists = () => {
   const { playlists } = useSelector((state) => state.profile);
   const [tracks, setTracks] = useState([]);
+  const [follow, setFollow] = useState(false);
   const param = useParams();
+  const dispatch = useDispatch();
+  const [requiredPlaylist, setRequiredPlaylist] = useState({});
   const { id } = param;
-  const requiredPlaylist = playlists.find((ar) => ar.id === param.id) || {};
-  console.log("artirequiredplayList", requiredPlaylist);
-
+  // const requiredPlaylist = playlists.find((ar) => ar.id === param.id) || {};
+  console.log("playlists", playlists);
+  const indexRef = useRef(null);
+  const index = indexRef.current;
   const token = localStorage.getItem("access_token", "access_token");
   const playListItemUrl = `https://api.spotify.com/v1/playlists/${id}/tracks`;
-
+  const playListUrl = `https://api.spotify.com/v1/playlists/${id}`;
+  const checkFollowUrl = `https://api.spotify.com/v1/playlists/${id}/followers/contains`;
+  const followUrl = `https://api.spotify.com/v1/playlists/${id}/followers`;
   const header = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const index = Math.floor(Math.random() * gradientPairs.length);
+  //   curl --request PUT \
+  //   --url https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n/followers \
+  //   --header 'Authorization: Bearer 1POdFZRZbvb...qqillRxMr2z' \
+  //   --header 'Content-Type: application/json' \
+  //   --data '{
+  //     "public": false
+  // }'
 
+  const data = {
+    public: true,
+  };
+  const handleFollowClick = async () => {
+    header.headers["Content-Type"] = "application/json";
+    try {
+      if (follow) {
+        console.log("follow-------", follow);
+        const unfollowResponse = await axios.delete(followUrl, header);
+        console.log("unfollowResponse", unfollowResponse);
+        dispatch(removePlaylist({ id }));
+        setFollow(false);
+      } else {
+        const followResponse = await axios.put(followUrl, data, header);
+        console.log("followResponse", followResponse);
+        dispatch(addPlaylist({ data: requiredPlaylist }));
+        setFollow(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const fetchArtistTopSong = async () => {
+    const fetchPlayList = async () => {
       try {
+        let playlist = playlists.find((pl) => pl.id === id);
+        if (!playlist) {
+          const playListResponse = await axios.get(playListUrl, header);
+          playlist = playListResponse.data;
+        }
+        const followCheckResponse = await axios.get(checkFollowUrl, header);
         const response = await axios.get(playListItemUrl, header);
         console.log("response plalist top track", response.data.items);
+        setRequiredPlaylist(playlist);
+        setFollow(followCheckResponse.data[0]);
         setTracks(response.data.items);
+        indexRef.current = Math.floor(Math.random() * gradientPairs.length);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchArtistTopSong();
-  }, [id]);
+    fetchPlayList();
+  }, [id, playListUrl]);
+
+  console.log();
   console.log("track", tracks);
   return (
     <Scrollable>
       <div
         className="profile_pic"
         style={{
-          backgroundImage: `${gradientPairs[index][0]}`,
+          backgroundImage: `${index && gradientPairs[index][0]}`,
         }}
       >
         {Object.keys(requiredPlaylist).length ? (
           <div>
             <Avatar
-              sx={{ width: 220, height: 220 , borderRadius:"8px"}}
+              sx={{ width: 220, height: 220, borderRadius: "8px" }}
               alt="Spotify logo"
               src={requiredPlaylist.images[0].url}
-            variant="square"
-
+              variant="square"
             />
           </div>
         ) : (
@@ -99,16 +145,24 @@ const PlayLists = () => {
             fontFamily: "Helvetica Neue",
           }}
         >
-          <h6 style={{ fontSize: "14px" }}>Verifie dArtist</h6>
+          <h6 style={{ fontSize: "24px" }}>
+            {requiredPlaylist.owner && requiredPlaylist.owner.display_name}
+          </h6>
           <h6 style={{ fontSize: "6rem" }}>{requiredPlaylist.name}</h6>
-          <span
-            style={{ fontSize: "14px", color: "#a1a1a1", fontWeight: "bold" }}
-          >
-            {Math.round(Math.random() * 10000000000)} mothly listeners
+          <span style={{ fontSize: "14px", color: "#fff", fontWeight: "bold" }}>
+            followers :{" "}
+            {(requiredPlaylist.followers && requiredPlaylist.followers.total) ||
+              0}
           </span>
         </div>
       </div>
-      <Tracks tracks={tracks} colorGradient={gradientPairs[index][1]} />
+      <Tracks
+        handleFollowClick={handleFollowClick}
+        follow={follow}
+        type={requiredPlaylist.type}
+        tracks={tracks.filter((track) => track.track)}
+        colorGradient={index && gradientPairs[index][1]}
+      />
     </Scrollable>
   );
 };

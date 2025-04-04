@@ -1,11 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { Avatar, Skeleton } from "@mui/material";
+import { useEffect, useState, useRef } from "react";
+import { Avatar, Skeleton, Stack } from "@mui/material";
 import axios from "axios";
 import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
-
+import { useDispatch } from "react-redux";
+import { addArtist, removeArtist } from "../../slice/profileSlice";
+import AlbumCard from "../Album/AlbumCard";
+import { Artist } from "../Library/Artists";
 const gradientPairs = [
   [
     "linear-gradient(rgb(36, 11, 54), rgb(81, 27, 124))", // Deep Purple (Profile Pic)
@@ -35,38 +38,99 @@ const gradientPairs = [
 
 const Artists = () => {
   const { artists } = useSelector((state) => state.profile);
+  const [artistAlbums, setArtistsAlbum] = useState([]);
+  const [artistRelatedArtists, setArtistRelatedArtists] = useState([]);
   const [tracks, setTracks] = useState([]);
+  const [follow, setFollow] = useState(false);
+  const [requiredArtist, setRequiredArtist] = useState({});
   const param = useParams();
   const { id } = param;
-  const requiredArtist = artists.find((ar) => ar.id === param.id) || {};
-
-  const token = localStorage.getItem("access_token", "access_token");
-  const artistUrl = `https://api.spotify.com/v1/artists/${id}/top-tracks`;
-
+  const dispatch = useDispatch();
+  const indexRef = useRef(null);
+  const index = indexRef.current;
+  const artistTopTracks = `https://api.spotify.com/v1/artists/${id}/top-tracks`;
+  const artistUrl = `https://api.spotify.com/v1/artists/${id}`;
+  const checkFollowUrl = `https://api.spotify.com/v1/me/following/contains?type=artist&ids=${id}`;
+  const token = localStorage.getItem("access_token");
+  const followUrl = `https://api.spotify.com/v1/me/following?type=artist&ids=${id}`;
   const header = {
     headers: {
       Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
     },
   };
-  const index = Math.floor(Math.random() * gradientPairs.length);
+  const data = {
+    ids: [id],
+  };
+  const handleFollowClick = async () => {
+    header.headers["Content-Type"] = "application/json";
+    try {
+      if (follow) {
+        const unfollowResponse = await axios.delete(followUrl, header);
+        console.log("unfollowResponse", unfollowResponse);
+        dispatch(removeArtist({ id }));
+        setFollow(false);
+      } else {
+        const followResponse = await axios.put(followUrl, data, header);
+        console.log("followResponse", followResponse);
+        dispatch(addArtist({ data: requiredArtist }));
+        setFollow(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchArtistTopSong = async () => {
       try {
-        const response = await axios.get(artistUrl, header);
+        let artist = artists.find((ar) => ar.id === param.id);
+        if (!artist) {
+          const artistResponse = await axios.get(artistUrl, header);
+          artist = artistResponse.data;
+        }
+        const followCheckResponse = await axios.get(checkFollowUrl, header);
+        const response = await axios.get(artistTopTracks, header);
+        setRequiredArtist(artist);
+        setFollow(followCheckResponse.data[0]);
         setTracks(response.data.tracks);
+        indexRef.current = Math.floor(Math.random() * gradientPairs.length);
       } catch (error) {
         console.log(error);
       }
     };
+
     fetchArtistTopSong();
+  }, [id, artistUrl]);
+
+  const artistAlbumUrl = `https://api.spotify.com/v1/artists/${id}/albums`;
+  useEffect(() => {
+    axios
+      .get(artistAlbumUrl, header)
+      .then((res) => {
+        console.log(res.data, "-------------");
+        setArtistsAlbum(res.data.items);
+      })
+      .catch((err) => console.log(err));
   }, [id]);
+
+  useEffect(() => {
+    const artistRelatedArtist = `https://api.spotify.com/v1/search?q=${requiredArtist.name}&type=artist`;
+    axios
+      .get(artistRelatedArtist, header)
+      .then((res) => {
+        setArtistRelatedArtists(res.data.artists.items);
+        console.log(res.data.artists);
+      })
+      .catch((err) => console.log(err));
+  }, [requiredArtist.name]);
+
   return (
     <Scrollable>
       <div
         className="profile_pic"
         style={{
-          backgroundImage: `${gradientPairs[index][0]}`,
+          backgroundImage: `${index && gradientPairs[index][0]}`,
         }}
       >
         {Object.keys(requiredArtist).length ? (
@@ -94,16 +158,45 @@ const Artists = () => {
             fontFamily: "Helvetica Neue",
           }}
         >
-          <h6 style={{ fontSize: "14px" }}>Verifie dArtist</h6>
+          {/* <h6 style={{ fontSize: "14px" }}>Verifie dArtist</h6> */}
           <h6 style={{ fontSize: "6rem" }}>{requiredArtist.name}</h6>
           <span
             style={{ fontSize: "14px", color: "#a1a1a1", fontWeight: "bold" }}
           >
-            {Math.round(Math.random() * 10000000000)} mothly listeners
+            Followers:{" "}
+            {requiredArtist.followers && requiredArtist.followers.total}
           </span>
+          <h4 style={{ textTransform: "capitalize" }}>
+            genres: {requiredArtist.genres && requiredArtist.genres.join("-")}
+          </h4>
         </div>
       </div>
-      <Tracks tracks={tracks} colorGradient={gradientPairs[index][1]} />
+      <Tracks
+        handleFollowClick={handleFollowClick}
+        follow={follow}
+        tracks={tracks}
+        colorGradient={index && gradientPairs[index][1]}
+      />
+      <div style={{ padding: "2rem" }}>
+        <h3>Albums</h3>
+        <Stack className="horizontal_scroll" direction={"row"}>
+          {artistAlbums
+            .filter((item) => item)
+            .map((item) => (
+              <AlbumCard item={item} />
+            ))}
+        </Stack>
+      </div>
+      <div style={{ padding: "2rem" }}>
+        <h3>Artists</h3>
+        <Stack className="horizontal_scroll" direction={"row"}>
+          {artistRelatedArtists
+            .filter((item) => item)
+            .map((item) => (
+              <Artist item={item} profile={true} />
+            ))}
+        </Stack>
+      </div>
     </Scrollable>
   );
 };

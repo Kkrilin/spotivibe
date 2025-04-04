@@ -41,6 +41,7 @@ body {
   overscroll-behavior-y: none;
   overflow: hidden;
   scroll-behavior: smooth;
+  font-family: "Roboto", sans-serif;
 }
 
 body::-webkit-scrollbar {
@@ -121,44 +122,49 @@ input::placeholder {
 .scroll {
   height: 80vh;
   margin-left: 10px;
+  margin-right: 10px;
   flex: 1;
   border-radius: 8px;
   background-color: var(--background-base);
   overflow-y: auto;
-
 }
 
-
 ::-webkit-scrollbar {
-  width: 16px;
+  width: 0px;
+}
+
+/* hover scroll */
+.scroll:hover::-webkit-scrollbar {
+  width: 10px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+.scroll:hover::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
-  height: 2rem;
+.scroll:hover::-webkit-scrollbar-thumb {
+  /* height: 2rem; */
+  background-color: transparent;
   background-color: hsla(0, 0%, 100%, 0.3);
   border-radius: 4px;
 }
 
 .horizontal_scroll {
-  width: 80vw;
+  width: 50vw;
   /* flex: 1; */
   overflow-x: auto;
 }
 
-.horizontal_scroll::-webkit-scrollbar-thumb{
+.horizontal_scroll::-webkit-scrollbar-thumb {
   height: 0;
   background-color: transparent;
   border-radius: none;
 }
 
-.horizontal_scroll::-webkit-scrollbar-track{
+.horizontal_scroll::-webkit-scrollbar-track {
   box-shadow: none;
   border-radius: 10px;
 }
@@ -174,8 +180,7 @@ input::placeholder {
   gap: 10px;
   padding: 2rem;
 }
-
-.profile_bottom_Container {
+p .profile_bottom_Container {
   padding: 2rem;
   background-image: linear-gradient(
     rgba(91, 17, 17, 0.85) 5%,
@@ -191,7 +196,7 @@ input::placeholder {
   );
 }
 
-.album_container{
+.album_container {
   display: flex;
 }
 
@@ -222,4 +227,26 @@ input::placeholder {
 
 a {
   color: #fff;
+}
+
+.check_follow:hover {
+  color: #000;
+}
+
+.side_bar {
+  width: 26rem;
+  box-shadow: rgba(51, 48, 48, 0.24) 0px 3px 8px;
+  border-radius: 8px;
+  background-color: var(--background-base);
+  height: 80vh;
+  animation: mymove 0.8s  backwards ;
+}
+
+@keyframes mymove {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 26rem;
+  }
 }

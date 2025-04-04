@@ -51,11 +51,7 @@ const Profile = () => {
   }
   return (
     <Scrollable>
-
-      <div
-        
-        className="profile_pic"
-      >
+      <div className="profile_pic">
         {Object.keys(profileData.data).length ? (
           <div>
             <Avatar
@@ -72,11 +68,17 @@ const Profile = () => {
             height={118}
           />
         )}
-        <div style={{ marginLeft: "12px", display:'flex', flexDirection:"column", justifyContent:"center", fontFamily:"Helvetica Neue" }}>
+        <div
+          style={{
+            marginLeft: "12px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            fontFamily: "Helvetica Neue",
+          }}
+        >
           <h6 style={{ fontSize: "14px" }}>Profile</h6>
-          <h6 style={{ fontSize: "6rem"}}>
-            {profileData.data.display_name}
-          </h6>
+          <h6 style={{ fontSize: "6rem" }}>{profileData.data.display_name}</h6>
           <span
             style={{ fontSize: "14px", color: "#a1a1a1", fontWeight: "bold" }}
           >
@@ -86,26 +88,27 @@ const Profile = () => {
         </div>
       </div>
       <div className="profile_bottom_Container">
-      {playlists.length && (
-        <Stack spacing={2}>
-          <h1>Public Playlist</h1>
-          {playlists.map((item) => (
-            <Playlist item={item} profile={true} />
-          ))}
-        </Stack>
-      )}
-      {artists.length && (
-        <>
-          <h1>Follower</h1>
-          <Stack direction={"row"} spacing={2}>
-            {artists.map((item) => (
-              <Artist item={item} profile={true} />
-            ))}
-          </Stack>
-        </>
-      )}
+        {playlists.length && (
+          <>
+            <h1>Public Playlist</h1>
+            <Stack direction={"row"} spacing={2}>
+              {playlists.map((item) => (
+                <Playlist item={item} profile={true} />
+              ))}
+            </Stack>
+          </>
+        )}
+        {artists.length && (
+          <>
+            <h1>Follower</h1>
+            <Stack direction={"row"} spacing={2}>
+              {artists.map((item) => (
+                <Artist item={item} profile={true} />
+              ))}
+            </Stack>
+          </>
+        )}
       </div>
-
     </Scrollable>
   );
 };

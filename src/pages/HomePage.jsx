@@ -11,7 +11,7 @@ const HomePage = () => {
       <div style={{ display: "flex" }}>
         <Library />
         <Outlet />
-        {/* <SideBar /> */}
+        <SideBar />
       </div>
       <Footer />
     </div>

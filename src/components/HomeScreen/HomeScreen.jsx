@@ -15,16 +15,14 @@ const HomeScreen = () => {
       Authorization: `Bearer ${accessToken}`,
     },
   };
-  const newReleasesAlbumAlbumUrl =
-    "https://api.spotify.com/v1/browse/new-releases";
-
+  const newReleasesAlbumUrl = "https://api.spotify.com/v1/browse/new-releases";
   useEffect(() => {
     axios
       .get(featurePlaylistUrl, header)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
     axios
-      .get(newReleasesAlbumAlbumUrl, header)
+      .get(newReleasesAlbumUrl, header)
       .then((res) => {
         console.log(res.data.albums.items);
         setNewRelease(res.data.albums.items);
@@ -42,7 +40,7 @@ const HomeScreen = () => {
               newRelease.map((item) => <AlbumCard item={item} />)}
           </div>
         </HorizontalScroll>
-      <h1>Home homeScrrem</h1>
+        <h1>Home homeScrrem</h1>
       </div>
     </>
   );
