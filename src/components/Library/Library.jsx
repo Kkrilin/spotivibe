@@ -6,7 +6,11 @@ const Library = ({ token }) => {
   return (
     <div className="library">
       <Filter />
-      <div>
+      <div
+        style={{
+          paddingTop: "2rem",
+        }}
+      >
         <Artists token={token} />
         <PlayLists />
       </div>

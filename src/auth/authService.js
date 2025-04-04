@@ -41,5 +41,6 @@ async function redirectToSpotifyAuthorize(clientId, redirectUri) {
   authUrl.search = new URLSearchParams(params).toString();
   window.location.href = authUrl.toString();
 }
+// redirectToSpotifyAuthorize()
 
 export default redirectToSpotifyAuthorize;

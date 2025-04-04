@@ -2,23 +2,41 @@ import { useState } from "react";
 import { Search, HomeFilled } from "@mui/icons-material";
 import { Avatar, Box } from "@mui/material";
 import styles from "./SearchBar.module.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && search) {
+      console.log("key", e.key);
+      navigate(`/search/${search}`);
+    }
+  });
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          width: "3rem",
-          height: "3rem",
-          cursor: "pointer",
-        }}
-      >
-        <HomeFilled style={{ width: "2.5rem", height: "2.5rem" }} />
-      </div>
+      <Link to="/home">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "3.2rem",
+            height: "3.2rem",
+            cursor: "pointer",
+            backgroundColor: "rgb(67, 66, 66)",
+            borderRadius: "50%",
+            marginRight: "10px",
+            // padding:'5px',
+          }}
+        >
+          <HomeFilled
+            style={{ width: "2.5rem", height: "2.5rem", borderRadius: "50%" }}
+          />
+        </div>
+      </Link>
       <div
         style={{
           display: "flex",
@@ -38,6 +56,8 @@ const SearchBar = () => {
           className={styles.search_Input}
           type="text"
           placeholder="Search..."
+          value={search}
+          onInput={(e) => setSearch(e.target.value)}
         />
       </div>
     </div>

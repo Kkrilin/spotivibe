@@ -37,7 +37,7 @@ const Authorised = () => {
         .then((res) => {
           localStorage.setItem("access_token", res.data.access_token);
           localStorage.removeItem("clientId");
-          navigate(`/home`, { state: { tokenData: res.data } });
+          navigate(`/user`, { state: { tokenData: res.data } });
         })
         .catch((err) => console.log(err));
     }
@@ -45,7 +45,7 @@ const Authorised = () => {
 
   return (
     <div>
-      <h1>redirecting to profile....</h1>
+      <h1>redirecting to Profile Home page....</h1>
     </div>
   );
 };

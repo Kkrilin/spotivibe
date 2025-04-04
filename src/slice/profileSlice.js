@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   data: {},
+  artists: [],
+  playlists: [],
   login: false,
   loading: true,
   error: false,
@@ -17,9 +19,16 @@ const profileSlice = createSlice({
       state.loading = false;
       state.error = false;
     },
+    setArtists(state, action) {
+      console.log(action, 'action')
+      state.artists = action.payload.data;
+    },
+    setPlalists(state, action) {
+      state.playlists = action.payload.data;
+    },
   },
 });
 
-export const { setProfileData } = profileSlice.actions;
+export const { setProfileData, setArtists, setPlalists } = profileSlice.actions;
 
 export default profileSlice.reducer;

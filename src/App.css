@@ -33,11 +33,18 @@
 }
 
 body {
-  background-color: var(--background-base);
+  background-color: var(--background-press);
   position: absolute;
   z-index: -1;
   color: white;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
+  overscroll-behavior-y: none;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 label {
   font-size: 1.5rem;
@@ -46,19 +53,20 @@ label {
 }
 
 input {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   width: 25rem;
   height: 3rem;
   font-size: 1rem;
   padding-left: 10px;
-  border-color: black;
+  border: none;
+  border-color: 4px solid red;
   outline: none;
   border-radius: 10px;
-  transition: border-color 0.3s ;
+  transition: border-color 0.3s;
 }
 
 input:focus {
-  border-color: #131314;
+  border-color: #53374d;
 }
 
 input::placeholder {
@@ -66,18 +74,18 @@ input::placeholder {
   color: #aaa;
 }
 
-
 .library {
-  width: 28rem;
+  width: 26rem;
   box-shadow: rgba(51, 48, 48, 0.24) 0px 3px 8px;
-  border-radius: 1rem;
+  border-radius: 8px;
   padding: 1rem;
-  background-color: #1a1717;
+  background-color: var(--background-base);
 }
 
-.playlist, .artist {
+.playlist,
+.artist {
   color: rgb(222, 218, 218);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-weight: 600;
   font-size: 0.8rem;
   background-color: rgb(80, 77, 77);
@@ -85,4 +93,133 @@ input::placeholder {
   padding: 6px;
   border-radius: 220px;
   margin-right: 10px;
+}
+
+.small_card {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 0.5rem 0.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.small_card:hover {
+  background-color: rgb(64, 59, 59);
+}
+
+.big_card {
+  width: max-content;
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.big_card:hover {
+  background-color: rgb(42, 41, 41);
+}
+
+.scroll {
+  height: 80vh;
+  margin-left: 10px;
+  flex: 1;
+  border-radius: 8px;
+  background-color: var(--background-base);
+  overflow-y: auto;
+
+}
+
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  height: 2rem;
+  background-color: hsla(0, 0%, 100%, 0.3);
+  border-radius: 4px;
+}
+
+.horizontal_scroll {
+  width: 80vw;
+  /* flex: 1; */
+  overflow-x: auto;
+}
+
+.horizontal_scroll::-webkit-scrollbar-thumb{
+  height: 0;
+  background-color: transparent;
+  border-radius: none;
+}
+
+.horizontal_scroll::-webkit-scrollbar-track{
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsla(0, 0%, 100%, 0.226);
+}
+
+.profile_pic {
+  background-image: linear-gradient(rgb(175, 3, 3), rgb(102, 2, 2));
+  display: flex;
+  gap: 10px;
+  padding: 2rem;
+}
+
+.profile_bottom_Container {
+  padding: 2rem;
+  background-image: linear-gradient(
+    rgba(91, 17, 17, 0.85) 5%,
+    rgb(0, 0, 0) 30%
+  );
+}
+
+.artist_Bottom_container {
+  padding-left: 2rem;
+  background-image: linear-gradient(
+    rgba(142, 88, 40, 0.85) 5%,
+    rgb(0, 0, 0) 30%
+  );
+}
+
+.album_container{
+  display: flex;
+}
+
+.track_card {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  padding-right: 4rem;
+}
+
+.track_card > div {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.track_card h3 {
+  width: 20px;
+  color: rgb(112, 109, 109);
+}
+.track_card:hover {
+  background-color: rgb(64, 59, 59);
+}
+
+a {
+  color: #fff;
 }
