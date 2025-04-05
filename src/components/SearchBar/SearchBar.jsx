@@ -46,10 +46,12 @@ const SearchBar = () => {
       >
         <Search
           style={{
-            width: "2.5rem",
-            height: "2.5em",
+            width: "2.4rem",
+            height: "2.4em",
             position: "absolute",
             marginLeft: "0.4rem",
+            color: '#777676',
+            fontWeight:"800"
           }}
         />
         <input

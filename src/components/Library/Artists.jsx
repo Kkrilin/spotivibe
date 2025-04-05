@@ -4,6 +4,7 @@ import { Skeleton, Typography, Avatar } from "@mui/material";
 import { setArtists } from "../../slice/profileSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const Artists = () => {
   // const [artists, setArtist] = useState([]);
@@ -53,7 +54,7 @@ export const Artist = ({ item, profile }) => {
     >
       {item ? (
         <Avatar
-          sx={profile ? { width: 160, height: 160 } : { width: 48, height: 48 }}
+          sx={profile ? { width: 180, height: 180 } : { width: 50, height: 50 }}
           alt="Spotify logo"
           src={item.images[0] && item.images[0].url}
         />
@@ -67,9 +68,7 @@ export const Artist = ({ item, profile }) => {
       )}
       <div>
         {item ? (
-          <Typography style={{ fontSize: "1.2rem" }} variant="h6">
-            {item.name.substring(0, 20)}
-          </Typography>
+          <h6 className="name">{item.name.substring(0, 20)}</h6>
         ) : (
           <Skeleton
             sx={{ bgcolor: "grey.800", fontSize: "1rem", width: "3rem" }}
@@ -77,9 +76,7 @@ export const Artist = ({ item, profile }) => {
           />
         )}
         {item ? (
-          <Typography style={{ fontSize: "1rem" }} variant="h6">
-            {item.type}
-          </Typography>
+          <h6 className="type">{item.type}</h6>
         ) : (
           <Skeleton
             sx={{ bgcolor: "grey.800", fontSize: "1rem" }}

@@ -65,7 +65,7 @@ const SideBar = () => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              // justifyContent: "space-between",
               flexDirection: "column",
               gap: "1rem",
               // alignItems: "center",
@@ -73,7 +73,7 @@ const SideBar = () => {
               backgroundColor: "#1f1f1f",
               margin: "1rem",
               borderRadius: "1rem",
-              height: "100%",
+              height: "17.9rem",
             }}
           >
             <h3>About the Artist</h3>

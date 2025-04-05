@@ -103,6 +103,9 @@ const Artists = () => {
     fetchArtistTopSong();
   }, [id, artistUrl]);
 
+
+  console.log(requiredArtist, 'requiredAttisy')
+
   const artistAlbumUrl = `https://api.spotify.com/v1/artists/${id}/albums`;
   useEffect(() => {
     axios

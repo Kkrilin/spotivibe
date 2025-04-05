@@ -1,13 +1,38 @@
 import { Stack } from "@mui/material";
-const Filter = () => {
+import BasicPopover from "../Utils/BasicPopover";
+const Filter = ({ handleFilterClick, filter }) => {
   return (
     <Stack>
-      <h4 style={{color: '#b3b3b3'}}>Your Library</h4>
-      <div style={{marginTop: '10px'}}>
-        <span style={{
-            
-        }} className="playlist">Playlists</span>
-        <span className="artist">Artists</span>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h4 style={{ color: "#fff" }}>Your Library</h4>
+        <BasicPopover>
+          <div className="create">
+            <span className="plus">+</span>
+            <span style={{ color: "#fff" }}>Create</span>
+          </div>
+        </BasicPopover>
+      </div>
+      <div onClick={handleFilterClick} style={{ marginTop: "24px" }}>
+        <span
+          className={
+            filter === "playlist" ? "playlist active_filter" : "playlist"
+          }
+          data-filter="playlist"
+        >
+          Playlists
+        </span>
+        <span
+          className={filter === "artist" ? "artist active_filter" : "artist"}
+          data-filter="artist"
+        >
+          Artists
+        </span>
       </div>
     </Stack>
   );

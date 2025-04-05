@@ -64,8 +64,8 @@ const Profile = () => {
           <Skeleton
             sx={{ bgcolor: "grey.900" }}
             variant="circular"
-            width={210}
-            height={118}
+            width={220}
+            height={220}
           />
         )}
         <div
@@ -74,39 +74,48 @@ const Profile = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            fontFamily: "Helvetica Neue",
           }}
         >
-          <h6 style={{ fontSize: "14px" }}>Profile</h6>
+          <h6 style={{ fontSize: "14px", fontWeight: "500" }}>Profile</h6>
           <h6 style={{ fontSize: "6rem" }}>{profileData.data.display_name}</h6>
           <span
-            style={{ fontSize: "14px", color: "#a1a1a1", fontWeight: "bold" }}
+            style={{
+              fontSize: "14px",
+              color: "#D5B4BC",
+              fontWeight: "500",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+            }}
           >
-            {playlists.length} Public PlaList<span>.</span>
-            {artists.length} Following
+            <span>{playlists.length} Public PlayLists</span>
+            <span className="dot_separator"></span>
+            <span style={{ color: "#EAD9DD", fontWeight: "400" }}>
+              {artists.length} Following
+            </span>
           </span>
         </div>
       </div>
       <div className="profile_bottom_Container">
         {playlists.length && (
-          <>
-            <h1>Public Playlist</h1>
+          <div>
+            <h2>Public Playlist</h2>
             <Stack direction={"row"} spacing={2}>
               {playlists.map((item) => (
                 <Playlist item={item} profile={true} />
               ))}
             </Stack>
-          </>
+          </div>
         )}
         {artists.length && (
-          <>
-            <h1>Follower</h1>
+          <div style={{ marginTop: "2rem" }}>
+            <h2>Following</h2>
             <Stack direction={"row"} spacing={2}>
               {artists.map((item) => (
                 <Artist item={item} profile={true} />
               ))}
             </Stack>
-          </>
+          </div>
         )}
       </div>
     </Scrollable>

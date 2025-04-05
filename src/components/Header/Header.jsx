@@ -14,11 +14,11 @@ function Header() {
     <header
       style={{
         display: "flex",
-        padding: " 0.4rem 2rem",
+        // padding: " 0.2rem 1.8rem",
         justifyContent: "space-between",
         alignItems: "center",
         width: "100vw",
-        height: "8vh",
+        height: "7vh",
       }}
     >
       <Avatar

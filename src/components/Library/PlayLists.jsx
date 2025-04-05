@@ -56,11 +56,11 @@ export const Playlist = ({ item, profile }) => {
         item.images ? (
           <Avatar
             sx={
-              profile ? { width: 160, height: 160 } : { width: 48, height: 48 }
+              profile ? { width: 180, height: 180 } : { width: 50, height: 50 }
             }
             alt="Spotify logo"
             src={item.images[0].url}
-            variant="square"
+            variant="rounded"
           />
         ) : (
           <Avatar
@@ -80,9 +80,9 @@ export const Playlist = ({ item, profile }) => {
       )}
       <div>
         {item ? (
-          <Typography style={{ fontSize: "1rem" }} variant="h6">
+          <h6 className="name">
             {item.name.substring(0, 20)}
-          </Typography>
+          </h6>
         ) : (
           <Skeleton
             sx={{ bgcolor: "grey.800", fontSize: "1rem" }}
@@ -91,9 +91,11 @@ export const Playlist = ({ item, profile }) => {
           />
         )}
         {item ? (
-          <Typography style={{ fontSize: "0.8rem" }} variant="h6">
-            {item.type}
-          </Typography>
+          <div style={{display:"flex", alignItems:"center", gap:"4px"}} >
+            <span className="type"> {item.type}</span>
+            <span className="dot_separator">  </span>
+            <span className="type">{item.owner.display_name}</span>
+          </div>
         ) : (
           <Skeleton
             sx={{ bgcolor: "grey.800", fontSize: "1rem" }}
