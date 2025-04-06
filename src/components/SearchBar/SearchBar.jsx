@@ -6,14 +6,31 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const navigate = useNavigate();
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && search) {
-      console.log("key", e.key);
-      navigate(`/search/${search}`);
-    }
-  });
+
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+        timeoutId = null;
+      }, delay);
+    };
+  };
+  const handleSearch = debounce((value) => {
+    navigate(`/search/${value}`);
+  }, 800);
+
+  // window.addEventListener("keydown", (e) => {
+  //   if (e.key === "Enter" && search) {
+  //     console.log("key", e.key);
+  //     navigate(`/search/${search}`);
+  //   }
+  // });
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
@@ -33,7 +50,12 @@ const SearchBar = () => {
           }}
         >
           <HomeFilled
-            style={{ width: "2.5rem", height: "2.5rem", borderRadius: "50%" }}
+            style={{
+              width: "2.5rem",
+              height: "2.5rem",
+              borderRadius: "50%",
+              backgroundColor: "#434242",
+            }}
           />
         </div>
       </Link>
@@ -50,16 +72,17 @@ const SearchBar = () => {
             height: "2.4em",
             position: "absolute",
             marginLeft: "0.4rem",
-            color: '#777676',
-            fontWeight:"800"
+            color: "#777676",
+            fontWeight: "800",
           }}
         />
         <input
           className={styles.search_Input}
           type="text"
           placeholder="Search..."
-          value={search}
-          onInput={(e) => setSearch(e.target.value)}
+          // value={search}
+          // onInput={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
         />
       </div>
     </div>

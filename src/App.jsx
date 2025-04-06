@@ -11,10 +11,11 @@ import HomePage from "./pages/HomePage.jsx";
 import Search from "./components/Search/Search.jsx";
 import Albums from "./components/Album/Albums.jsx";
 import PullToRefresh from "./components/Utils/PullToRefresh.jsx";
+import { Navigate } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
-      <PullToRefresh >
+      <PullToRefresh>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/authorised" element={<Authorised />} />
@@ -32,6 +33,7 @@ function App() {
             <Route path="playlist/:id" element={<Playlists />} />
             <Route path="search/:id" element={<Search />}></Route>
             <Route path="album/:id" element={<Albums />}></Route>
+            <Route path="*" element={<Navigate to="/user" replace />} />
           </Route>
         </Routes>
       </PullToRefresh>

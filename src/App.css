@@ -87,6 +87,7 @@ input::placeholder {
   box-shadow: rgba(51, 48, 48, 0.24) 0px 3px 8px;
   border-radius: 8px;
   padding: 1rem;
+  height: 100;
   /* margin-top: 10px; */
   padding-top: 24px;
   background-color: var(--background-base);
@@ -225,7 +226,7 @@ input::placeholder {
 }
 
 .scroll {
-  height: 80vh;
+  height: 83vh;
   /* margin-left: 10px;
   margin-right: 10px; */
   flex: 1;
@@ -295,25 +296,25 @@ input::placeholder {
 }
 
 .profile_pic {
-  background-image: linear-gradient(#c50432, #6b021b);
+  /* background-image: linear-gradient(#c50432, #6b021b); */
   display: flex;
   gap: 10px;
   padding: 2rem;
 }
 .profile_bottom_Container {
   padding: 2rem;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     rgba(91, 17, 17, 0.85) 5%,
     rgb(0, 0, 0) 30%
-  );
+  ); */
 }
 
 .artist_Bottom_container {
   padding-left: 2rem;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     rgba(142, 88, 40, 0.85) 5%,
     rgb(0, 0, 0) 30%
-  );
+  ); */
 }
 
 .album_container {
@@ -409,6 +410,21 @@ a {
   border-radius: 8px;
   height: 80vh;
   animation: show 0.8s forwards;
+}
+
+.shuffle,
+.back,
+.play,
+.forward,
+.repeat {
+  cursor: pointer;
+  padding: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+.control:hover {
+  background-color: #292929;
+  transform: scale(1.08);
 }
 
 @keyframes show {

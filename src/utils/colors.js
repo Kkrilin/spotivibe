@@ -81,3 +81,16 @@ export const gradientPairs = [
     "linear-gradient(rgba(40, 20, 60, 0.85) 5%, rgb(0, 0, 0) 30%)",
   ],
 ];
+
+export const colors = [
+  "#ff7e5f", // Sunset Orange
+  "#feb47b", // Warm Peach
+  "#00c6ff", // Light Blue
+  "#0072ff", // Deep Blue
+  "#8e2de2", // Purple
+  "#4a00e0", // Dark Purple
+  "#00f260", // Neon Green
+  "#0575e6", // Electric Blue
+  "#f9c", // Soft Pink
+  "#ff9a9e", // Rosy Red
+];

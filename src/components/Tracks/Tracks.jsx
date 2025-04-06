@@ -8,20 +8,7 @@ import { useDispatch } from "react-redux";
 import { setSongDetail } from "../../redux/songDetailSlice";
 import BasicPopover from "../Utils/BasicPopover";
 
-// const colors = [
-//   "#ff7e5f", // Sunset Orange
-//   "#feb47b", // Warm Peach
-//   "#00c6ff", // Light Blue
-//   "#0072ff", // Deep Blue
-//   "#8e2de2", // Purple
-//   "#4a00e0", // Dark Purple
-//   "#00f260", // Neon Green
-//   "#0575e6", // Electric Blue
-//   "#f9c", // Soft Pink
-//   "#ff9a9e", // Rosy Red
-// ];
 const Tracks = ({ tracks, colorGradient, type, follow, handleFollowClick }) => {
-  console.log(tracks, "0000000000000000000000");
   if (type === "search") {
     return (
       <div style={{ padding: "1.5rem" }}>

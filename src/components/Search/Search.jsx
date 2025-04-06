@@ -1,16 +1,22 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AlbumCard from "../Album/AlbumCard";
 import { Artist } from "../Library/Artists";
 import { Playlist } from "../Library/PlayLists";
 import Tracks from "../Tracks/Tracks";
 import Scrollable from "../Utils/Scrollable";
-import { Stack } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
+import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton";
+import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
+import { useSelector } from "react-redux";
 
 const Search = () => {
   const [searchResult, setSearchResult] = useState({});
+  const globalCount = useSelector((state) => state.refresh.globalCount);
   const params = useParams();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const { id: search = "" } = params;
   const accessToken = localStorage.getItem("access_token");
   // Allowed values: "album", "artist", "playlist", "track",
@@ -21,55 +27,96 @@ const Search = () => {
     },
   };
   useEffect(() => {
+    setLoading(true);
     axios
       .get(searchUrl, header)
       .then((res) => {
+        setError("");
+        if (res.status !== 200) {
+          throw new Error("Error fetching data");
+        }
         setSearchResult(res.data);
         console.log(res);
       })
-      .catch((err) => console.log(err));
-  }, [search]);
+      .catch((err) => {
+        setError(err.response.data.error.message);
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [search, globalCount]);
 
-  if (!Object.keys(searchResult).length) {
-    return <></>;
+  if (error) {
+    return (
+      <div>
+        <h2>{error}</h2>
+      </div>
+    );
   }
 
   return (
     <Scrollable>
       <div style={{ padding: "2rem" }}>
-        <h3>Albums</h3>
+        {loading ? (
+          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
+        ) : (
+          <h3>Albums</h3>
+        )}
         <Stack className="horizontal_scroll" direction={"row"}>
-          {searchResult.albums.items
-            .filter((item) => item)
-            .map((item) => (
-              <AlbumCard item={item} />
-            ))}
+          {loading ? (
+            <CardSkeleton profile={true} type="playlist" />
+          ) : (
+            searchResult.albums.items
+              .filter((item) => item)
+              .map((item) => <AlbumCard item={item} />)
+          )}
         </Stack>
       </div>
       <div style={{ padding: "2rem" }}>
-        <h3>Playlists</h3>
+        {loading ? (
+          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
+        ) : (
+          <h3>Playlists</h3>
+        )}
         <Stack className="horizontal_scroll" direction={"row"}>
-          {searchResult.playlists.items
-            .filter((item) => item)
-            .map((item) => (
-              <Playlist item={item} profile={true} />
-            ))}
+          {loading ? (
+            <CardSkeleton profile={true} type="playlist" />
+          ) : (
+            searchResult.playlists.items
+              .filter((item) => item)
+              .map((item) => <Playlist item={item} profile={true} />)
+          )}
         </Stack>
       </div>
       <div style={{ padding: "2rem" }}>
-        <h3>Artists</h3>
+        {loading ? (
+          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
+        ) : (
+          <h3>Artists</h3>
+        )}
         <Stack className="horizontal_scroll" direction={"row"}>
-          {searchResult.artists.items
-            .filter((item) => item)
-            .map((item) => (
-              <Artist item={item} profile={true} />
-            ))}
+          {loading ? (
+            <CardSkeleton profile={true} />
+          ) : (
+            searchResult.artists.items
+              .filter((item) => item)
+              .map((item) => <Artist item={item} profile={true} />)
+          )}
         </Stack>
       </div>
       <div style={{ padding: "2rem" }}>
-        <h3>Songs</h3>
+        {loading ? (
+          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
+        ) : (
+          <h3>Songs</h3>
+        )}
         <Stack>
-          <Tracks type="search" tracks={searchResult.tracks.items} />
+          {loading ? (
+            <TrackSkeleton />
+          ) : (
+            <Tracks type="search" tracks={searchResult.tracks.items} />
+          )}
         </Stack>
       </div>
     </Scrollable>

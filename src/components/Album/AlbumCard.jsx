@@ -9,7 +9,7 @@ const AlbumCard = ({ item }) => {
       {item ? (
         item.images ? (
           <Avatar
-            sx={{ width: 160, height: 160 }}
+            sx={{ width: 180, height: 180 }}
             alt="Spotify logo"
             src={item.images[0].url}
             variant="square"

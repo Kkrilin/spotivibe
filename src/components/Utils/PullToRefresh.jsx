@@ -14,12 +14,12 @@ function PullToRefresh({ children }) {
   return (
     <ReactPullToRefresh
       onRefresh={handleRefresh}
-      pullingContent={
-        <div style={{ textAlign: "center", color: "#fff" }}>
+      pullingcontent={
+        <div style={{ textAlign: "center", color: "#fff",backgroundColor: "#000" }}>
           ⬇️ Pull down to refresh
         </div>
       }
-      releasingContent={
+      releasingcontent={
         <div style={{ textAlign: "center", color: "#fff" }}>
           ⬆️ Release to refresh
         </div>
