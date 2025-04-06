@@ -44,7 +44,6 @@ const Artists = () => {
   const [follow, setFollow] = useState(false);
   const [requiredArtist, setRequiredArtist] = useState({});
   const { globalCount } = useSelector((state) => state.refresh);
-
   const param = useParams();
   const { id } = param;
   const dispatch = useDispatch();

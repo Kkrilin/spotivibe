@@ -12,7 +12,6 @@ import { Playlist } from "../Library/PlayLists.jsx";
 import { Artist } from "../Library/Artists.jsx";
 import Scrollable from "../Utils/Scrollable.jsx";
 import HorizontalScroll from "../Utils/HorizontalScroll.jsx";
-import PullToRefresh from "../Utils/PullToRefresh.jsx";
 
 const Profile = () => {
   const { artists, playlists, ...profileData } = useSelector(
@@ -22,7 +21,6 @@ const Profile = () => {
   console.log(globalCount, "count profile");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   // const { artists, playlists } = profileData;
 
@@ -56,81 +54,77 @@ const Profile = () => {
   }
   return (
     <Scrollable>
-      <PullToRefresh setCount={setCount} type="local">
-        <div className="profile_pic">
-          {Object.keys(profileData.data).length ? (
-            <div>
-              <Avatar
-                sx={{ width: 220, height: 220 }}
-                alt="Spotify logo"
-                src={profileData.data.images[0].url}
-              />
-            </div>
-          ) : (
-            <Skeleton
-              sx={{ bgcolor: "grey.900" }}
-              variant="circular"
-              width={220}
-              height={220}
+      <div className="profile_pic">
+        {Object.keys(profileData.data).length ? (
+          <div>
+            <Avatar
+              sx={{ width: 220, height: 220 }}
+              alt="Spotify logo"
+              src={profileData.data.images[0].url}
             />
-          )}
-          <div
+          </div>
+        ) : (
+          <Skeleton
+            sx={{ bgcolor: "grey.900" }}
+            variant="circular"
+            width={220}
+            height={220}
+          />
+        )}
+        <div
+          style={{
+            marginLeft: "12px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <h6 style={{ fontSize: "14px", fontWeight: "500" }}>Profile</h6>
+          <h6 style={{ fontSize: "6rem" }}>{profileData.data.display_name}</h6>
+          <span
             style={{
-              marginLeft: "12px",
+              fontSize: "14px",
+              color: "#D5B4BC",
+              fontWeight: "500",
               display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              alignItems: "center",
+              gap: "4px",
             }}
           >
-            <h6 style={{ fontSize: "14px", fontWeight: "500" }}>Profile</h6>
-            <h6 style={{ fontSize: "6rem" }}>
-              {profileData.data.display_name}
-            </h6>
-            <span
-              style={{
-                fontSize: "14px",
-                color: "#D5B4BC",
-                fontWeight: "500",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-              }}
-            >
-              <span>{playlists.length} Public PlayLists</span>
-              <span className="dot_separator"></span>
-              <span style={{ color: "#EAD9DD", fontWeight: "400" }}>
-                {artists.length} Following
-              </span>
+            <span>{playlists.length} Public PlayLists</span>
+            <span className="dot_separator"></span>
+            <span style={{ color: "#EAD9DD", fontWeight: "400" }}>
+              {artists.length} Following
             </span>
+          </span>
+        </div>
+      </div>
+      <div className="profile_bottom_Container">
+        {playlists.length && (
+          <div>
+            <h2>Public Playlist</h2>
+            <HorizontalScroll>
+              <Stack direction={"row"} spacing={2}>
+                {playlists.map((item) => (
+                  <Playlist item={item} profile={true} />
+                ))}
+              </Stack>
+            </HorizontalScroll>
           </div>
-        </div>
-        <div className="profile_bottom_Container">
-          {playlists.length && (
-            <div>
-              <h2>Public Playlist</h2>
-              <HorizontalScroll>
-                <Stack direction={"row"} spacing={2}>
-                  {playlists.map((item) => (
-                    <Playlist item={item} profile={true} />
-                  ))}
-                </Stack>
-              </HorizontalScroll>
-            </div>
-          )}
-          {artists.length && (
-            <div style={{ marginTop: "2rem" }}>
-              <h2>Following</h2>
-              <HorizontalScroll>
-                <Stack direction={"row"} spacing={2}>
-                  {artists.map((item) => (
-                    <Artist item={item} profile={true} />
-                  ))}
-                </Stack>
-              </HorizontalScroll>
-            </div>
-          )}
-        </div>
-      </PullToRefresh>
+        )}
+        {artists.length && (
+          <div style={{ marginTop: "2rem" }}>
+            <h2>Following</h2>
+            <HorizontalScroll>
+              <Stack direction={"row"} spacing={2}>
+                {artists.map((item) => (
+                  <Artist item={item} profile={true} />
+                ))}
+              </Stack>
+            </HorizontalScroll>
+          </div>
+        )}
+      </div>
     </Scrollable>
   );
 };

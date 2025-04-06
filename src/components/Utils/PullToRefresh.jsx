@@ -2,15 +2,12 @@ import ReactPullToRefresh from "react-pull-to-refresh";
 import { useDispatch } from "react-redux";
 import { triggerRefresh } from "../../redux/refreshSlice";
 
-function PullToRefresh({ children, setCount, type }) {
+function PullToRefresh({ children }) {
   const dispatch = useDispatch();
   const handleRefresh = () => {
     return new Promise((resolve) => {
-      if (type === "global") {
-        dispatch(triggerRefresh());
-      } else {
-        setCount((state) => state + 1);
-      }
+      dispatch(triggerRefresh());
+
       resolve();
     });
   };

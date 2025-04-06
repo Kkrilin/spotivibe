@@ -14,7 +14,7 @@ import PullToRefresh from "./components/Utils/PullToRefresh.jsx";
 function App() {
   return (
     <BrowserRouter>
-      <PullToRefresh type="global">
+      <PullToRefresh >
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/authorised" element={<Authorised />} />

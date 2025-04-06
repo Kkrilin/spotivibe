@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
-const Artists = ({ count }) => {
+const Artists = () => {
   // const [artists, setArtist] = useState([]);
   const { artists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
@@ -33,7 +33,7 @@ const Artists = ({ count }) => {
     };
 
     fetchArtist();
-  }, [globalCount, count]);
+  }, [globalCount]);
   return (
     <>
       {(artists.length ? artists : Array.from({ length: 3 })).map(

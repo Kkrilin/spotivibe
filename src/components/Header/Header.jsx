@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 function Header() {
   const profileData = useSelector((state) => state.profile);
   const imgUrl = profileData.data.images && profileData.data.images[0].url;
-  const login = profileData.login;
   return (
     <header
       style={{

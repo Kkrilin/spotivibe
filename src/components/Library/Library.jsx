@@ -4,11 +4,9 @@ import Filter from "./Filter.jsx";
 import SearchIcon from "@mui/icons-material/Search";
 import ListIcon from "@mui/icons-material/List";
 import { useState } from "react";
-import PullToRefresh from "../Utils/PullToRefresh.jsx";
 
-const Library = ({ token }) => {
+const Library = () => {
   const [filter, setFilter] = useState("");
-  const [count, setCount] = useState(0);
   const handleFilterClick = (e) => {
     if (["playlist", "artist"].includes(e.target.dataset.filter)) {
       console.log(e.target.dataset.filter);
@@ -18,37 +16,35 @@ const Library = ({ token }) => {
     }
   };
   return (
-    <PullToRefresh setCount={setCount} type="local">
-      <div className="scroll left_scroll">
-        <div className="library">
-          <Filter filter={filter} handleFilterClick={handleFilterClick} />
-          <div
-            style={{
-              paddingTop: "2rem",
-            }}
-          >
-            <div className="library_search">
-              <SearchIcon
-                style={{
-                  width: "1.8rem",
-                  height: "1.8rem",
-                  color: "#777676",
-                  fontWeight: "800",
-                }}
-              />
-              <div className="libray_menu_bar">
-                <span style={{ fontSize: "0.9rem" }}>Recents</span>
-                <ListIcon />
-              </div>
+    <div className="scroll left_scroll">
+      <div className="library">
+        <Filter filter={filter} handleFilterClick={handleFilterClick} />
+        <div
+          style={{
+            paddingTop: "2rem",
+          }}
+        >
+          <div className="library_search">
+            <SearchIcon
+              style={{
+                width: "1.8rem",
+                height: "1.8rem",
+                color: "#777676",
+                fontWeight: "800",
+              }}
+            />
+            <div className="libray_menu_bar">
+              <span style={{ fontSize: "0.9rem" }}>Recents</span>
+              <ListIcon />
             </div>
-            {(filter === "artist" || !filter) && <Artists count={count} />}
-            {(filter === "playlist" || !filter) && <PlayLists count={count} />}
-            {/* <Artists />
-        <PlayLists /> */}
           </div>
+          {(filter === "artist" || !filter) && <Artists />}
+          {(filter === "playlist" || !filter) && <PlayLists />}
+          {/* <Artists />
+        <PlayLists /> */}
         </div>
       </div>
-    </PullToRefresh>
+    </div>
   );
 };
 
