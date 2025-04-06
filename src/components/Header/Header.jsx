@@ -14,7 +14,7 @@ function Header() {
     <header
       style={{
         display: "flex",
-        // padding: " 0.2rem 1.8rem",
+        padding: " 0rem 1rem",
         justifyContent: "space-between",
         alignItems: "center",
         width: "100vw",

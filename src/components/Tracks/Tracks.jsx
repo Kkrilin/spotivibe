@@ -5,7 +5,9 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useMemo, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setSongDetail } from "../../slice/songDetailSlice";
+import { setSongDetail } from "../../redux/songDetailSlice";
+import BasicPopover from "../Utils/BasicPopover";
+
 // const colors = [
 //   "#ff7e5f", // Sunset Orange
 //   "#feb47b", // Warm Peach
@@ -101,7 +103,13 @@ const Tracks = ({ tracks, colorGradient, type, follow, handleFollowClick }) => {
         ) : (
           <Button
             onClick={handleFollowClick}
-            style={{ color: "white" }}
+            style={{
+              color: "white",
+              textTransform: "capitalize",
+              borderRadius: "100000px",
+              padding: "2px 1rem",
+            }}
+            className="follow_button"
             variant="outlined"
             color="success"
           >
@@ -116,15 +124,16 @@ const Tracks = ({ tracks, colorGradient, type, follow, handleFollowClick }) => {
       </div>
       <h2 style={{ marginTop: "20px" }}>Top Track</h2>
       <div style={{ padding: "1.5rem" }}>
-        {tracks.length && tracks.map((track, i) => (
-          <Track
-            type={type}
-            key={i + 1}
-            count={i + 1}
-            id={track.id || track.track.id}
-            track={track}
-          />
-        ))}
+        {tracks.length &&
+          tracks.map((track, i) => (
+            <Track
+              type={type}
+              key={i + 1}
+              count={i + 1}
+              id={track.id || track.track.id}
+              track={track}
+            />
+          ))}
       </div>
     </div>
   );
@@ -192,7 +201,13 @@ const Track = ({ track, count, id, type }) => {
         <h4 style={{ color: "#fff" }}>{track.name || track.track.name}</h4>
       </div>
       <span>{track.popularity}</span>
-      {hover ? <AddCircleOutlineIcon /> : <div style={{ width: "20px" }}></div>}
+      {hover ? (
+        // <BasicPopover>
+        <AddCircleOutlineIcon />
+      ) : (
+        // </BasicPopover>
+        <div style={{ width: "20px" }}></div>
+      )}
       <h3 style={{ width: "20px" }}>{value}</h3>
     </div>
   );

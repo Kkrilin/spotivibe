@@ -35,6 +35,8 @@ const gradientPairs = [
 
 const Album = () => {
   const [albums, setAlbum] = useState(null);
+  const { globalCount } = useSelector((state) => state.refresh);
+
   const param = useParams();
   const { id } = param;
   const token = localStorage.getItem("access_token", "access_token");
@@ -56,7 +58,7 @@ const Album = () => {
       }
     };
     fetchAlbum();
-  }, [id]);
+  }, [id, globalCount]);
   return (
     <Scrollable>
       <div
@@ -68,11 +70,10 @@ const Album = () => {
         {albums ? (
           <div>
             <Avatar
-              sx={{ width: 220, height: 220, borderRadius:"10px " }}
+              sx={{ width: 220, height: 220, borderRadius: "10px " }}
               alt="Spotify logo"
               src={albums.images[0].url}
-              variant='square'
-              
+              variant="square"
             />
           </div>
         ) : (

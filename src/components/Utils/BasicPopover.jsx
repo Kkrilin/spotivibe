@@ -2,6 +2,7 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import CreatePlayList from "../Playlists/CreatePlaylist";
 
 export default function BasicPopover({ children }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -33,17 +34,17 @@ export default function BasicPopover({ children }) {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorReference="anchorPosition"
-        anchorPosition={{ top: 160, left: 180 }}
+        anchorPosition={{ top: 120, left: 200 }}
         anchorOrigin={{
           vertical: "top",
           horizontal: "left",
         }}
         transformOrigin={{
-          vertical: "bottom",
+          vertical: "top",
           horizontal: "left",
         }}
       >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+        <CreatePlayList handleClose={handleClose} />
       </Popover>
     </div>
   );

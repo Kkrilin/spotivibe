@@ -1,20 +1,22 @@
 import { useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { closeSongDetail } from "../../slice/songDetailSlice";
+import { closeSongDetail } from "../../redux/songDetailSlice";
 
 const SideBar = () => {
-  const { songDetail, open } = useSelector((state) => state.songDetail);
+  const { songDetail, sideBarStyle } = useSelector((state) => state.songDetail);
   const dispatch = useDispatch();
   console.log("songDeatl", songDetail);
   const handleClick = () => {
     dispatch(closeSongDetail());
   };
-  if (!open) {
+
+  if (!songDetail) {
     return <></>;
   }
+
   return (
-    <div className="side_bar">
+    <div className="side_bar" style={sideBarStyle}>
       <div
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${songDetail?.album?.images[0]?.url})`,
@@ -39,10 +41,7 @@ const SideBar = () => {
               songDetail.album &&
               songDetail.album.name.substring(0, 16)}
           </h3>
-          <span
-            onClick={handleClick}
-            style={{ fontSize: "1.6rem", cursor: "pointer" }}
-          >
+          <span onClick={handleClick} className="cross_side_bar">
             x
           </span>
         </div>

@@ -7,14 +7,14 @@ import redirectToSpotifyAuthorize from "../auth/authService";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const redirectUri = "http://localhost:5173/authorised";
-  const clientId = import.meta.env.VITE_CLIENT_ID
+  const clientId = import.meta.env.VITE_CLIENT_ID;
   console.log(clientId, "clientId");
-  useEffect(() => {
-    const authoriseTheApp = async () => {
-      await redirectToSpotifyAuthorize(clientId, redirectUri);
-    };
-    authoriseTheApp();
-  }, []);
+  // useEffect(() => {
+  //   const authoriseTheApp = async () => {
+  //     await redirectToSpotifyAuthorize(clientId, redirectUri);
+  //   };
+  //   authoriseTheApp();
+  // }, []);
   return (
     <div
       style={{
@@ -37,7 +37,7 @@ const Login = () => {
           borderRadius: "1.5rem",
         }}
       >
-        <div style={{ paddingBottom: "10px" }}>
+        {/* <div style={{ paddingBottom: "10px" }}>
           <label
             style={{ display: "block", color: "white" }}
             htmlFor="clientId"
@@ -60,10 +60,14 @@ const Login = () => {
           >
             {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </Button>
-        </div>
-        {/* <Button onClick={handleSubmit} variant="contained" color="success"> */}
-        {/* Login
-        </Button> */}
+        </div> */}
+        <Button
+          onClick={() => redirectToSpotifyAuthorize(clientId, redirectUri)}
+          variant="contained"
+          color="success"
+        >
+          Authorised
+        </Button>
       </div>
     </div>
   );

@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import HorizontalScroll from "../Utils/HorizontalScroll.jsx";
 import AlbumCard from "../Album/AlbumCard.jsx";
 import axios from "axios";
-
+import Scrollable from "../Utils/Scrollable.jsx";
+import { useSelector } from "react-redux";
 const HomeScreen = () => {
   const [featuredPlaylist, setFeaturedPlaylist] = useState();
   const [newRelease, setNewRelease] = useState([]);
+  const { globalCount } = useSelector((state) => state.refresh);
 
   const accessToken = localStorage.getItem("access_token");
   const featurePlaylistUrl =
@@ -17,10 +19,10 @@ const HomeScreen = () => {
   };
   const newReleasesAlbumUrl = "https://api.spotify.com/v1/browse/new-releases";
   useEffect(() => {
-    axios
-      .get(featurePlaylistUrl, header)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+    // axios
+    //   .get(featurePlaylistUrl, header)
+    //   .then((res) => console.log(res.data))
+    //   .catch((err) => console.log(err));
     axios
       .get(newReleasesAlbumUrl, header)
       .then((res) => {
@@ -28,10 +30,11 @@ const HomeScreen = () => {
         setNewRelease(res.data.albums.items);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [globalCount]);
 
   return (
-    <>
+    <Scrollable>
+      <h1>Home Scrrem</h1>
       <div>
         <h2>Album</h2>
         <HorizontalScroll>
@@ -40,9 +43,8 @@ const HomeScreen = () => {
               newRelease.map((item) => <AlbumCard item={item} />)}
           </div>
         </HorizontalScroll>
-        <h1>Home homeScrrem</h1>
       </div>
-    </>
+    </Scrollable>
   );
 };
 

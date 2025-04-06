@@ -134,6 +134,42 @@ input::placeholder {
   height: 0 !important;
 }
 
+.creatPlaylist_container {
+  background-color: var(--background-base);
+  color: #fff;
+  border: 1px solid rgb(46, 45, 45);
+  border-radius: 2px;
+}
+.playlist_name,
+.playlist_description {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.playlist_name > input,
+.playlist_description > input {
+  width: 20rem;
+  height: 2.5rem;
+  background-color: #414040;
+  color: #fff;
+}
+
+.playlistSave_button {
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  background-color: #494848;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.playlistSave_button:hover {
+  background-color: #636161;
+}
+
 .plus {
   color: #777676;
   font-weight: 400;
@@ -190,22 +226,30 @@ input::placeholder {
 
 .scroll {
   height: 80vh;
-  margin-left: 10px;
-  margin-right: 10px;
+  /* margin-left: 10px;
+  margin-right: 10px; */
   flex: 1;
   border-radius: 8px;
   background-color: var(--background-base);
   overflow-y: auto;
 }
+/* left sroll */
+.left_scroll {
+  margin-left: 0;
+  margin-right: 0;
+  flex: none;
+}
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0px;
   background-color: transparent;
 }
 
 .scroll::-webkit-scrollbar-track {
   /* box-shadow: inset 0 0 5px grey; */
   /* border-radius: 10px; */
+  width: 0px;
+
   background-color: transparent;
 }
 
@@ -276,6 +320,14 @@ input::placeholder {
   display: flex;
 }
 
+.follow_button {
+  transition: all 5s ease-in;
+}
+
+.follow_button:hover {
+  border: 1px solid #fff;
+}
+
 .track_card {
   display: flex;
   gap: 20px;
@@ -298,7 +350,7 @@ input::placeholder {
   color: rgb(112, 109, 109);
 }
 .track_card:hover {
-  background-color: rgb(64, 59, 59);
+  background-color: rgb(43, 43, 43);
 }
 
 a {
@@ -331,18 +383,35 @@ a {
   background-color: #837f7f;
 }
 
+.cross_side_bar {
+  /* font-size: 5rem; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 50%;
+  background-color: var(--background-base);
+
+  transition: background-color 0.2s ease-in;
+}
+
+.cross_side_bar:hover {
+  background-color: #353535;
+}
+
 .side_bar {
   width: 26rem;
   box-shadow: rgba(51, 48, 48, 0.24) 0px 3px 8px;
   border-radius: 8px;
-  background-color: var(--background-base);
   height: 80vh;
-  animation: mymove 0.8s forwards;
-  /* animation: backgroundChange 8s backwards; */
-  transition: ;
+  animation: show 0.8s forwards;
 }
 
-@keyframes mymove {
+@keyframes show {
   from {
     width: 0px;
   }
@@ -354,9 +423,17 @@ a {
 @keyframes backgroundChange {
   from {
     opacity: 0.5;
-    background-color: transparent;
   }
   to {
-    background-color: var(--background-base);
+    opacity: 0;
+  }
+}
+
+@keyframes hide {
+  from {
+    width: 26rem;
+  }
+  to {
+    width: 0px;
   }
 }

@@ -5,6 +5,7 @@ const initialState = {
   open: false,
   loading: true,
   error: false,
+  sideBarStyle: {},
 };
 
 const songDetailSlice = createSlice({
@@ -12,14 +13,20 @@ const songDetailSlice = createSlice({
   initialState,
   reducers: {
     setSongDetail(state, action) {
-      console.log('action.payload.data', action.payload.data)
+      console.log("action.payload.data", action.payload.data);
       state.songDetail = action.payload.data;
       state.open = true;
       state.loading = false;
       state.error = false;
+      state.sideBarStyle = {};
     },
     closeSongDetail(state) {
       state.open = false;
+      state.sideBarStyle = {
+        marginLeft: "-10px",
+        width: "0rem",
+        animation: "hide 0.4s backwards",
+      };
     },
   },
 });

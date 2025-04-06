@@ -30,7 +30,7 @@ const AlbumCard = ({ item }) => {
       )}
       <div>
         {item ? (
-          <Typography style={{width:"10rem", fontSize: "1rem"}} variant="h6">
+          <Typography style={{ width: "10rem", fontSize: "1rem" }} variant="h6">
             {item.name}
           </Typography>
         ) : (

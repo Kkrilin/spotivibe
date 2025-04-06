@@ -6,7 +6,7 @@ import axios from "axios";
 import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
 import { useDispatch } from "react-redux";
-import { addArtist, removeArtist } from "../../slice/profileSlice";
+import { addArtist, removeArtist } from "../../redux/profileSlice";
 import AlbumCard from "../Album/AlbumCard";
 import { Artist } from "../Library/Artists";
 const gradientPairs = [
@@ -43,6 +43,8 @@ const Artists = () => {
   const [tracks, setTracks] = useState([]);
   const [follow, setFollow] = useState(false);
   const [requiredArtist, setRequiredArtist] = useState({});
+  const { globalCount } = useSelector((state) => state.refresh);
+
   const param = useParams();
   const { id } = param;
   const dispatch = useDispatch();
@@ -101,10 +103,9 @@ const Artists = () => {
     };
 
     fetchArtistTopSong();
-  }, [id, artistUrl]);
+  }, [id, artistUrl, globalCount]);
 
-
-  console.log(requiredArtist, 'requiredAttisy')
+  console.log(requiredArtist, "requiredAttisy");
 
   const artistAlbumUrl = `https://api.spotify.com/v1/artists/${id}/albums`;
   useEffect(() => {
@@ -115,7 +116,7 @@ const Artists = () => {
         setArtistsAlbum(res.data.items);
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [id, globalCount]);
 
   useEffect(() => {
     const artistRelatedArtist = `https://api.spotify.com/v1/search?q=${requiredArtist.name}&type=artist`;
@@ -126,7 +127,7 @@ const Artists = () => {
         console.log(res.data.artists);
       })
       .catch((err) => console.log(err));
-  }, [requiredArtist.name]);
+  }, [requiredArtist.name, globalCount]);
 
   return (
     <Scrollable>

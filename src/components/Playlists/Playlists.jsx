@@ -6,45 +6,48 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
-import { addPlaylist, removePlaylist } from "../../slice/profileSlice";
+import { addPlaylist, removePlaylist } from "../../redux/profileSlice";
+import { gradientPairs } from "../../utils/colors";
 
-const gradientPairs = [
-  [
-    "linear-gradient(rgb(36, 11, 54), rgb(81, 27, 124))", // Deep Purple (Profile Pic)
-    "linear-gradient(rgba(36, 11, 54, 0.85) 5%, rgb(0, 0, 0) 30%)", // Faded Purple-Black (Bottom Container)
-  ],
-  [
-    "linear-gradient(rgb(2, 0, 36), rgb(9, 9, 121), rgb(0, 212, 255))", // Dark Blue to Cyan
-    "linear-gradient(rgba(2, 0, 36, 0.85) 5%, rgb(0, 0, 0) 30%)",
-  ],
-  [
-    "linear-gradient(rgb(58, 12, 163), rgb(136, 0, 255))", // Indigo to Neon Purple
-    "linear-gradient(rgba(58, 12, 163, 0.85) 5%, rgb(0, 0, 0) 30%)",
-  ],
-  [
-    "linear-gradient(rgb(0, 0, 0), rgb(50, 50, 50))", // Pure Dark Mode
-    "linear-gradient(rgba(0, 0, 0, 0.85) 5%, rgb(25, 25, 25) 30%)",
-  ],
-  [
-    "linear-gradient(rgb(40, 48, 72), rgb(20, 24, 40))", // Midnight Blue
-    "linear-gradient(rgba(40, 48, 72, 0.85) 5%, rgb(0, 0, 0) 30%)",
-  ],
-  [
-    "linear-gradient(rgb(23, 32, 42), rgb(44, 62, 80))", // Steel Blue
-    "linear-gradient(rgba(23, 32, 42, 0.85) 5%, rgb(0, 0, 0) 30%)",
-  ],
-];
+// const gradientPairs = [
+//   [
+//     "linear-gradient(rgb(36, 11, 54), rgb(81, 27, 124))", // Deep Purple (Profile Pic)
+//     "linear-gradient(rgba(36, 11, 54, 0.85) 5%, rgb(0, 0, 0) 30%)", // Faded Purple-Black (Bottom Container)
+//   ],
+//   [
+//     "linear-gradient(rgb(2, 0, 36), rgb(9, 9, 121), rgb(0, 212, 255))", // Dark Blue to Cyan
+//     "linear-gradient(rgba(2, 0, 36, 0.85) 5%, rgb(0, 0, 0) 30%)",
+//   ],
+//   [
+//     "linear-gradient(rgb(58, 12, 163), rgb(136, 0, 255))", // Indigo to Neon Purple
+//     "linear-gradient(rgba(58, 12, 163, 0.85) 5%, rgb(0, 0, 0) 30%)",
+//   ],
+//   [
+//     "linear-gradient(rgb(0, 0, 0), rgb(50, 50, 50))", // Pure Dark Mode
+//     "linear-gradient(rgba(0, 0, 0, 0.85) 5%, rgb(25, 25, 25) 30%)",
+//   ],
+//   [
+//     "linear-gradient(rgb(40, 48, 72), rgb(20, 24, 40))", // Midnight Blue
+//     "linear-gradient(rgba(40, 48, 72, 0.85) 5%, rgb(0, 0, 0) 30%)",
+//   ],
+//   [
+//     "linear-gradient(rgb(23, 32, 42), rgb(44, 62, 80))", // Steel Blue
+//     "linear-gradient(rgba(23, 32, 42, 0.85) 5%, rgb(0, 0, 0) 30%)",
+//   ],
+// ];
 
 const PlayLists = () => {
-  const { playlists } = useSelector((state) => state.profile);
+  const { playlists, data: mydata } = useSelector((state) => state.profile);
+  const { globalCount } = useSelector((state) => state.refresh);
+
   const [tracks, setTracks] = useState([]);
   const [follow, setFollow] = useState(false);
   const param = useParams();
   const dispatch = useDispatch();
   const [requiredPlaylist, setRequiredPlaylist] = useState({});
   const { id } = param;
-  // const requiredPlaylist = playlists.find((ar) => ar.id === param.id) || {};
   console.log("playlists", playlists);
+  console.log(mydata, "mydata");
   const indexRef = useRef(null);
   const index = indexRef.current;
   const token = localStorage.getItem("access_token", "access_token");
@@ -57,13 +60,6 @@ const PlayLists = () => {
       Authorization: `Bearer ${token}`,
     },
   };
-  //   curl --request PUT \
-  //   --url https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n/followers \
-  //   --header 'Authorization: Bearer 1POdFZRZbvb...qqillRxMr2z' \
-  //   --header 'Content-Type: application/json' \
-  //   --data '{
-  //     "public": false
-  // }'
 
   const data = {
     public: true,
@@ -107,7 +103,7 @@ const PlayLists = () => {
       }
     };
     fetchPlayList();
-  }, [id, playListUrl]);
+  }, [id, playListUrl, globalCount]);
 
   console.log();
   console.log("track", tracks);
@@ -124,7 +120,11 @@ const PlayLists = () => {
             <Avatar
               sx={{ width: 220, height: 220, borderRadius: "8px" }}
               alt="Spotify logo"
-              src={requiredPlaylist.images[0].url}
+              src={
+                requiredPlaylist.images &&
+                requiredPlaylist.images.length &&
+                requiredPlaylist.images[0].url
+              }
               variant="square"
             />
           </div>
