@@ -8,10 +8,9 @@ import { setPlalists } from "../../redux/profileSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const PlayLists = () => {
+const PlayLists = ({ count }) => {
   // const [playlist, setPlayList] = useState([]);
   const { playlists } = useSelector((state) => state.profile);
-  const { globalCount } = useSelector((state) => state.refresh);
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("access_token", "access_token");
@@ -35,7 +34,7 @@ const PlayLists = () => {
     };
 
     fetchPlayList();
-  }, [globalCount]);
+  }, [count]);
   return (
     <>
       {(playlists.length ? playlists : Array.from({ length: 3 })).map(

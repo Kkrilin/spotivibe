@@ -4,12 +4,11 @@ import { Skeleton, Typography, Avatar } from "@mui/material";
 import { setArtists } from "../../redux/profileSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
-const Artists = () => {
+const Artists = ({ count }) => {
   // const [artists, setArtist] = useState([]);
   const { artists } = useSelector((state) => state.profile);
-  const { globalCount } = useSelector((state) => state.refresh);
+  // const { globalCount } = useSelector((state) => state.refresh);
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("access_token", "access_token");
@@ -33,7 +32,7 @@ const Artists = () => {
     };
 
     fetchArtist();
-  }, [globalCount]);
+  }, [count]);
   return (
     <>
       {(artists.length ? artists : Array.from({ length: 3 })).map(

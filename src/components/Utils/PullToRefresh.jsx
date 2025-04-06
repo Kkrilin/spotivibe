@@ -1,13 +1,13 @@
 import ReactPullToRefresh from "react-pull-to-refresh";
 import { useDispatch } from "react-redux";
-import { triggerRefresh } from "../../redux/refreshSlice";
+// import { triggerRefresh } from "../../redux/refreshSlice";
 
-function PullToRefresh({ children }) {
-  const dispatch = useDispatch();
+function PullToRefresh({ children, setCount }) {
+  // const dispatch = useDispatch();
   const handleRefresh = () => {
     return new Promise((resolve) => {
-      dispatch(triggerRefresh());
-
+      // dispatch(triggerRefresh());
+      setCount((state) => state + 1);
       resolve();
     });
   };

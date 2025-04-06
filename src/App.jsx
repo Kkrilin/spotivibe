@@ -14,27 +14,27 @@ import PullToRefresh from "./components/Utils/PullToRefresh.jsx";
 function App() {
   return (
     <BrowserRouter>
-      <PullToRefresh >
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/authorised" element={<Authorised />} />
-          <Route path="/" element={<HomePage />}>
-            {/* <Route
+      {/* <PullToRefresh > */}
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/authorised" element={<Authorised />} />
+        <Route path="/" element={<HomePage />}>
+          {/* <Route
             index
             path="home"
             element={
               <h1>all eeature and latest and all kind of song will be here</h1>
               }
               ></Route> */}
-            <Route index path="user" element={<Profile />}></Route>
-            <Route path="home" element={<HomeScreen />}></Route>
-            <Route path="artist/:id" element={<Artists />} />
-            <Route path="playlist/:id" element={<Playlists />} />
-            <Route path="search/:id" element={<Search />}></Route>
-            <Route path="album/:id" element={<Albums />}></Route>
-          </Route>
-        </Routes>
-      </PullToRefresh>
+          <Route index path="user" element={<Profile />}></Route>
+          <Route path="home" element={<HomeScreen />}></Route>
+          <Route path="artist/:id" element={<Artists />} />
+          <Route path="playlist/:id" element={<Playlists />} />
+          <Route path="search/:id" element={<Search />}></Route>
+          <Route path="album/:id" element={<Albums />}></Route>
+        </Route>
+      </Routes>
+      {/* </PullToRefresh> */}
     </BrowserRouter>
   );
 }
