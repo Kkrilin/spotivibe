@@ -26,13 +26,6 @@ const SearchBar = () => {
     navigate(`/search/${value}`);
   }, 800);
 
-  // window.addEventListener("keydown", (e) => {
-  //   if (e.key === "Enter" && search) {
-  //     console.log("key", e.key);
-  //     navigate(`/search/${search}`);
-  //   }
-  // });
-
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <Link to="/home">

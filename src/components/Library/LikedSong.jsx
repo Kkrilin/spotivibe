@@ -22,12 +22,10 @@ const LikedSong = () => {
       Authorization: `Bearer ${token}`,
     },
   };
-
   const fetchLikedSong = async () => {
     setLoading(true);
     try {
       const response = await axios.get(likedUrl, header);
-      console.log(response);
       dispatch(setLikedSongs({ data: response.data.items }));
     } catch (error) {
       setError(error.response.data.error.message);
@@ -38,12 +36,12 @@ const LikedSong = () => {
   };
   useEffect(() => {
     fetchLikedSong();
-  }, [globalCount, songLike]);
+  }, [globalCount]);
 
   if (error) {
     return <h1>{error}</h1>;
   }
-
+  console.log("liked songs", likedSongs);
   return (
     <>
       {!loading && likedSongs.length && (

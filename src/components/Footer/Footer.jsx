@@ -6,7 +6,7 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import { AddCircleOutline } from "@mui/icons-material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { likeSong } from "../../redux/songDetailSlice";
-
+import { addLikeSong, removeLikeSong } from "../../redux/profileSlice";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { useEffect, useState } from "react";
 
@@ -15,7 +15,6 @@ const Footer = () => {
   const { songDetail, songLike } = useSelector((state) => state.songDetail);
   const { globalCount } = useSelector((state) => state.refresh);
   const dispatch = useDispatch();
-  console.log(songDetail, "songDetail");
   const token = localStorage.getItem("access_token");
 
   const header = {
@@ -23,7 +22,6 @@ const Footer = () => {
       Authorization: `Bearer ${token}`,
     },
   };
-  console.log("songDetail---", songDetail);
   const checkSavedSong = () => {
     const checkSaveSongUrl = `https://api.spotify.com/v1/me/tracks/contains?ids=${songDetail.id}`;
 
@@ -31,7 +29,6 @@ const Footer = () => {
       .get(checkSaveSongUrl, header)
       .then((res) => {
         dispatch(likeSong({ data: res.data[0] }));
-        console.log(res);
       })
       .catch((err) => {
         // setError(err.response.data.error.message);
@@ -50,7 +47,7 @@ const Footer = () => {
         .delete(songLikeUrl, header)
         .then((res) => {
           dispatch(likeSong({ data: false }));
-          console.log(res, "songUnlikelike");
+          dispatch(removeLikeSong({ id: songDetail.id }));
         })
         .catch((err) => console.log(err));
     } else {
@@ -58,7 +55,7 @@ const Footer = () => {
         .put(songLikeUrl, null, header)
         .then((res) => {
           dispatch(likeSong({ data: true }));
-          console.log(res, "songlike");
+          dispatch(addLikeSong({ item: { track: songDetail } }));
         })
         .catch((err) => console.log(err));
     }

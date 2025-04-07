@@ -36,11 +36,9 @@ const Search = () => {
           throw new Error("Error fetching data");
         }
         setSearchResult(res.data);
-        console.log(res);
       })
       .catch((err) => {
         setError(err.response.data.error.message);
-        console.log(err);
       })
       .finally(() => {
         setLoading(false);

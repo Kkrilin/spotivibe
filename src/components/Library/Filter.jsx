@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import BasicPopover from "../Utils/BasicPopover";
+import BasicPopover from "../Utils/Popover/BasicPopover";
 const Filter = ({ handleFilterClick, filter }) => {
   return (
     <Stack>

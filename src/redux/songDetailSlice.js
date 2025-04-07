@@ -14,7 +14,6 @@ const songDetailSlice = createSlice({
   initialState,
   reducers: {
     setSongDetail(state, action) {
-      console.log("action.payload.data", action.payload.data);
       state.songDetail = action.payload.data;
       state.open = true;
       state.loading = false;

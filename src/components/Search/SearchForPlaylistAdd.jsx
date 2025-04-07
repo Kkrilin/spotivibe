@@ -30,11 +30,9 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
           throw new Error("Error fetching data");
         }
         setSearchResult(res.data);
-        console.log(res);
       })
       .catch((err) => {
         setError(err.response.data.error.message);
-        console.log(err);
       })
       .finally(() => {
         setLoading(false);
@@ -148,11 +146,9 @@ const SearchTracks = ({ track, playListId, setTracks }) => {
       .post(addItemUrl, body, header)
       .then((res) => {
         setTracks((state) => {
-          console.log(state, "track playlist");
           return [...state, {track}];
         });
         // dispatch(addItemToPlaylist({ plId: playListId, item: track }));
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };

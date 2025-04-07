@@ -21,7 +21,6 @@ const Profile = () => {
     (state) => state.profile
   );
   const { globalCount } = useSelector((state) => state.refresh);
-  console.log(globalCount, "count profile");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -48,9 +47,7 @@ const Profile = () => {
     } catch (error) {
       setLoading(false);
       setError(error.response.data.error.message);
-      // console.log("11",  error.response.data.error.message );
     } finally {
-      // setTimeout(() => setLoading(false), 2000);
       setLoading(false);
     }
   };

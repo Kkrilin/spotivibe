@@ -31,7 +31,6 @@ const Album = () => {
       setAlbum(response.data);
     } catch (error) {
       setError(error.response.data.error.message);
-      console.log({ error });
     } finally {
       setLoading(false);
     }

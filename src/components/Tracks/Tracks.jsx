@@ -6,9 +6,10 @@ import { useMemo, useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { likeSong, setSongDetail } from "../../redux/songDetailSlice";
-import BasicPopover from "../Utils/BasicPopover";
+import BasicPopover from "../Utils/Popover/BasicPopover";
 import { AddCircleOutline } from "@mui/icons-material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { addLikeSong, removeLikeSong } from "../../redux/profileSlice";
 
 const Tracks = ({ tracks, colorGradient, type, follow, handleFollowClick }) => {
   if (["playlist_search", "search"].includes(type)) {
@@ -166,12 +167,10 @@ const Track = ({ track, count, id, type }) => {
   };
   const songDetailUrl = `https://api.spotify.com/v1/tracks/${id}`;
   const handleSongClick = () => {
-    console.log(track, "-------------------");
     axios
       .get(songDetailUrl, header)
       .then((res) => {
         dispatch(setSongDetail({ data: res.data }));
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -183,35 +182,35 @@ const Track = ({ track, count, id, type }) => {
       .get(checkSaveSongUrl, header)
       .then((res) => {
         setLike(res.data[0]);
-        console.log(res);
       })
       .catch((err) => {
         setError(err.response.data.error.message);
-        console.log(err);
       });
   };
 
-  useEffect(() => {
-    if (songDetail.id === id) {
-      checkSavedSong();
-    }
-  }, [songLike]);
+  // useEffect(() => {
+  //   if (songDetail.id === id) {
+  //     checkSavedSong();
+  //   }
+  // }, [songLike]);
 
   useEffect(() => {
     checkSavedSong();
   }, []);
 
   const handleLikeClick = () => {
-    const songLikeUrl = `https://api.spotify.com/v1/me/tracks?ids=${songDetail.id}`;
+    const songLikeUrl = `https://api.spotify.com/v1/me/tracks?ids=${id}`;
     header.headers["Content-Type"] = "application/json";
     if (like) {
-      console.log("song is like");
       axios
         .delete(songLikeUrl, header)
         .then((res) => {
           setLike(false);
-          dispatch(likeSong({ data: false }));
-          console.log(res, "songUnlikelike");
+          console.log("songDetail unlike", songDetail.id, id);
+          if (songDetail.id === id) {
+            dispatch(likeSong({ data: false }));
+          }
+          dispatch(removeLikeSong({ id: id }));
         })
         .catch((err) => setError(err.response.data.error.message));
     } else {
@@ -219,8 +218,12 @@ const Track = ({ track, count, id, type }) => {
         .put(songLikeUrl, null, header)
         .then((res) => {
           setLike(true);
-          dispatch(likeSong({ data: true }));
-          console.log(res, "songlike");
+          console.log("songDetail like", songDetail.id, id);
+          console.log("track", track);
+          if (songDetail.id === id) {
+            dispatch(likeSong({ data: true }));
+          }
+          dispatch(addLikeSong({ item: { track: track.track || track } }));
         })
         .catch((err) => setError(err.response.data.error.message));
     }
@@ -230,10 +233,9 @@ const Track = ({ track, count, id, type }) => {
       className="track_card"
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
-      onClick={handleSongClick}
       id={id}
     >
-      <div style={{ width: "600px" }}>
+      <div style={{ width: "600px" }} onClick={handleSongClick}>
         <h3 style={{ textAlign: "right" }}>{count}</h3>
         {type === "album" ? (
           ""
@@ -254,7 +256,8 @@ const Track = ({ track, count, id, type }) => {
       <span>{track.popularity}</span>
       {hover ? (
         // <BasicPopover>
-        <div onClick={handleLikeClick}>
+        // <div onClick={handleLikeClick}>
+        <>
           {like ? (
             <CheckCircleIcon
               style={{
@@ -264,6 +267,7 @@ const Track = ({ track, count, id, type }) => {
                 width: "1.2rem",
                 height: "1.2rem",
               }}
+              onClick={handleLikeClick}
             />
           ) : (
             <AddCircleOutline
@@ -274,11 +278,13 @@ const Track = ({ track, count, id, type }) => {
                 color: "grey",
                 cursor: "pointer",
               }}
+              onClick={handleLikeClick}
               className="check_follow"
             />
           )}
-        </div>
+        </>
       ) : (
+        // </div>
         // </BasicPopover>
         <div style={{ width: "1.2rem" }}></div>
       )}

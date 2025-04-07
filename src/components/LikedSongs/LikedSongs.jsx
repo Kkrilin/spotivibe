@@ -7,7 +7,6 @@ import { gradientPairs } from "../../utils/colors";
 const LikedSongs = () => {
   const { likedSongs, data: mydata } = useSelector((state) => state.profile);
   const index = Math.floor(Math.random() * gradientPairs.length);
-  console.log("mydata", mydata);
 
   return (
     <Scrollable name="Liked Songs" bgColor={index && gradientPairs[index][0]}>

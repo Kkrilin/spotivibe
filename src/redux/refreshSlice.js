@@ -6,7 +6,6 @@ const refreshSlice = createSlice({
   initialState: { globalCount: 0 },
   reducers: {
     triggerRefresh: (state) => {
-      console.log("global");
       state.globalCount += 1;
     },
   },

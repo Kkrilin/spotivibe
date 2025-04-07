@@ -23,8 +23,7 @@ const PlayLists = () => {
   const dispatch = useDispatch();
   const [requiredPlaylist, setRequiredPlaylist] = useState({});
   const { id } = param;
-  console.log("playlists", playlists);
-  console.log(mydata, "mydata");
+
   const indexRef = useRef(null);
   const index = indexRef.current;
   const token = localStorage.getItem("access_token", "access_token");
@@ -45,20 +44,16 @@ const PlayLists = () => {
     header.headers["Content-Type"] = "application/json";
     try {
       if (follow) {
-        console.log("follow-------", follow);
         const unfollowResponse = await axios.delete(followUrl, header);
-        console.log("unfollowResponse", unfollowResponse);
         dispatch(removePlaylist({ id }));
         setFollow(false);
       } else {
         const followResponse = await axios.put(followUrl, data, header);
-        console.log("followResponse", followResponse);
         dispatch(addPlaylist({ data: requiredPlaylist }));
         setFollow(true);
       }
     } catch (error) {
       setError(error.response.data.error.message);
-      console.log(error);
     }
   };
   useEffect(() => {
@@ -72,7 +67,6 @@ const PlayLists = () => {
         }
         const followCheckResponse = await axios.get(checkFollowUrl, header);
         const response = await axios.get(playListItemUrl, header);
-        console.log("response plalist top track", response.data.items);
         setRequiredPlaylist(playlist);
         setFollow(followCheckResponse.data[0]);
         setTracks(response.data.items);
@@ -80,7 +74,6 @@ const PlayLists = () => {
       } catch (error) {
         setLoading(false);
         setError(error.response.data.error.message);
-        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -96,8 +89,7 @@ const PlayLists = () => {
     );
   }
 
-  console.log();
-  console.log("track", tracks);
+
   return (
     <Scrollable
       name={requiredPlaylist.owner && requiredPlaylist.owner.display_name}
@@ -159,7 +151,9 @@ const PlayLists = () => {
           colorGradient={index && gradientPairs[index][1]}
         />
       )}
-      {!loading && <SearchForPlaylistAdd playListId={id} setTracks={setTracks} />}
+      {!loading && (
+        <SearchForPlaylistAdd playListId={id} setTracks={setTracks} />
+      )}
     </Scrollable>
   );
 };

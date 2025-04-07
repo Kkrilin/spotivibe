@@ -9,7 +9,6 @@ const CreatePlayList = ({ handleClose }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const { data } = useSelector((state) => state.profile);
-  console.log(data, "data------------------");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = data.id;
@@ -46,10 +45,8 @@ const CreatePlayList = ({ handleClose }) => {
       description,
       public: true,
     };
-    console.log(body, "------------------");
     try {
       const createResponse = await axios.post(createUrl, body, header);
-      console.log("Playlist created:", createResponse.data);
       const playlistId = createResponse.data.id;
       if (playlistId) {
         navigate(`/playlist/${playlistId}`);

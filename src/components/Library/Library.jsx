@@ -10,7 +10,6 @@ const Library = () => {
   const [filter, setFilter] = useState("");
   const handleFilterClick = (e) => {
     if (["playlist", "artist"].includes(e.target.dataset.filter)) {
-      console.log(e.target.dataset.filter);
       setFilter((state) =>
         state === e.target.dataset.filter ? "" : e.target.dataset.filter
       );

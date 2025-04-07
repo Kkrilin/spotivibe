@@ -48,18 +48,15 @@ const Artists = () => {
     try {
       if (follow) {
         const unfollowResponse = await axios.delete(followUrl, header);
-        console.log("unfollowResponse", unfollowResponse);
         dispatch(removeArtist({ id }));
         setFollow(false);
       } else {
         const followResponse = await axios.put(followUrl, data, header);
-        console.log("followResponse", followResponse);
         dispatch(addArtist({ data: requiredArtist }));
         setFollow(true);
       }
     } catch (error) {
       setError(error.response.data.error.message);
-      console.log(error);
     }
   };
 
@@ -81,7 +78,6 @@ const Artists = () => {
       } catch (error) {
         setLoading(false);
         setError(error.response.data.error.message);
-        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -90,20 +86,16 @@ const Artists = () => {
     fetchArtistTopSong();
   }, [id, artistUrl, globalCount]);
 
-  console.log(requiredArtist, "requiredAttisy");
-
   const artistAlbumUrl = `https://api.spotify.com/v1/artists/${id}/albums`;
   useEffect(() => {
     axios
       .get(artistAlbumUrl, header)
       .then((res) => {
-        console.log(res.data, "-------------");
         setArtistsAlbum(res.data.items);
       })
       .catch((err) => {
         setLoading(false);
-        setError(error.response.data.error.message);
-        console.log(err);
+        setError(err.response.data.error.message);
       })
       .finally(() => setLoading(false));
   }, [id, globalCount]);
@@ -114,13 +106,12 @@ const Artists = () => {
       .get(artistRelatedArtist, header)
       .then((res) => {
         setArtistRelatedArtists(res.data.artists.items);
-        console.log(res.data.artists);
       })
       .catch((err) => {
         setLoading(false);
-        setError(error.response.data.error.message);
-        console.log(err).finally(() => setLoading(false));
-      });
+        setError(err.response.data.error.message);
+      })
+      .finally(() => setLoading(false));
   }, [requiredArtist.name, globalCount]);
 
   if (error) {
