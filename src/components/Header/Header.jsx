@@ -6,9 +6,48 @@ import { Typography } from "@mui/material";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Header() {
   const profileData = useSelector((state) => state.profile);
   const imgUrl = profileData.data.images && profileData.data.images[0].url;
+  const clientId = import.meta.env.VITE_CLIENT_ID;
+  const navigate = useNavigate();
+  const getRefreshToken = async () => {
+    // refresh token that has been previously stored
+    const refreshToken = localStorage.getItem("refresh_token");
+    const url = "https://accounts.spotify.com/api/token";
+
+    const payload = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+        client_id: clientId,
+      }),
+    };
+    const body = await fetch(url, payload);
+    const response = await body.json();
+
+    localStorage.setItem("access_token", response.access_token);
+    localStorage.setItem("expire_in", response.expires_in);
+    if (response.refresh_token) {
+      localStorage.setItem("refresh_token", response.refresh_token);
+    }
+  };
+  const handleRefreshClick = () => {
+    getRefreshToken()
+      .then(() => {
+        console.log("Access token refreshed successfully");
+        navigate("user/");
+      })
+      .catch((error) => {
+        console.error("Error refreshing access token:", error);
+      });
+    console.log("Refresh Access Token clicked");
+  };
   return (
     <header
       style={{
@@ -33,6 +72,22 @@ function Header() {
       </Typography> */}
       {/* )} */}
       <div style={{ display: "flex", alignItems: "center" }}>
+        <button
+          style={{
+            fontSize: "0.8rem",
+            color: "#000",
+            backgroundColor: "#fff",
+            fontWeight: "bold",
+            padding: " 4px 10px",
+            border: "none",
+            borderRadius: "9999px",
+            marginRight: "10px",
+            cursor: "pointer",
+          }}
+          onClick={handleRefreshClick}
+        >
+          Refresh Access Token
+        </button>
         <button
           style={{
             fontSize: "1rem",

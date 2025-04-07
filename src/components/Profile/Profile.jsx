@@ -61,7 +61,10 @@ const Profile = () => {
     return <h1 style={{ color: "red" }}>{error}</h1>;
   }
   return (
-    <Scrollable>
+    <Scrollable
+      name={profileData.data.display_name}
+      bgColor={index && gradientPairs[index][0]}
+    >
       {loading ? (
         <ProfileSkeleton />
       ) : (

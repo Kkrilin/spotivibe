@@ -43,7 +43,10 @@ const Album = () => {
     return <div>{error}</div>;
   }
   return (
-    <Scrollable>
+    <Scrollable
+      name={albums && albums.name}
+      bgColor={index && gradientPairs[index][0]}
+    >
       {loading ? (
         <ProfileSkeleton />
       ) : (
@@ -73,9 +76,13 @@ const Album = () => {
             <h6 style={{ fontSize: "14px" }}>{albums && albums.album_type}</h6>
             <h6 style={{ fontSize: "6rem" }}>{albums && albums.name}</h6>
             <span
-              style={{ fontSize: "14px", color: "#a1a1a1", fontWeight: "bold" }}
+              style={{
+                fontSize: "14px",
+                color: "rgb(179, 174, 174)",
+                fontWeight: "bold",
+              }}
             >
-              {Math.round(Math.random() * 10000000000)} mothly listeners
+              ReleaseON : {albums.release_date}
             </span>
           </div>
         </div>

@@ -4,6 +4,7 @@ const initialState = {
   data: {},
   artists: [],
   playlists: [],
+  likedSongs: [],
   login: false,
   loading: true,
   error: false,
@@ -41,6 +42,19 @@ const profileSlice = createSlice({
         (pl) => pl.id !== action.payload.id
       );
     },
+    addItemToPlaylist(state, action) {
+      state.playlists = state.playlists.map((pl) => {
+        if (pl.id === action.payload.plId) {
+          pl.push(action.payload.item);
+          return pl;
+        } else {
+          return pl;
+        }
+      });
+    },
+    setLikedSongs(state, action) {
+      state.likedSongs = action.payload.data;
+    },
   },
 });
 
@@ -52,6 +66,8 @@ export const {
   setPlalists,
   addPlaylist,
   removePlaylist,
+  addItemToPlaylist,
+  setLikedSongs,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

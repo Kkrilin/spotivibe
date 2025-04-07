@@ -6,6 +6,7 @@ const initialState = {
   loading: true,
   error: false,
   sideBarStyle: {},
+  songLike: false,
 };
 
 const songDetailSlice = createSlice({
@@ -28,9 +29,13 @@ const songDetailSlice = createSlice({
         animation: "hide 0.4s backwards",
       };
     },
+    likeSong(state, action) {
+      state.songLike = action.payload.data;
+    },
   },
 });
 
-export const { setSongDetail, closeSongDetail } = songDetailSlice.actions;
+export const { setSongDetail, closeSongDetail, likeSong } =
+  songDetailSlice.actions;
 
 export default songDetailSlice.reducer;

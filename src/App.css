@@ -92,6 +92,7 @@ input::placeholder {
   padding-top: 24px;
   background-color: var(--background-base);
   padding-left: 1.2rem;
+  overflow-x: hidden;
 }
 
 .playlist,
@@ -140,6 +141,7 @@ input::placeholder {
   color: #fff;
   border: 1px solid rgb(46, 45, 45);
   border-radius: 2px;
+  padding: 1rem;
 }
 .playlist_name,
 .playlist_description {
@@ -239,6 +241,7 @@ input::placeholder {
   margin-left: 0;
   margin-right: 0;
   flex: none;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -427,6 +430,37 @@ a {
   transform: scale(1.08);
 }
 
+.sticky_ani {
+  position: sticky;
+  top: 0;
+  font-size: 2.5rem;
+  padding-left: 2rem;
+  z-index: 9999;
+  animation: stikcyani 0.3s ease-in-out backwards;
+}
+.search_add {
+  border-radius: 69999px;
+  height: 2rem;
+  background-color: #000;
+  box-shadow: 0 0 0 0.5px #fff;
+  padding: 0 1rem;
+  border: 1px solid transparent;
+}
+
+.search_add h3 {
+  color: #fff;
+  font-weight: 400;
+  text-align: center;
+  width: max-content;
+}
+
+.search_add:hover {
+  border: 1px solid #fff;
+  transform: none;
+}
+.search_add:hover {
+  opacity: 0.8;
+}
 @keyframes show {
   from {
     width: 0px;
@@ -451,5 +485,16 @@ a {
   }
   to {
     width: 0px;
+  }
+}
+
+@keyframes stikcyani {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

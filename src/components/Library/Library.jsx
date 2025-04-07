@@ -4,6 +4,7 @@ import Filter from "./Filter.jsx";
 import SearchIcon from "@mui/icons-material/Search";
 import ListIcon from "@mui/icons-material/List";
 import { useState } from "react";
+import LikedSong from "./LikedSong.jsx";
 
 const Library = () => {
   const [filter, setFilter] = useState("");
@@ -38,6 +39,7 @@ const Library = () => {
               <ListIcon />
             </div>
           </div>
+          <LikedSong />
           {(filter === "artist" || !filter) && <Artists />}
           {(filter === "playlist" || !filter) && <PlayLists />}
           {/* <Artists />

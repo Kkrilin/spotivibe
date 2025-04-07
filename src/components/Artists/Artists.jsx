@@ -123,8 +123,19 @@ const Artists = () => {
       });
   }, [requiredArtist.name, globalCount]);
 
+  if (error) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <h2 style={{ color: "#fff" }}>{error}</h2>
+      </div>
+    );
+  }
+
   return (
-    <Scrollable>
+    <Scrollable
+      name={requiredArtist.name}
+      bgColor={index && gradientPairs[index][0]}
+    >
       {loading ? (
         <ProfileSkeleton />
       ) : (

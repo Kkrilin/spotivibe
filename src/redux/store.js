@@ -13,12 +13,22 @@ const userPersistConfig = {
   storage,
   whitelist: ["data"],
 };
+
+const songDetailPersist = {
+  key: "songDetail",
+  storage,
+  whitelist: ["songDetail", "songLike"],
+};
 const persistUserReducer = persistReducer(userPersistConfig, profileReducer);
+const persistSongDetailReducer = persistReducer(
+  songDetailPersist,
+  songDetailReducer
+);
 const store = configureStore({
   reducer: {
     login: loginReducer,
     profile: persistUserReducer,
-    songDetail: songDetailReducer,
+    songDetail: persistSongDetailReducer,
     refresh: refreshReducer,
   },
 });

@@ -10,6 +10,7 @@ import { addPlaylist, removePlaylist } from "../../redux/profileSlice";
 import { gradientPairs } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
+import SearchForPlaylistAdd from "../Search/SearchForPlaylistAdd.jsx";
 
 const PlayLists = () => {
   const { playlists, data: mydata } = useSelector((state) => state.profile);
@@ -77,6 +78,7 @@ const PlayLists = () => {
         setTracks(response.data.items);
         indexRef.current = Math.floor(Math.random() * gradientPairs.length);
       } catch (error) {
+        setLoading(false);
         setError(error.response.data.error.message);
         console.log(error);
       } finally {
@@ -86,10 +88,21 @@ const PlayLists = () => {
     fetchPlayList();
   }, [id, playListUrl, globalCount]);
 
+  if (error) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <h2 style={{ color: "#fff" }}>{error}</h2>
+      </div>
+    );
+  }
+
   console.log();
   console.log("track", tracks);
   return (
-    <Scrollable>
+    <Scrollable
+      name={requiredPlaylist.owner && requiredPlaylist.owner.display_name}
+      bgColor={index && gradientPairs[index][0]}
+    >
       {loading ? (
         <ProfileSkeleton />
       ) : (
@@ -146,6 +159,7 @@ const PlayLists = () => {
           colorGradient={index && gradientPairs[index][1]}
         />
       )}
+      {!loading && <SearchForPlaylistAdd playListId={id} setTracks={setTracks} />}
     </Scrollable>
   );
 };

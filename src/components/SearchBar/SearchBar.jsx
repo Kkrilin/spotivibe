@@ -9,6 +9,7 @@ const SearchBar = () => {
   // const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
+  // debounced with funtion
   const debounce = (func, delay) => {
     let timeoutId;
     return (...args) => {

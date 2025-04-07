@@ -10,6 +10,7 @@ import Playlists from "./components/Playlists/Playlists.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import Search from "./components/Search/Search.jsx";
 import Albums from "./components/Album/Albums.jsx";
+import LikedSongs from "./components/LikedSongs/LikedSongs.jsx";
 import PullToRefresh from "./components/Utils/PullToRefresh.jsx";
 import { Navigate } from "react-router-dom";
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path="playlist/:id" element={<Playlists />} />
             <Route path="search/:id" element={<Search />}></Route>
             <Route path="album/:id" element={<Albums />}></Route>
+            <Route path="collection/tracks" element={<LikedSongs />}></Route>
             <Route path="*" element={<Navigate to="/user" replace />} />
           </Route>
         </Routes>
