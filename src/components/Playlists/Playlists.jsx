@@ -7,10 +7,11 @@ import axios from "axios";
 import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
 import { addPlaylist, removePlaylist } from "../../redux/profileSlice";
-import { gradientPairs } from "../../utils/colors";
+import { getColorGradientPair } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
 import SearchForPlaylistAdd from "../Search/SearchForPlaylistAdd.jsx";
+import { useTheme } from "../Context/ThemeProvider.jsx";
 
 const PlayLists = () => {
   const { playlists, data: mydata } = useSelector((state) => state.profile);
@@ -20,10 +21,13 @@ const PlayLists = () => {
   const [tracks, setTracks] = useState([]);
   const [follow, setFollow] = useState(false);
   const param = useParams();
+  const { isDarkMode } = useTheme();
+  console.log("isDarkMode", isDarkMode);
+  const gradientPairs = getColorGradientPair(isDarkMode);
   const dispatch = useDispatch();
   const [requiredPlaylist, setRequiredPlaylist] = useState({});
   const { id } = param;
-
+  console.log("tracks", tracks);
   const indexRef = useRef(null);
   const index = indexRef.current;
   const token = localStorage.getItem("access_token", "access_token");
@@ -89,7 +93,6 @@ const PlayLists = () => {
     );
   }
 
-
   return (
     <Scrollable
       name={requiredPlaylist.owner && requiredPlaylist.owner.display_name}
@@ -140,20 +143,30 @@ const PlayLists = () => {
           </div>
         </div>
       )}
-      {loading ? (
-        <TrackSkeleton />
-      ) : (
-        <Tracks
-          handleFollowClick={handleFollowClick}
-          follow={follow}
-          type={requiredPlaylist.type}
-          tracks={tracks.filter((track) => track.track)}
-          colorGradient={index && gradientPairs[index][1]}
-        />
-      )}
-      {!loading && (
-        <SearchForPlaylistAdd playListId={id} setTracks={setTracks} />
-      )}
+      <div
+        className="artist_Bottom_container"
+        style={{
+          backgroundImage: `${index && gradientPairs[index][1]}`,
+        }}
+      >
+        {loading ? (
+          <TrackSkeleton />
+        ) : (
+          <Tracks
+            handleFollowClick={handleFollowClick}
+            follow={follow}
+            type={requiredPlaylist.type}
+            tracks={tracks.filter((track) => track.track)}
+            colorGradient={index && gradientPairs[index][1]}
+            requiredPlaylist={requiredPlaylist}
+            setRequiredPlaylist={setRequiredPlaylist}
+            setTracks={setTracks}
+          />
+        )}
+        {!loading && (
+          <SearchForPlaylistAdd playListId={id} setTracks={setTracks} />
+        )}
+      </div>
     </Scrollable>
   );
 };

@@ -8,7 +8,7 @@ import { setPlalists } from "../../redux/profileSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
-
+import { useTheme } from "../Context/ThemeProvider.jsx";
 const PlayLists = () => {
   const { playlists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
@@ -58,9 +58,14 @@ const PlayLists = () => {
 
 export const Playlist = ({ item, profile }) => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
   return (
     <div
-      className={profile ? "big_card" : "small_card"}
+      className={
+        profile
+          ? `big_card ${!isDarkMode ? "light_hover" : ""}`
+          : `small_card ${!isDarkMode ? "light_hover" : ""}`
+      }
       onClick={() => navigate(`/playlist/${item.id}`)}
     >
       {item.images ? (
@@ -83,12 +88,34 @@ export const Playlist = ({ item, profile }) => {
         </Avatar>
       )}
       <div>
-        <h6 className="name">{item.name.substring(0, 20)}</h6>
+        <h6
+          className="name"
+          style={{
+            color: `${isDarkMode ? "#e0dfdf" : "#000"}`,
+          }}
+        >
+          {item.name.substring(0, 20)}
+        </h6>
 
         <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-          <span className="type"> {item.type}</span>
+          <span
+            className="type"
+            style={{
+              color: `${isDarkMode ? "#837f7f" : "#000"}`,
+            }}
+          >
+            {" "}
+            {item.type}
+          </span>
           <span className="dot_separator"> </span>
-          <span className="type">{item.owner.display_name}</span>
+          <span
+            className="type"
+            style={{
+              color: `${isDarkMode ? "#837f7f" : "#000"}`,
+            }}
+          >
+            {item.owner.display_name}
+          </span>
         </div>
       </div>
     </div>

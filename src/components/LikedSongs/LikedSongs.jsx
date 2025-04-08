@@ -2,10 +2,12 @@ import { useSelector } from "react-redux";
 import { Avatar, Skeleton } from "@mui/material";
 import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
-import { gradientPairs } from "../../utils/colors";
-
+import { getColorGradientPair } from "../../utils/colors";
+import { useTheme } from "../Context/ThemeProvider.jsx";
 const LikedSongs = () => {
   const { likedSongs, data: mydata } = useSelector((state) => state.profile);
+  const { isDarkMode } = useTheme();
+  const gradientPairs = getColorGradientPair(isDarkMode);
   const index = Math.floor(Math.random() * gradientPairs.length);
 
   return (
@@ -49,22 +51,42 @@ const LikedSongs = () => {
                 }
               />
             </span>
-            <span className="name"> {mydata.display_name}</span>
+            <span
+              className="name"
+              style={{
+                color: `${isDarkMode ? "#837f7f" : "#000"}`,
+              }}
+            >
+              {" "}
+              {mydata.display_name}
+            </span>
             <span className="dot_separator" style={{ color: "#fff" }}>
               {" "}
             </span>
-            <span className="type" style={{ color: "#fff" }}>
+            <span
+              className="type"
+              style={{
+                color: `${isDarkMode ? "#837f7f" : "#000"}`,
+                fontWeight: "400",
+              }}
+            >
               {likedSongs.length} songs
             </span>
           </div>
         </div>
       </div>
-
-      <Tracks
-        tracks={likedSongs.filter((track) => track)}
-        colorGradient={gradientPairs[index][1]}
-        type="like"
-      />
+      <div
+        className="profile_bottom_Container"
+        style={{
+          backgroundImage: `${index && gradientPairs[index][1]}`,
+        }}
+      >
+        <Tracks
+          tracks={likedSongs.filter((track) => track)}
+          colorGradient={gradientPairs[index][1]}
+          type="like"
+        />
+      </div>
     </Scrollable>
   );
 };

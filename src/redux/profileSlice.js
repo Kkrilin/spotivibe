@@ -52,6 +52,16 @@ const profileSlice = createSlice({
         }
       });
     },
+    removeItemToPlaylist(state, action) {
+      state.playlists = state.playlists.map((pl) => {
+        if (pl.id === action.payload.plId) {
+          pl.push(action.payload.item);
+          return pl;
+        } else {
+          return pl;
+        }
+      });
+    },
     setLikedSongs(state, action) {
       state.likedSongs = action.payload.data;
     },
@@ -78,6 +88,7 @@ export const {
   setLikedSongs,
   addLikeSong,
   removeLikeSong,
+  removeItemToPlaylist,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

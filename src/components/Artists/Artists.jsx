@@ -9,10 +9,11 @@ import { useDispatch } from "react-redux";
 import { addArtist, removeArtist } from "../../redux/profileSlice";
 import AlbumCard from "../Album/AlbumCard";
 import { Artist } from "../Library/Artists";
-import { gradientPairs } from "../../utils/colors";
+import { getColorGradientPair } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton.jsx";
+import { useTheme } from "../Context/ThemeProvider.jsx";
 
 const Artists = () => {
   const { artists } = useSelector((state) => state.profile);
@@ -26,6 +27,8 @@ const Artists = () => {
   const { globalCount } = useSelector((state) => state.refresh);
   const param = useParams();
   const { id } = param;
+  const { isDarkMode } = useTheme();
+  const gradientPairs = getColorGradientPair(isDarkMode);
   const dispatch = useDispatch();
   const indexRef = useRef(null);
   const index = indexRef.current;
@@ -166,47 +169,54 @@ const Artists = () => {
           </div>
         </div>
       )}
-      {loading ? (
-        <TrackSkeleton />
-      ) : (
-        <Tracks
-          handleFollowClick={handleFollowClick}
-          follow={follow}
-          tracks={tracks}
-          colorGradient={index && gradientPairs[index][1]}
-        />
-      )}
-      <div style={{ padding: "2rem" }}>
+      <div
+        className="artist_Bottom_container"
+        style={{
+          backgroundImage: `${index && gradientPairs[index][1]}`,
+        }}
+      >
         {loading ? (
-          <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+          <TrackSkeleton />
         ) : (
-          <h3>Albums</h3>
+          <Tracks
+            handleFollowClick={handleFollowClick}
+            follow={follow}
+            tracks={tracks}
+            colorGradient={index && gradientPairs[index][1]}
+          />
         )}
-        <Stack className="horizontal_scroll" direction={"row"}>
+        <div style={{ padding: "2rem" }}>
           {loading ? (
-            <CardSkeleton profile={true} type="playlist" />
+            <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
           ) : (
-            artistAlbums
-              .filter((item) => item)
-              .map((item) => <AlbumCard item={item} />)
+            <h3>Albums</h3>
           )}
-        </Stack>
-      </div>
-      <div style={{ padding: "2rem" }}>
-        {loading ? (
-          <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-        ) : (
-          <h3>Artists</h3>
-        )}
-        <Stack className="horizontal_scroll" direction={"row"}>
+          <Stack className="horizontal_scroll" direction={"row"}>
+            {loading ? (
+              <CardSkeleton profile={true} type="playlist" />
+            ) : (
+              artistAlbums
+                .filter((item) => item)
+                .map((item) => <AlbumCard item={item} />)
+            )}
+          </Stack>
+        </div>
+        <div style={{ padding: "2rem" }}>
           {loading ? (
-            <CardSkeleton profile={true} type="playlist" />
+            <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
           ) : (
-            artistRelatedArtists
-              .filter((item) => item)
-              .map((item) => <Artist item={item} profile={true} />)
+            <h3>Artists</h3>
           )}
-        </Stack>
+          <Stack className="horizontal_scroll" direction={"row"}>
+            {loading ? (
+              <CardSkeleton profile={true} type="playlist" />
+            ) : (
+              artistRelatedArtists
+                .filter((item) => item)
+                .map((item) => <Artist item={item} profile={true} />)
+            )}
+          </Stack>
+        </div>
       </div>
     </Scrollable>
   );

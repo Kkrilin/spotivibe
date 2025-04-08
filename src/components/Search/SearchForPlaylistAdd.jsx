@@ -61,10 +61,14 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
     <>
       {!find && (
         <h4
-          style={{ paddingLeft: "2rem", paddingBottom: "2rem", cursor: "pointer" }}
+          style={{
+            paddingLeft: "2rem",
+            paddingBottom: "2rem",
+            cursor: "pointer",
+          }}
           onClick={() => setFind(true)}
         >
-          Find Song
+          Find Song For Playlist
         </h4>
       )}
       {find && (
@@ -146,7 +150,7 @@ const SearchTracks = ({ track, playListId, setTracks }) => {
       .post(addItemUrl, body, header)
       .then((res) => {
         setTracks((state) => {
-          return [...state, {track}];
+          return [...state, { track }];
         });
         // dispatch(addItemToPlaylist({ plId: playListId, item: track }));
       })

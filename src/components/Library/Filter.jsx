@@ -1,6 +1,8 @@
 import { Stack } from "@mui/material";
 import BasicPopover from "../Utils/Popover/BasicPopover";
+import { useTheme } from "../Context/ThemeProvider";
 const Filter = ({ handleFilterClick, filter }) => {
+  const { isDarkMode } = useTheme();
   return (
     <Stack>
       <div
@@ -10,11 +12,28 @@ const Filter = ({ handleFilterClick, filter }) => {
           alignItems: "center",
         }}
       >
-        <h4 style={{ color: "#fff" }}>Your Library</h4>
+        <h4 style={{ color: `${isDarkMode ? "#fff" : "#000"}` }}>
+          Your Library
+        </h4>
         <BasicPopover>
-          <div className="create">
-            <span className="plus">+</span>
-            <span style={{ color: "#fff" }}>Create</span>
+          <div
+            className="create"
+            style={{
+              color: `${isDarkMode ? "#rgb(222, 218, 218)" : "#000"}`,
+              backgroundColor: `${
+                isDarkMode ? "rgba(52, 52, 52, 0.88)" : "rgb(222, 218, 218)"
+              }`,
+            }}
+          >
+            <span
+              className="plus"
+              style={{ color: `${isDarkMode ? "#fff" : "#000"}` }}
+            >
+              +
+            </span>
+            <span style={{ color: `${isDarkMode ? "#fff" : "#000"}` }}>
+              Create
+            </span>
           </div>
         </BasicPopover>
       </div>
@@ -24,12 +43,24 @@ const Filter = ({ handleFilterClick, filter }) => {
             filter === "playlist" ? "playlist active_filter" : "playlist"
           }
           data-filter="playlist"
+          style={{
+            color: `${isDarkMode ? "#rgb(222, 218, 218)" : "#000"}`,
+            backgroundColor: `${
+              isDarkMode ? "rgba(52, 52, 52, 0.88)" : "rgb(222, 218, 218)"
+            }`,
+          }}
         >
           Playlists
         </span>
         <span
           className={filter === "artist" ? "artist active_filter" : "artist"}
           data-filter="artist"
+          style={{
+            color: `${isDarkMode ? "#rgb(222, 218, 218)" : "#000"}`,
+            backgroundColor: `${
+              isDarkMode ? "rgba(52, 52, 52, 0.88)" : "rgb(222, 218, 218)"
+            }`,
+          }}
         >
           Artists
         </span>

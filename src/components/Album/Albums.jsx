@@ -5,7 +5,7 @@ import { Avatar, Skeleton } from "@mui/material";
 import axios from "axios";
 import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
-import { gradientPairs } from "../../utils/colors";
+import { gradientPairs, LightGradientPairs } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
 
@@ -23,6 +23,7 @@ const Album = () => {
       Authorization: `Bearer ${token}`,
     },
   };
+  // const gradientPairs = 
   const index = Math.floor(Math.random() * gradientPairs.length);
   const fetchAlbum = async () => {
     setLoading(true);

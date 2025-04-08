@@ -82,6 +82,92 @@ export const gradientPairs = [
   ],
 ];
 
+export const LightGradientPairs = [
+  [
+    "linear-gradient(rgb(255, 245, 250), rgb(255, 230, 240))", // Soft Pink
+    "linear-gradient(rgba(255, 245, 250, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(240, 248, 255), rgb(200, 230, 255))", // Light Blue
+    "linear-gradient(rgba(240, 248, 255, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(245, 255, 250), rgb(220, 255, 235))", // Mint Green
+    "linear-gradient(rgba(245, 255, 250, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(255, 255, 240), rgb(255, 250, 200))", // Cream
+    "linear-gradient(rgba(255, 255, 240, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(250, 240, 255), rgb(235, 220, 255))", // Lavender
+    "linear-gradient(rgba(250, 240, 255, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(255, 250, 240), rgb(255, 235, 210))", // Peach
+    "linear-gradient(rgba(255, 250, 240, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(240, 255, 250), rgb(210, 255, 235))", // Seafoam
+    "linear-gradient(rgba(240, 255, 250, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(255, 245, 230), rgb(255, 230, 200))", // Apricot
+    "linear-gradient(rgba(255, 245, 230, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(245, 245, 255), rgb(220, 220, 255))", // Pale Blue
+    "linear-gradient(rgba(245, 245, 255, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(255, 250, 245), rgb(255, 235, 220))", // Warm White
+    "linear-gradient(rgba(255, 250, 245, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(250, 255, 240), rgb(235, 255, 220))", // Pale Green
+    "linear-gradient(rgba(250, 255, 240, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(255, 240, 245), rgb(255, 220, 230))", // Blush
+    "linear-gradient(rgba(255, 240, 245, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(240, 255, 255), rgb(220, 255, 255))", // Ice Blue
+    "linear-gradient(rgba(240, 255, 255, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(255, 255, 250), rgb(255, 255, 230))", // Light Yellow
+    "linear-gradient(rgba(255, 255, 250, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(250, 250, 255), rgb(230, 230, 255))", // Pale Lilac
+    "linear-gradient(rgba(250, 250, 255, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(255, 250, 250), rgb(255, 230, 230))", // Rose
+    "linear-gradient(rgba(255, 250, 250, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(245, 255, 245), rgb(230, 255, 230))", // Pale Mint
+    "linear-gradient(rgba(245, 255, 245, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(255, 245, 245), rgb(255, 230, 230))", // Light Rose
+    "linear-gradient(rgba(255, 245, 245, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(250, 255, 250), rgb(235, 255, 235))", // Whisper Green
+    "linear-gradient(rgba(250, 255, 250, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+  [
+    "linear-gradient(rgb(245, 250, 255), rgb(230, 240, 255))", // Sky Glow
+    "linear-gradient(rgba(245, 250, 255, 0.85) 5%, rgb(255, 255, 255) 30%)",
+  ],
+];
+
+export const getColorGradientPair = (darktheme) =>
+  darktheme ? gradientPairs : LightGradientPairs;
+
 export const colors = [
   "#ff7e5f", // Sunset Orange
   "#feb47b", // Warm Peach

@@ -7,11 +7,17 @@ import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import { useTheme } from "../Context/ThemeProvider";
+
 function Header() {
+  const { isDarkMode, toggleTheme } = useTheme();
   const profileData = useSelector((state) => state.profile);
   const imgUrl = profileData.data.images && profileData.data.images[0].url;
   const clientId = import.meta.env.VITE_CLIENT_ID;
   const navigate = useNavigate();
+  console.log("toggleTheme", toggleTheme);
   const getRefreshToken = async () => {
     // refresh token that has been previously stored
     const refreshToken = localStorage.getItem("refresh_token");
@@ -48,6 +54,7 @@ function Header() {
       });
     console.log("Refresh Access Token clicked");
   };
+
   return (
     <header
       style={{
@@ -75,8 +82,8 @@ function Header() {
         <button
           style={{
             fontSize: "0.8rem",
-            color: "#000",
-            backgroundColor: "#fff",
+            color: `${isDarkMode ? "#000" : "#fff"}`,
+            backgroundColor: `${isDarkMode ? "#fff" : "#000"}`,
             fontWeight: "bold",
             padding: " 4px 10px",
             border: "none",
@@ -91,8 +98,8 @@ function Header() {
         <button
           style={{
             fontSize: "1rem",
-            color: "#000",
-            backgroundColor: "#fff",
+            color: `${isDarkMode ? "#000" : "#fff"}`,
+            backgroundColor: `${isDarkMode ? "#fff" : "#000"}`,
             fontWeight: "bold",
             padding: " 4px 10px",
             border: "none",
@@ -105,7 +112,7 @@ function Header() {
           style={{
             display: "flex",
             alignItems: "center",
-            backgroundColor: "#000",
+            backgroundColor: `${isDarkMode ? "#000" : "#fff"}`,
             padding: "4px 10px",
             margin: "10px",
           }}
@@ -115,16 +122,25 @@ function Header() {
             style={{
               border: "none",
               color: "grey",
-              backgroundColor: "#000",
+              backgroundColor: "#fff",
               margin: "0 10px",
               fontSize: "1rem",
               fontWeight: "600",
+              padding: "4px 10px",
+              borderRadius: "9999px",
             }}
           >
             Install App
           </button>
         </div>
-        <NotificationsIcon sx={{ marginRight: "10px" }} />
+        <div onClick={toggleTheme}>
+          {isDarkMode ? (
+            <LightModeIcon sx={{ marginRight: "20px", cursor: "pointer" }} />
+          ) : (
+            <DarkModeIcon sx={{ marginRight: "20px", cursor: "pointer" }} />
+          )}
+        </div>
+        {/* <NotificationsIcon sx={{ marginRight: "10px" }} /> */}
         {imgUrl ? (
           <Link to="/user">
             <Avatar alt="Spotify logo" src={imgUrl} />

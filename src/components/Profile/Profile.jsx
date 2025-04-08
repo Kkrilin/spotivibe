@@ -12,10 +12,10 @@ import { Playlist } from "../Library/PlayLists.jsx";
 import { Artist } from "../Library/Artists.jsx";
 import Scrollable from "../Utils/Scrollable.jsx";
 import HorizontalScroll from "../Utils/HorizontalScroll.jsx";
-import { gradientPairs } from "../../utils/colors";
+import { getColorGradientPair } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
-
+import { useTheme } from "../Context/ThemeProvider.jsx";
 const Profile = () => {
   const { artists, playlists, ...profileData } = useSelector(
     (state) => state.profile
@@ -23,6 +23,9 @@ const Profile = () => {
   const { globalCount } = useSelector((state) => state.refresh);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const { isDarkMode } = useTheme();
+  console.log("isDarkMode", isDarkMode);
+  const gradientPairs = getColorGradientPair(isDarkMode);
   const dispatch = useDispatch();
   const indexRef = useRef(null);
   const index = indexRef.current;
@@ -41,7 +44,6 @@ const Profile = () => {
       if (response.status === 200) {
         dispatch(setProfileData({ data: response.data }));
         localStorage.setItem("userId", response.data.id);
-        // setProfileData(response.data);
       }
       indexRef.current = Math.floor(Math.random() * gradientPairs.length);
     } catch (error) {
@@ -101,9 +103,20 @@ const Profile = () => {
                 gap: "4px",
               }}
             >
-              <span>{playlists.length} Public PlayLists</span>
+              <span
+                style={{
+                  color: `${isDarkMode ? "#837f7f" : "#000"}`,
+                }}
+              >
+                {playlists.length} Public PlayLists
+              </span>
               <span className="dot_separator"></span>
-              <span style={{ color: "#EAD9DD", fontWeight: "400" }}>
+              <span
+                style={{
+                  color: `${isDarkMode ? "#837f7f" : "#000"}`,
+                  fontWeight: "400",
+                }}
+              >
                 {artists.length} Following
               </span>
             </span>

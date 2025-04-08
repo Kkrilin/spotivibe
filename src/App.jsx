@@ -21,13 +21,6 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/authorised" element={<Authorised />} />
           <Route path="/" element={<HomePage />}>
-            {/* <Route
-            index
-            path="home"
-            element={
-              <h1>all eeature and latest and all kind of song will be here</h1>
-              }
-              ></Route> */}
             <Route index path="user" element={<Profile />}></Route>
             <Route path="home" element={<HomeScreen />}></Route>
             <Route path="artist/:id" element={<Artists />} />

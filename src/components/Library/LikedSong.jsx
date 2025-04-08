@@ -5,14 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLikedSongs } from "../../redux/profileSlice.js";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
-
+import { useTheme } from "../Context/ThemeProvider.jsx";
 const LikedSong = () => {
   const { likedSongs } = useSelector((state) => state.profile);
   const { songLike } = useSelector((state) => state.songDetail);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const { isDarkMode } = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = localStorage.getItem("access_token", "access_token");
@@ -46,7 +46,7 @@ const LikedSong = () => {
     <>
       {!loading && likedSongs.length && (
         <div
-          className="small_card"
+          className={`small_card ${!isDarkMode ? "light_hover" : ""}`}
           onClick={() => navigate(`/collection/tracks`)}
         >
           <Avatar
@@ -56,11 +56,33 @@ const LikedSong = () => {
             // src={item.images[0] && item.images[0].url}
           />
           <div>
-            <span className="name"> Liked Songs</span>
+            <span
+              className="name"
+              style={{
+                color: `${isDarkMode ? "#e0dfdf" : "#000"}`,
+              }}
+            >
+              {" "}
+              Liked Songs
+            </span>
             <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <span className="type">playlist</span>
+              <span
+                className="type"
+                style={{
+                  color: `${isDarkMode ? "#837f7f" : "#000"}`,
+                }}
+              >
+                playlist
+              </span>
               <span className="dot_separator"> </span>
-              <span className="type">{likedSongs.length} songs</span>
+              <span
+                className="type"
+                style={{
+                  color: `${isDarkMode ? "#837f7f" : "#000"}`,
+                }}
+              >
+                {likedSongs.length} songs
+              </span>
             </div>
           </div>
         </div>

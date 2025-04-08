@@ -10,8 +10,19 @@ import BasicPopover from "../Utils/Popover/BasicPopover";
 import { AddCircleOutline } from "@mui/icons-material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { addLikeSong, removeLikeSong } from "../../redux/profileSlice";
+import LibraryPopover from "../Utils/Popover/LibraryPopover";
+import { useTheme } from "../Context/ThemeProvider.jsx";
 
-const Tracks = ({ tracks, colorGradient, type, follow, handleFollowClick }) => {
+const Tracks = ({
+  tracks,
+  colorGradient,
+  type,
+  follow,
+  handleFollowClick,
+  requiredPlaylist,
+  setRequiredPlaylist,
+  setTracks,
+}) => {
   if (["playlist_search", "search"].includes(type)) {
     return (
       <div style={{ padding: "1.5rem" }}>
@@ -27,10 +38,11 @@ const Tracks = ({ tracks, colorGradient, type, follow, handleFollowClick }) => {
       </div>
     );
   }
+  const { isDarkMode } = useTheme();
+
   return (
     <div
-      className="artist_Bottom_container"
-      style={{ backgroundImage: colorGradient }}
+      
     >
       <div
         style={{ display: "flex", alignItems: "center", paddingTop: "1rem" }}
@@ -132,6 +144,9 @@ const Tracks = ({ tracks, colorGradient, type, follow, handleFollowClick }) => {
               count={i + 1}
               id={track.id || track.track.id}
               track={track}
+              requiredPlaylist={requiredPlaylist}
+              setRequiredPlaylist={setRequiredPlaylist}
+              setTracks={setTracks}
             />
           ))}
       </div>
@@ -139,7 +154,15 @@ const Tracks = ({ tracks, colorGradient, type, follow, handleFollowClick }) => {
   );
 };
 
-const Track = ({ track, count, id, type }) => {
+const Track = ({
+  track,
+  count,
+  id,
+  type,
+  requiredPlaylist,
+  setRequiredPlaylist,
+  setTracks,
+}) => {
   const [hover, setHover] = useState(false);
   const dispatch = useDispatch();
   const [like, setLike] = useState();
@@ -153,6 +176,8 @@ const Track = ({ track, count, id, type }) => {
   }, []);
   const { songDetail, songLike } = useSelector((state) => state.songDetail);
   const token = localStorage.getItem("access_token");
+  const { isDarkMode } = useTheme();
+  console.log("isDarkMode", isDarkMode);
   const handleMouseOver = () => {
     setHover(true);
   };
@@ -230,7 +255,7 @@ const Track = ({ track, count, id, type }) => {
   };
   return (
     <div
-      className="track_card"
+      className={`track_card ${!isDarkMode ? "light_hover" : ""}`}
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
       id={id}
@@ -251,7 +276,7 @@ const Track = ({ track, count, id, type }) => {
             variant="square"
           ></Avatar>
         )}
-        <h4 style={{ color: "#fff" }}>{track.name || track.track.name}</h4>
+        <h4 style={{ color: `${isDarkMode ? "#fff" : "#000"}`, }}>{track.name || track.track.name}</h4>
       </div>
       <span>{track.popularity}</span>
       {hover ? (
@@ -282,11 +307,24 @@ const Track = ({ track, count, id, type }) => {
               className="check_follow"
             />
           )}
+          <LibraryPopover
+            track={track}
+            requiredPlaylist={requiredPlaylist}
+            setRequiredPlaylist={setRequiredPlaylist}
+            setTracks={setTracks}
+          >
+            <div className="search_add">
+              <h3>Add</h3>
+            </div>
+          </LibraryPopover>
         </>
       ) : (
         // </div>
         // </BasicPopover>
-        <div style={{ width: "1.2rem" }}></div>
+        <>
+          <div style={{ width: "1.4rem" }}></div>
+          <div style={{ width: "1.8rem" }}></div>
+        </>
       )}
       <h3 style={{ width: "1.2rem" }}>{value}</h3>
     </div>

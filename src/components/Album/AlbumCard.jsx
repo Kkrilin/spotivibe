@@ -1,18 +1,23 @@
 import { deepOrange } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Typography, Skeleton } from "@mui/material";
+import { useTheme } from "../Context/ThemeProvider.jsx";
 
 const AlbumCard = ({ item }) => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
   return (
-    <div className="big_card" onClick={() => navigate(`/album/${item.id}`)}>
+    <div
+      className={`big_card ${!isDarkMode ? "light_hover" : ""}`}
+      onClick={() => navigate(`/album/${item.id}`)}
+    >
       {item ? (
         item.images ? (
           <Avatar
             sx={{ width: 180, height: 180 }}
             alt="Spotify logo"
             src={item.images[0].url}
-            variant="square"
+            variant="rounded"
           />
         ) : (
           <Avatar

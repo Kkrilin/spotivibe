@@ -9,14 +9,14 @@ import { likeSong } from "../../redux/songDetailSlice";
 import { addLikeSong, removeLikeSong } from "../../redux/profileSlice";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { useEffect, useState } from "react";
-
+import { useTheme } from "../Context/ThemeProvider";
 import axios from "axios";
 const Footer = () => {
   const { songDetail, songLike } = useSelector((state) => state.songDetail);
   const { globalCount } = useSelector((state) => state.refresh);
   const dispatch = useDispatch();
   const token = localStorage.getItem("access_token");
-
+  const { isDarkMode } = useTheme();
   const header = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -69,6 +69,7 @@ const Footer = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        backgroundColor: `${isDarkMode ? "#121212" : "#97ad9b"}`,
       }}
     >
       <div
@@ -95,11 +96,24 @@ const Footer = () => {
             variant="rounded"
           ></Avatar>
         )}
+
         <div style={{ marginLeft: "1rem" }}>
-          <h6 className="name" style={{ color: "#FFFFFF", fontSize: "0.9rem" }}>
+          <h6
+            className="name"
+            style={{
+              color: `${isDarkMode ? "#FFFFFF" : "#000"}`,
+              fontSize: "0.9rem",
+            }}
+          >
             {songDetail && songDetail.name}
           </h6>
-          <h6 className="type" style={{ color: "#6F6F6F", fontSize: "0.8rem" }}>
+          <h6
+            className="type"
+            style={{
+              color: `${isDarkMode ? "#6f6f6f" : "#000"}`,
+              fontSize: "0.8rem",
+            }}
+          >
             {songDetail && songDetail.artists.map((ar) => ar.name).join(" || ")}
           </h6>
         </div>
@@ -120,7 +134,7 @@ const Footer = () => {
                 width: "1.2rem",
                 height: "1.2rem",
                 marginLeft: "10px",
-                color: "grey",
+                color: `${isDarkMode ? "grey" : "#000"}`,
                 cursor: "pointer",
               }}
               className="check_follow"
