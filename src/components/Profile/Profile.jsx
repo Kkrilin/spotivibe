@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader/Loader.jsx";
 import { setProfileData } from "../../redux/profileSlice.js";
-import Buffer from "buffer";
 import axios from "axios";
 import Artists from "../Artists/Artists.jsx";
 import Playlists from "../Playlists/Playlists.jsx";
