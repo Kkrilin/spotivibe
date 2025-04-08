@@ -133,7 +133,11 @@ const PlayLists = () => {
             </h6>
             <h6 style={{ fontSize: "6rem" }}>{requiredPlaylist.name}</h6>
             <span
-              style={{ fontSize: "14px", color: `${isDarkMode ? "#fff" : "#000"}`, fontWeight: "bold" }}
+              style={{
+                fontSize: "14px",
+                color: `${isDarkMode ? "#fff" : "#000"}`,
+                fontWeight: "bold",
+              }}
             >
               followers :{" "}
               {(requiredPlaylist.followers &&
@@ -147,6 +151,7 @@ const PlayLists = () => {
         className="artist_Bottom_container"
         style={{
           backgroundImage: `${index && gradientPairs[index][1]}`,
+          minHeight: "52.7vh",
         }}
       >
         {loading ? (

@@ -6,6 +6,7 @@ import { addItemToPlaylist } from "../../redux/profileSlice";
 import { useDispatch } from "react-redux";
 import { useTheme } from "../Context/ThemeProvider.jsx";
 const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
+  const { isDarkMode } = useTheme();
   const [searchResult, setSearchResult] = useState({});
   const [find, setFind] = useState(false);
   const [search, setSearch] = useState("");
@@ -60,16 +61,27 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
   return (
     <>
       {!find && (
-        <h4
-          style={{
-            paddingLeft: "2rem",
-            cursor: "pointer",
-            width: "fit-content",
-          }}
-          onClick={() => setFind(true)}
-        >
-          Find Song For Playlist
-        </h4>
+        <>
+          <hr
+            style={{ borderTop: "0.04rem solid grey", margin: "0 2rem" }}
+          ></hr>
+          <div style={{ display: "flex", justifyContent: "end" }}>
+            <h4
+              style={{
+                margin: "1rem 2rem 0 0",
+                cursor: "pointer",
+                width: "fit-content",
+                marginBottom: "2rem",
+                backgroundColor: `${isDarkMode ? "#222" : "#97ad9b"}`,
+                padding: "0.5rem 1rem",
+                borderRadius: "4px",
+              }}
+              onClick={() => setFind((state) => !state)}
+            >
+              Find Song For Playlist
+            </h4>
+          </div>
+        </>
       )}
       {find && (
         <>
@@ -77,7 +89,26 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
             style={{ borderTop: "0.04rem solid grey", margin: "0 2rem" }}
           ></hr>
           <div style={{ paddingLeft: "2rem", paddingTop: "2rem" }}>
-            <h2>Let's find something for your playlist</h2>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                // width: "100%",
+              }}
+            >
+              <h2>Let's find something for your playlist</h2>
+              <div
+                onClick={() => setFind((state) => !state)}
+                style={{
+                  marginRight: "2rem",
+                  fontSize: "2rem",
+                  cursor: "pointer",
+                }}
+              >
+                x
+              </div>
+            </div>
             <div
               style={{
                 display: "flex",
