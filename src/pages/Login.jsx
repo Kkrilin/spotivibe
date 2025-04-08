@@ -3,11 +3,11 @@ import { Button } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import redirectToSpotifyAuthorize from "../auth/authService";
-
+import config from "../config/config";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const redirectUri = "http://localhost:5173/authorised";
-  const clientId = import.meta.env.VITE_CLIENT_ID;
+  const { clientId } = config;
   console.log(clientId, "clientId");
   // useEffect(() => {
   //   const authoriseTheApp = async () => {

@@ -10,12 +10,12 @@ import { useNavigate } from "react-router-dom";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "../Context/ThemeProvider";
-
+import config from "../../config/config";
 function Header() {
   const { isDarkMode, toggleTheme } = useTheme();
   const profileData = useSelector((state) => state.profile);
   const imgUrl = profileData.data.images && profileData.data.images[0].url;
-  const clientId = import.meta.env.VITE_CLIENT_ID;
+  const { clientId } = config;
   const navigate = useNavigate();
   console.log("toggleTheme", toggleTheme);
   const getRefreshToken = async () => {

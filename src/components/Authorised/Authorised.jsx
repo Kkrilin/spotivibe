@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import config from "../../config/config";
 const Authorised = () => {
   const navigate = useNavigate();
   const codeVerifier = localStorage.getItem("code_verifier");
   const tokenUrl = "https://accounts.spotify.com/api/token";
-  const redirectUri = "http://localhost:5173/authorised";
+  const { redirectUri } = config;
 
   const getToken = async (code) => {
     const payload = {

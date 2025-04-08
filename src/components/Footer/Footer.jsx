@@ -64,7 +64,6 @@ const Footer = () => {
     <div
       style={{
         height: "10vh",
-        backgroundColor: "black",
         marginTop: "4px",
         display: "flex",
         alignItems: "center",
