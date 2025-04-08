@@ -5,10 +5,10 @@ import { Avatar, Skeleton } from "@mui/material";
 import axios from "axios";
 import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
-import { gradientPairs, LightGradientPairs } from "../../utils/colors";
+import { getColorGradientPair } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
-
+import { useTheme } from "../Context/ThemeProvider.jsx";
 const Album = () => {
   const [albums, setAlbum] = useState(null);
   const { globalCount } = useSelector((state) => state.refresh);
@@ -16,6 +16,8 @@ const Album = () => {
   const [error, setError] = useState(false);
   const param = useParams();
   const { id } = param;
+  const { isDarkMode } = useTheme();
+  const { gradientPairs } = getColorGradientPair(isDarkMode);
   const token = localStorage.getItem("access_token", "access_token");
   const albumUrl = `https://api.spotify.com/v1/albums/${id}`;
   const header = {
@@ -23,7 +25,7 @@ const Album = () => {
       Authorization: `Bearer ${token}`,
     },
   };
-  // const gradientPairs = 
+  // const gradientPairs =
   const index = Math.floor(Math.random() * gradientPairs.length);
   const fetchAlbum = async () => {
     setLoading(true);
