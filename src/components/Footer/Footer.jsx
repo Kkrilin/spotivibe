@@ -23,7 +23,9 @@ const Footer = () => {
     },
   };
   const checkSavedSong = () => {
-    const checkSaveSongUrl = `https://api.spotify.com/v1/me/tracks/contains?ids=${songDetail.id}`;
+    const checkSaveSongUrl = `https://api.spotify.com/v1/me/tracks/contains?ids=${
+      songDetail || songDetail.id
+    }`;
 
     axios
       .get(checkSaveSongUrl, header)
@@ -36,7 +38,9 @@ const Footer = () => {
       });
   };
   useEffect(() => {
-    checkSavedSong();
+    if (songDetail) {
+      checkSavedSong();
+    }
   }, [songDetail, globalCount]);
 
   const handleLikeClick = () => {
