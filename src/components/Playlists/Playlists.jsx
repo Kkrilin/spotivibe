@@ -133,7 +133,7 @@ const PlayLists = () => {
             </h6>
             <h6 style={{ fontSize: "6rem" }}>{requiredPlaylist.name}</h6>
             <span
-              style={{ fontSize: "14px", color: "#fff", fontWeight: "bold" }}
+              style={{ fontSize: "14px", color: `${isDarkMode ? "#fff" : "#000"}`, fontWeight: "bold" }}
             >
               followers :{" "}
               {(requiredPlaylist.followers &&

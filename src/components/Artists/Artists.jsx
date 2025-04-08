@@ -185,7 +185,7 @@ const Artists = () => {
             colorGradient={index && gradientPairs[index][1]}
           />
         )}
-        <div style={{ padding: "2rem" }}>
+        <div style={{padding: "1rem 0 0 2rem" }}>
           {loading ? (
             <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
           ) : (
@@ -201,7 +201,7 @@ const Artists = () => {
             )}
           </Stack>
         </div>
-        <div style={{ padding: "2rem" }}>
+        <div style={{padding: "1rem 0 0 2rem" }}>
           {loading ? (
             <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
           ) : (

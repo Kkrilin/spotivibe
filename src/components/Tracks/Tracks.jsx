@@ -110,7 +110,7 @@ const Tracks = ({
               <Button
                 onClick={handleFollowClick}
                 style={{
-                  color: "white",
+                  color: `${isDarkMode ? "#fff" : "#000"}`,
                   textTransform: "capitalize",
                   borderRadius: "100000px",
                   padding: "2px 1rem",

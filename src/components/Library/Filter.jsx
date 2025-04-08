@@ -44,10 +44,10 @@ const Filter = ({ handleFilterClick, filter }) => {
           }
           data-filter="playlist"
           style={{
-            color: `${isDarkMode ? "#rgb(222, 218, 218)" : "#000"}`,
-            backgroundColor: `${
-              isDarkMode ? "rgba(52, 52, 52, 0.88)" : "rgb(222, 218, 218)"
-            }`,
+            // color: `${isDarkMode ? "rgb(222, 218, 218)" : "#000"}`,
+            // backgroundColor: `${
+            //   isDarkMode ? "rgba(90, 90, 90, 0.88)" : "rgb(222, 218, 218)"
+            // }`,
           }}
         >
           Playlists
@@ -56,10 +56,10 @@ const Filter = ({ handleFilterClick, filter }) => {
           className={filter === "artist" ? "artist active_filter" : "artist"}
           data-filter="artist"
           style={{
-            color: `${isDarkMode ? "#rgb(222, 218, 218)" : "#000"}`,
-            backgroundColor: `${
-              isDarkMode ? "rgba(52, 52, 52, 0.88)" : "rgb(222, 218, 218)"
-            }`,
+            // color: `${isDarkMode ? "rgb(222, 218, 218)" : "#000"}`,
+            // backgroundColor: `${
+            //   isDarkMode ? "rgba(90, 90, 90, 0.88)" : "rgb(222, 218, 218)"
+            // }`,
           }}
         >
           Artists

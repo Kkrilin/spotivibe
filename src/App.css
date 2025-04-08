@@ -89,11 +89,9 @@ input::placeholder {
 
 .library {
   width: 26rem;
-  box-shadow: rgba(51, 48, 48, 0.24) 0px 3px 8px;
   border-radius: 8px;
   padding: 1rem;
   height: 100;
-  /* margin-top: 10px; */
   padding-top: 24px;
   background-color: var(--background-base);
   padding-left: 1.2rem;

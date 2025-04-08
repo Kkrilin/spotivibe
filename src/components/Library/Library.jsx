@@ -20,7 +20,7 @@ const Library = () => {
     <div
       className="scroll left_scroll"
       style={{
-        backgroundColor: `${isDarkMode ? "#121212" : "#fff"}`,
+        backgroundColor: `${isDarkMode ? "#121212" : "#97ad9b"}`,
         color: `${isDarkMode ? "#fff" : "#000"}`,
       }}
     >
@@ -44,8 +44,19 @@ const Library = () => {
               }}
             />
             <div className="libray_menu_bar">
-              <span style={{ fontSize: "0.9rem" }}>Recents</span>
-              <ListIcon />
+              <span
+                style={{
+                  fontSize: "0.9rem",
+                  color: `${isDarkMode ? "#fff" : "#000"}`,
+                }}
+              >
+                Recents
+              </span>
+              <ListIcon
+                style={{
+                  color: `${isDarkMode ? "#fff" : "#000"}`,
+                }}
+              />
             </div>
           </div>
           <LikedSong />

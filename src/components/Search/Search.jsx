@@ -10,6 +10,8 @@ import { Skeleton, Stack } from "@mui/material";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
 import { useSelector } from "react-redux";
+import { getColorGradientPair } from "../../utils/colors";
+import { useTheme } from "../Context/ThemeProvider.jsx";
 
 const Search = () => {
   const [searchResult, setSearchResult] = useState({});
@@ -19,6 +21,9 @@ const Search = () => {
   const [error, setError] = useState("");
   const { id: search = "" } = params;
   const accessToken = localStorage.getItem("access_token");
+  const { isDarkMode } = useTheme();
+  const gradientPairs = getColorGradientPair(isDarkMode);
+  const index = Math.floor(Math.random() * gradientPairs.length);
   // Allowed values: "album", "artist", "playlist", "track",
   const searchUrl = `https://api.spotify.com/v1/search?q=${search}&type=album,track,artist,playlist`;
   const header = {
@@ -55,67 +60,73 @@ const Search = () => {
 
   return (
     <Scrollable>
-      <div style={{ padding: "2rem" }}>
-        {loading ? (
-          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
-        ) : (
-          <h3>Albums</h3>
-        )}
-        <Stack className="horizontal_scroll" direction={"row"}>
+      <div
+        style={{
+          backgroundImage: `${index && gradientPairs[index][1]}`,
+        }}
+      >
+        <div style={{ padding: "2rem 0 0 2rem" }}>
           {loading ? (
-            <CardSkeleton profile={true} type="playlist" />
+            <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
           ) : (
-            searchResult.albums.items
-              .filter((item) => item)
-              .map((item) => <AlbumCard item={item} />)
+            <h3>Albums</h3>
           )}
-        </Stack>
-      </div>
-      <div style={{ padding: "2rem" }}>
-        {loading ? (
-          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
-        ) : (
-          <h3>Playlists</h3>
-        )}
-        <Stack className="horizontal_scroll" direction={"row"}>
+          <Stack className="horizontal_scroll" direction={"row"}>
+            {loading ? (
+              <CardSkeleton profile={true} type="playlist" />
+            ) : (
+              searchResult.albums.items
+                .filter((item) => item)
+                .map((item) => <AlbumCard item={item} />)
+            )}
+          </Stack>
+        </div>
+        <div style={{ padding: "1rem 0 0 2rem"  }}>
           {loading ? (
-            <CardSkeleton profile={true} type="playlist" />
+            <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
           ) : (
-            searchResult.playlists.items
-              .filter((item) => item)
-              .map((item) => <Playlist item={item} profile={true} />)
+            <h3>Playlists</h3>
           )}
-        </Stack>
-      </div>
-      <div style={{ padding: "2rem" }}>
-        {loading ? (
-          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
-        ) : (
-          <h3>Artists</h3>
-        )}
-        <Stack className="horizontal_scroll" direction={"row"}>
+          <Stack className="horizontal_scroll" direction={"row"}>
+            {loading ? (
+              <CardSkeleton profile={true} type="playlist" />
+            ) : (
+              searchResult.playlists.items
+                .filter((item) => item)
+                .map((item) => <Playlist item={item} profile={true} />)
+            )}
+          </Stack>
+        </div>
+        <div style={{ padding: "1rem 0 0 2rem" }}>
           {loading ? (
-            <CardSkeleton profile={true} />
+            <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
           ) : (
-            searchResult.artists.items
-              .filter((item) => item)
-              .map((item) => <Artist item={item} profile={true} />)
+            <h3>Artists</h3>
           )}
-        </Stack>
-      </div>
-      <div style={{ padding: "2rem" }}>
-        {loading ? (
-          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
-        ) : (
-          <h3>Songs</h3>
-        )}
-        <Stack>
+          <Stack className="horizontal_scroll" direction={"row"}>
+            {loading ? (
+              <CardSkeleton profile={true} />
+            ) : (
+              searchResult.artists.items
+                .filter((item) => item)
+                .map((item) => <Artist item={item} profile={true} />)
+            )}
+          </Stack>
+        </div>
+        <div style={{ padding: "2rem" }}>
           {loading ? (
-            <TrackSkeleton />
+            <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
           ) : (
-            <Tracks type="search" tracks={searchResult.tracks.items} />
+            <h3>Songs</h3>
           )}
-        </Stack>
+          <Stack>
+            {loading ? (
+              <TrackSkeleton />
+            ) : (
+              <Tracks type="search" tracks={searchResult.tracks.items} />
+            )}
+          </Stack>
+        </div>
       </div>
     </Scrollable>
   );

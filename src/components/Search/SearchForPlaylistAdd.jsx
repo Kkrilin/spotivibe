@@ -4,7 +4,7 @@ import { Search } from "@mui/icons-material";
 import { Avatar, Stack } from "@mui/material";
 import { addItemToPlaylist } from "../../redux/profileSlice";
 import { useDispatch } from "react-redux";
-
+import { useTheme } from "../Context/ThemeProvider.jsx";
 const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
   const [searchResult, setSearchResult] = useState({});
   const [find, setFind] = useState(false);
@@ -63,8 +63,8 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
         <h4
           style={{
             paddingLeft: "2rem",
-            paddingBottom: "2rem",
             cursor: "pointer",
+            width: "fit-content",
           }}
           onClick={() => setFind(true)}
         >
@@ -134,6 +134,8 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
 
 const SearchTracks = ({ track, playListId, setTracks }) => {
   const dispatch = useDispatch();
+  const { isDarkMode } = useTheme();
+
   const token = localStorage.getItem("access_token");
   const addItemUrl = `https://api.spotify.com/v1/playlists/${playListId}/tracks`;
   const header = {
@@ -157,7 +159,7 @@ const SearchTracks = ({ track, playListId, setTracks }) => {
       .catch((err) => console.log(err));
   };
   return (
-    <div className="track_card">
+    <div className={`track_card ${!isDarkMode ? "light_hover" : ""}`}>
       <div style={{ width: "600px" }}>
         <Avatar
           sx={{ width: 36, height: 36 }}
@@ -170,12 +172,22 @@ const SearchTracks = ({ track, playListId, setTracks }) => {
           variant="square"
         ></Avatar>
         <div>
-          <h5 className="name" style={{ fontWeight: "500" }}>
+          <h5
+            className="name"
+            style={{
+              fontWeight: "500",
+              color: `${isDarkMode ? "#837f7f" : "#000"}`,
+            }}
+          >
             {track.name || track.track.name}
           </h5>
           <h6
             className="type"
-            style={{ fontWeight: "400", fontSize: "0.8rem" }}
+            style={{
+              fontWeight: "400",
+              fontSize: "0.8rem",
+              color: `${isDarkMode ? "#837f7f" : "#000"}`,
+            }}
           >
             {track.artists.map((ar) => ar.name).join(", ")}
           </h6>
