@@ -100,7 +100,7 @@ const SideBar = () => {
               gap: "1rem",
               // alignItems: "center",
               padding: "2rem",
-              backgroundColor: `${!isDarkMode ? "#97ad9b" : "#000"}`,
+              backgroundColor: `${!isDarkMode ? "#97ad9b" : "#1F1F1F"}`,
               margin: "1rem 1rem 0 1rem",
               borderRadius: "1rem",
               height: "20rem",
