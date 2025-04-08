@@ -247,7 +247,7 @@ input::placeholder {
   overflow-x: hidden;
 }
 
-.left_scroll:: {
+.left_scroll::-webkit-scrollbar-track{
   width: 0px;
   background-color: transparent;
 }
