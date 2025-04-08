@@ -6,7 +6,7 @@ import redirectToSpotifyAuthorize from "../auth/authService";
 import config from "../config/config";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const redirectUri = "http://localhost:5173/authorised";
+  const { redirectUri } = config;
   const { clientId } = config;
   console.log(clientId, "clientId");
   // useEffect(() => {
