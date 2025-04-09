@@ -47,7 +47,6 @@ const Album = () => {
   return (
     <Scrollable
       name={albums && albums.name}
-      bgColor={index && gradientPairs[index][0]}
     >
       {loading ? (
         <ProfileSkeleton />
@@ -91,7 +90,8 @@ const Album = () => {
       )}
       <div
         style={{
-          backgroundImage: `${index && gradientPairs[index][0]}`,
+          backgroundImage: `${index && gradientPairs[index][1]}`,
+          padding: "2rem",
         }}
       >
         {loading ? (
