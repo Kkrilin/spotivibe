@@ -415,11 +415,10 @@ a {
 }
 
 .side_bar {
-  width: 26rem;
+  width: 0rem;
   box-shadow: rgba(51, 48, 48, 0.24) 0px 3px 8px;
   border-radius: 8px;
   height: 8vh;
-  animation: show 0.8s forwards;
 }
 
 .shuffle,

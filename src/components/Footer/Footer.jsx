@@ -22,10 +22,9 @@ const Footer = () => {
       Authorization: `Bearer ${token}`,
     },
   };
+
   const checkSavedSong = () => {
-    const checkSaveSongUrl = `https://api.spotify.com/v1/me/tracks/contains?ids=${
-      songDetail || songDetail.id
-    }`;
+    const checkSaveSongUrl = `https://api.spotify.com/v1/me/tracks/contains?ids=${songDetail.id}`;
 
     axios
       .get(checkSaveSongUrl, header)

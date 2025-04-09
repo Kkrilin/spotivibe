@@ -41,9 +41,7 @@ const Tracks = ({
   const { isDarkMode } = useTheme();
 
   return (
-    <div
-      
-    >
+    <div>
       <div
         style={{ display: "flex", alignItems: "center", paddingTop: "1rem" }}
       >
@@ -213,11 +211,11 @@ const Track = ({
       });
   };
 
-  // useEffect(() => {
-  //   if (songDetail.id === id) {
-  //     checkSavedSong();
-  //   }
-  // }, [songLike]);
+  useEffect(() => {
+    if (songDetail.id === id) {
+      checkSavedSong();
+    }
+  }, [songLike]);
 
   useEffect(() => {
     checkSavedSong();
@@ -276,7 +274,9 @@ const Track = ({
             variant="square"
           ></Avatar>
         )}
-        <h4 style={{ color: `${isDarkMode ? "#fff" : "#000"}`, }}>{track.name || track.track.name}</h4>
+        <h4 style={{ color: `${isDarkMode ? "#fff" : "#000"}` }}>
+          {track.name || track.track.name}
+        </h4>
       </div>
       <span>{track.popularity}</span>
       {hover ? (

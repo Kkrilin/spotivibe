@@ -18,10 +18,14 @@ const songDetailSlice = createSlice({
       state.open = true;
       state.loading = false;
       state.error = false;
-      state.sideBarStyle = {};
+      state.sideBarStyle = {
+        width: "26rem",
+        animation: "show 0.8s forwards",
+      };
     },
     closeSongDetail(state) {
       state.open = false;
+      // state.songDetail = null;
       state.sideBarStyle = {
         marginLeft: "-10px",
         width: "0rem",
