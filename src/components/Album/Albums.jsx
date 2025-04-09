@@ -17,7 +17,7 @@ const Album = () => {
   const param = useParams();
   const { id } = param;
   const { isDarkMode } = useTheme();
-  const  gradientPairs  = getColorGradientPair(isDarkMode);
+  const gradientPairs = getColorGradientPair(isDarkMode);
   const token = localStorage.getItem("access_token", "access_token");
   const albumUrl = `https://api.spotify.com/v1/albums/${id}`;
   const header = {
@@ -89,15 +89,21 @@ const Album = () => {
           </div>
         </div>
       )}
-      {loading ? (
-        <TrackSkeleton />
-      ) : (
-        <Tracks
-          type={albums && albums.type}
-          tracks={albums ? albums.tracks.items : []}
-          colorGradient={gradientPairs[index][1]}
-        />
-      )}
+      <div
+        style={{
+          backgroundImage: `${index && gradientPairs[index][0]}`,
+        }}
+      >
+        {loading ? (
+          <TrackSkeleton />
+        ) : (
+          <Tracks
+            type={albums && albums.type}
+            tracks={albums ? albums.tracks.items : []}
+            colorGradient={gradientPairs[index][1]}
+          />
+        )}
+      </div>
     </Scrollable>
   );
 };
