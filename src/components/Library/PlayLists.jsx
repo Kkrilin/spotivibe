@@ -9,7 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
 import { useTheme } from "../Context/ThemeProvider.jsx";
-const PlayLists = () => {
+
+const PlayLists = ({ search }) => {
   const { playlists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,13 @@ const PlayLists = () => {
     fetchPlayList();
   }, [globalCount]);
 
+  let filteredPlaylist = playlists;
+
+  if (search) {
+    filteredPlaylist = playlists.filter((pl) =>
+      pl.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
   if (error) {
     return <h1>{error}</h1>;
   }
@@ -50,7 +58,9 @@ const PlayLists = () => {
       {loading ? (
         <CardSkeleton type={"playlist"} />
       ) : (
-        playlists.map((item, index) => <Playlist key={index} item={item} />)
+        filteredPlaylist.map((item, index) => (
+          <Playlist key={index} item={item} />
+        ))
       )}
     </>
   );

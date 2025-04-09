@@ -22,12 +22,10 @@ const PlayLists = () => {
   const [follow, setFollow] = useState(false);
   const param = useParams();
   const { isDarkMode } = useTheme();
-  console.log("isDarkMode", isDarkMode);
   const gradientPairs = getColorGradientPair(isDarkMode);
   const dispatch = useDispatch();
   const [requiredPlaylist, setRequiredPlaylist] = useState({});
   const { id } = param;
-  console.log("tracks", tracks);
   const indexRef = useRef(null);
   const index = indexRef.current;
   const token = localStorage.getItem("access_token", "access_token");

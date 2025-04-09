@@ -247,7 +247,7 @@ input::placeholder {
   overflow-x: hidden;
 }
 
-.left_scroll::-webkit-scrollbar-track{
+.left_scroll::-webkit-scrollbar-track {
   width: 0px;
   background-color: transparent;
 }
@@ -469,6 +469,21 @@ a {
 }
 .light_hover:hover {
   background-color: rgba(140, 241, 176, 0.322);
+}
+
+.filter_search {
+  animation: searchShow 0.4s ease-in-out forwards;
+}
+
+@keyframes searchShow {
+  from {
+    width: 0px;
+    height: 0px;
+  }
+  to {
+    width: 14rem;
+    height: 2.5rem;
+  }
 }
 @keyframes show {
   from {

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
 import { useTheme } from "../Context/ThemeProvider.jsx";
 
-const Artists = () => {
+const Artists = ({ search }) => {
   const { artists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
@@ -37,6 +37,14 @@ const Artists = () => {
   useEffect(() => {
     fetchArtist();
   }, [globalCount]);
+  let filteredArtists = artists;
+
+  if (search) {
+    filteredArtists = artists.filter((ar) =>
+      ar.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+
   if (error) {
     return <h1>{error}</h1>;
   }
@@ -46,7 +54,7 @@ const Artists = () => {
       {loading ? (
         <CardSkeleton />
       ) : (
-        artists.map((item, index) => (
+        filteredArtists.map((item, index) => (
           <Artist key={index} item={item} loading={loading} />
         ))
       )}
@@ -57,7 +65,6 @@ const Artists = () => {
 export const Artist = ({ item, profile }) => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
-
   return (
     <div
       className={

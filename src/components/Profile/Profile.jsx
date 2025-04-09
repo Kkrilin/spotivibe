@@ -23,7 +23,6 @@ const Profile = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const { isDarkMode } = useTheme();
-  console.log("isDarkMode", isDarkMode);
   const gradientPairs = getColorGradientPair(isDarkMode);
   const dispatch = useDispatch();
   const indexRef = useRef(null);

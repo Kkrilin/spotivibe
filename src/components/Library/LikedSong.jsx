@@ -41,7 +41,6 @@ const LikedSong = () => {
   if (error) {
     return <h1>{error}</h1>;
   }
-  console.log("liked songs", likedSongs);
   return (
     <>
       {!loading && likedSongs.length && (

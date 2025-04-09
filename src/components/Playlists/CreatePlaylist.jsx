@@ -50,7 +50,6 @@ const CreatePlayList = ({ handleClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Creating playlist...");
     createPlaylist();
     handleClose();
   };

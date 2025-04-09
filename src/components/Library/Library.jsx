@@ -9,6 +9,8 @@ import { useTheme } from "../Context/ThemeProvider.jsx";
 const Library = () => {
   const [filter, setFilter] = useState("");
   const { isDarkMode } = useTheme();
+  const [search, setSearch] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const handleFilterClick = (e) => {
     if (["playlist", "artist"].includes(e.target.dataset.filter)) {
       setFilter((state) =>
@@ -35,14 +37,48 @@ const Library = () => {
           }}
         >
           <div className="library_search">
-            <SearchIcon
+            <div
               style={{
-                width: "1.8rem",
-                height: "1.8rem",
-                color: `${isDarkMode ? "#777676" : "#000"}`,
-                fontWeight: "800",
+                display: "flex",
+                justifyContent: "start",
+                position: "relative",
+                height: "3rem",
+                alignItems: "center",
               }}
-            />
+            >
+              <SearchIcon
+                style={{
+                  // width: "1.8rem",
+                  // height: "1.8rem",
+                  left: "0",
+                  color: `${isDarkMode ? "#777676" : "#000"}`,
+                  fontWeight: "800",
+                  cursor: "pointer",
+                  position: "absolute",
+                }}
+                onClick={() => setIsSearchOpen((state) => !state)}
+              />
+              {isSearchOpen && (
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={search}
+                  onInput={(e) => setSearch(e.target.value)}
+                  onBlur={() => {
+                    setSearch("");
+                    setIsSearchOpen((state) => !state);
+                  }}
+                  style={{
+                    borderRadius: "4px",
+                    paddingLeft: "1.6rem",
+                    backgroundColor: `${isDarkMode ? "#1F1F1F" : "#fff"}`,
+                    color: `${isDarkMode ? "#fff" : "#000"}`,
+                    width: "0",
+                  }}
+                  className={`${isSearchOpen}` ? "filter_search" : ""}
+                />
+              )}
+            </div>
             <div className="libray_menu_bar">
               <span
                 style={{
@@ -60,8 +96,8 @@ const Library = () => {
             </div>
           </div>
           <LikedSong />
-          {(filter === "artist" || !filter) && <Artists />}
-          {(filter === "playlist" || !filter) && <PlayLists />}
+          {(filter === "artist" || !filter) && <Artists search={search} />}
+          {(filter === "playlist" || !filter) && <PlayLists search={search} />}
           {/* <Artists />
         <PlayLists /> */}
         </div>

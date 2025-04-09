@@ -7,7 +7,6 @@ const SideBar = () => {
   const { songDetail, sideBarStyle } = useSelector((state) => state.songDetail);
   const dispatch = useDispatch();
   const { isDarkMode } = useTheme();
-  console.log("songDeatl", songDetail);
   const handleClick = () => {
     dispatch(closeSongDetail());
   };

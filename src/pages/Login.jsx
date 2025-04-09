@@ -8,7 +8,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { redirectUri } = config;
   const { clientId } = config;
-  console.log(clientId, "clientId");
   // useEffect(() => {
   //   const authoriseTheApp = async () => {
   //     await redirectToSpotifyAuthorize(clientId, redirectUri);

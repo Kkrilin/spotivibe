@@ -17,7 +17,6 @@ function Header() {
   const imgUrl = profileData.data.images && profileData.data.images[0].url;
   const { clientId } = config;
   const navigate = useNavigate();
-  console.log("toggleTheme", toggleTheme);
   const getRefreshToken = async () => {
     // refresh token that has been previously stored
     const refreshToken = localStorage.getItem("refresh_token");

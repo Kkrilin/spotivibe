@@ -177,7 +177,6 @@ const Track = ({
   const { songDetail, songLike } = useSelector((state) => state.songDetail);
   const token = localStorage.getItem("access_token");
   const { isDarkMode } = useTheme();
-  console.log("isDarkMode", isDarkMode);
   const handleMouseOver = () => {
     setHover(true);
   };
@@ -231,7 +230,6 @@ const Track = ({
         .delete(songLikeUrl, header)
         .then((res) => {
           setLike(false);
-          console.log("songDetail unlike", songDetail.id, id);
           if (songDetail.id === id) {
             dispatch(likeSong({ data: false }));
           }
@@ -243,8 +241,6 @@ const Track = ({
         .put(songLikeUrl, null, header)
         .then((res) => {
           setLike(true);
-          console.log("songDetail like", songDetail.id, id);
-          console.log("track", track);
           if (songDetail.id === id) {
             dispatch(likeSong({ data: true }));
           }

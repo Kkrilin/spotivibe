@@ -32,7 +32,6 @@ const HomeScreen = () => {
     axios
       .get(newReleasesAlbumUrl, header)
       .then((res) => {
-        console.log(res.data.albums.items);
         setNewRelease(res.data.albums.items);
         indexRef.current = Math.floor(Math.random() * gradientPairs.length);
       })

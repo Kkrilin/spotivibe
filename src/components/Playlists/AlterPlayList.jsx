@@ -50,7 +50,6 @@ const AlterPlayList = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Creating playlist...");
     createPlaylist();
     handleClose();
   };
@@ -234,7 +233,6 @@ const CheckBoxPlaylist = ({
           removeAddItemUrl,
           deletePayload
         );
-        console.log("removeResonse", removeResonse.data);
         setCheck(false);
         if (pList.id === requiredPlaylist.id) {
           setTracks((prev) => {
@@ -246,9 +244,7 @@ const CheckBoxPlaylist = ({
           handleClose();
         }
       } else {
-        console.log("adding", body);
         const addResonse = await axios.post(removeAddItemUrl, body, header);
-        console.log("addResponse", addResonse.data);
         setCheck(true);
       }
     } catch (error) {
@@ -259,7 +255,6 @@ const CheckBoxPlaylist = ({
   //     handleCheck();
   //   }, [pList.id, trackId]);
 
-  console.log("playlist-------------", playlist);
   return (
     <div
       className={`small_card ${!isDarkMode ? "light_hover" : ""}`}

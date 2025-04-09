@@ -17,7 +17,7 @@ const Album = () => {
   const param = useParams();
   const { id } = param;
   const { isDarkMode } = useTheme();
-  const { gradientPairs } = getColorGradientPair(isDarkMode);
+  const  gradientPairs  = getColorGradientPair(isDarkMode);
   const token = localStorage.getItem("access_token", "access_token");
   const albumUrl = `https://api.spotify.com/v1/albums/${id}`;
   const header = {
