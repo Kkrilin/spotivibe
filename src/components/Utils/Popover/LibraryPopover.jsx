@@ -11,6 +11,7 @@ export default function LibraryPopover({
   requiredPlaylist,
   setRequiredPlaylist,
   setTracks,
+  colorGradient
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -57,6 +58,7 @@ export default function LibraryPopover({
           requiredPlaylist={requiredPlaylist}
           setRequiredPlaylist={setRequiredPlaylist}
           setTracks={setTracks}
+          colorGradient={colorGradient}
         />
       </Popover>
     </div>

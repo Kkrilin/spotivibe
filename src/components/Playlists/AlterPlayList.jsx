@@ -6,16 +6,18 @@ import { addPlaylist } from "../../redux/profileSlice";
 import { useDispatch } from "react-redux";
 import { Search } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
-
+import { useTheme } from "../Context/ThemeProvider.jsx";
 const AlterPlayList = ({
   handleClose,
   track,
   requiredPlaylist,
   setRequiredPlaylist,
   setTracks,
+  colorGradient,
 }) => {
   const { data, playlists } = useSelector((state) => state.profile);
-  console.log("playlists", playlists);
+  const [searchPlaylist, setSearchPlaylist] = useState("");
+  const { isDarkMode } = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = data.id;
@@ -53,13 +55,22 @@ const AlterPlayList = ({
     handleClose();
   };
 
+  let filteredPLaylists = playlists.filter(
+    (pList) => data.id === pList.owner.id
+  );
+
+  if (searchPlaylist) {
+    filteredPLaylists = filteredPLaylists.filter((playlist) =>
+      playlist.name.toLowerCase().includes(searchPlaylist.toLowerCase())
+    );
+  }
+
   return (
     <div
       className="alterPlaylist_container"
       style={{
         width: "16vw",
-        backgroundColor: "#181818",
-        color: "#fff",
+        backgroundColor: `${isDarkMode ? "#181818" : colorGradient}`,
         padding: "1rem",
       }}
     >
@@ -85,8 +96,8 @@ const AlterPlayList = ({
         <input
           type="text"
           placeholder="Find a playlist"
-          //   value={search}
-          //   onChange={(e) => setSearch(e.target.value)}
+          value={searchPlaylist}
+          onChange={(e) => setSearchPlaylist(e.target.value)}
           style={{
             borderRadius: "4px",
             height: "2rem",
@@ -113,7 +124,7 @@ const AlterPlayList = ({
           marginBottom: "0.8rem",
         }}
       >
-        {playlists.map((playlist) => (
+        {filteredPLaylists.map((playlist) => (
           <div key={playlist.id}>
             <CheckBoxPlaylist
               pList={playlist}
@@ -132,9 +143,9 @@ const AlterPlayList = ({
         style={{
           textAlign: "right",
           marginTop: "1rem",
-          color: "#000",
+          color: `${isDarkMode ? "#fff" : "#000"}`,
           fontSize: "1rem",
-          backgroundColor: "#fff",
+          backgroundColor: `${isDarkMode ? "#000" : "#fff"}`,
           // width: "2rem",
           cursor: "pointer",
           padding: "0.5rem",
@@ -158,7 +169,6 @@ const CheckBoxPlaylist = ({
   pList,
   trackId,
   requiredPlaylist,
-  setRrequiredPlaylist,
   handleClose,
   setTracks,
 }) => {
@@ -167,6 +177,8 @@ const CheckBoxPlaylist = ({
   const [error, setError] = useState(null);
   const [check, setCheck] = useState(false);
   const token = localStorage.getItem("access_token");
+  const { isDarkMode } = useTheme();
+
   const playListUrl = `https://api.spotify.com/v1/playlists/${pList.id}`;
   const header = {
     headers: {
@@ -250,7 +262,7 @@ const CheckBoxPlaylist = ({
   console.log("playlist-------------", playlist);
   return (
     <div
-      className="small_card"
+      className={`small_card ${!isDarkMode ? "light_hover" : ""}`}
       style={{
         justifyContent: "space-between",
         height: "50px",
@@ -263,6 +275,7 @@ const CheckBoxPlaylist = ({
           alignItems: "center",
           justifyContent: "space-between",
           color: "#fff",
+
           width: "100%",
         }}
       >
@@ -277,7 +290,12 @@ const CheckBoxPlaylist = ({
             }
             variant="rounded"
           />
-          <h5 className="name">{playlist.name}</h5>
+          <h5
+            className="name"
+            style={{ color: `${isDarkMode ? "#fff" : "#000"}` }}
+          >
+            {playlist.name}
+          </h5>
         </div>
         <input
           style={{ width: "20px", height: "20px", borderRadius: "50%" }}

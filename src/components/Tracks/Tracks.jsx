@@ -23,6 +23,7 @@ const Tracks = ({
   setRequiredPlaylist,
   setTracks,
 }) => {
+  const { isDarkMode } = useTheme();
   if (["playlist_search", "search"].includes(type)) {
     return (
       <div style={{ padding: "1.5rem" }}>
@@ -38,7 +39,6 @@ const Tracks = ({
       </div>
     );
   }
-  const { isDarkMode } = useTheme();
 
   return (
     <div>
@@ -145,6 +145,7 @@ const Tracks = ({
               requiredPlaylist={requiredPlaylist}
               setRequiredPlaylist={setRequiredPlaylist}
               setTracks={setTracks}
+              colorGradient={colorGradient}
             />
           ))}
       </div>
@@ -160,6 +161,7 @@ const Track = ({
   requiredPlaylist,
   setRequiredPlaylist,
   setTracks,
+  colorGradient,
 }) => {
   const [hover, setHover] = useState(false);
   const dispatch = useDispatch();
@@ -312,6 +314,7 @@ const Track = ({
             requiredPlaylist={requiredPlaylist}
             setRequiredPlaylist={setRequiredPlaylist}
             setTracks={setTracks}
+            colorGradient={colorGradient}
           >
             <div className="search_add">
               <h3>Add</h3>
