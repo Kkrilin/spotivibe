@@ -1,27 +1,23 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Skeleton, Typography, Avatar } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLikedSongs } from "../../redux/profileSlice.js";
-import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+import { getHeader, likedUrl } from "../../config/index.js";
+import { Avatar } from "@mui/material";
+
 const LikedSong = () => {
   const { likedSongs } = useSelector((state) => state.profile);
-  const { songLike } = useSelector((state) => state.songDetail);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = localStorage.getItem("access_token", "access_token");
-  const likedUrl = "https://api.spotify.com/v1/me/tracks";
-  const header = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const token = localStorage.getItem("access_token");
+  const header = getHeader(token);
+
   const fetchLikedSong = async () => {
     setLoading(true);
     try {
@@ -30,10 +26,10 @@ const LikedSong = () => {
     } catch (error) {
       setError(error.response.data.error.message);
     } finally {
-      // setTimeout(() => setLoading(false), 5000);
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchLikedSong();
   }, [globalCount]);
@@ -52,7 +48,6 @@ const LikedSong = () => {
             sx={{ bgcolor: "#311F76", width: 50, height: 50 }}
             alt="Spotify logo"
             variant="rounded"
-            // src={item.images[0] && item.images[0].url}
           />
           <div>
             <span

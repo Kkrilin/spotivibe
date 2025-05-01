@@ -6,8 +6,7 @@ import config from "../../config/config";
 const Authorised = () => {
   const navigate = useNavigate();
   const codeVerifier = localStorage.getItem("code_verifier");
-  const tokenUrl = "https://accounts.spotify.com/api/token";
-  const { redirectUri, clientId } = config;
+  const { redirectUri, clientId, tokenUrl } = config;
 
   const getToken = async (code) => {
     const payload = {

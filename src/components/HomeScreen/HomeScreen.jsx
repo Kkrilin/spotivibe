@@ -6,6 +6,7 @@ import Scrollable from "../Utils/Scrollable.jsx";
 import { useSelector } from "react-redux";
 import { getColorGradientPair } from "../../utils/colors";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+import { getHeader, newReleasesAlbumUrl } from "../../config/index.js";
 
 const HomeScreen = () => {
   const [newRelease, setNewRelease] = useState([]);
@@ -16,12 +17,7 @@ const HomeScreen = () => {
   const indexRef = useRef(null);
   const index = indexRef.current;
 
-  const header = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-  const newReleasesAlbumUrl = "https://api.spotify.com/v1/browse/new-releases";
+  const header = getHeader(accessToken);
 
   useEffect(() => {
     axios
@@ -47,7 +43,7 @@ const HomeScreen = () => {
           <h2>Album</h2>
           <HorizontalScroll>
             <div className="album_container">
-              {newRelease.length &&
+              {newRelease.length > 0 &&
                 newRelease.map((item) => <AlbumCard item={item} />)}
             </div>
           </HorizontalScroll>

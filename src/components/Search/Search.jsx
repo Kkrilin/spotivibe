@@ -12,6 +12,7 @@ import { getColorGradientPair } from "../../utils/colors";
 import { useTheme } from "../Context/ThemeProvider.jsx";
 import Artist from "../Library/Artist.jsx";
 import Playlist from "../Library/PlayList.jsx";
+import { getHeader, searchUrl } from "../../config/index.js";
 
 const Search = () => {
   const [searchResult, setSearchResult] = useState({});
@@ -25,17 +26,11 @@ const Search = () => {
   const gradientPairs = getColorGradientPair(isDarkMode);
   const index = Math.floor(Math.random() * gradientPairs.length);
 
-  // Allowed values: "album", "artist", "playlist", "track",
-  const searchUrl = `https://api.spotify.com/v1/search?q=${search}&type=album,track,artist,playlist`;
-  const header = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
+  const header = getHeader(accessToken);
   useEffect(() => {
     setLoading(true);
     axios
-      .get(searchUrl, header)
+      .get(searchUrl(search), header)
       .then((res) => {
         setError("");
         if (res.status !== 200) {

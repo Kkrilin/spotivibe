@@ -1,17 +1,8 @@
 import { Button, Avatar } from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { useMemo, useState, useEffect } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { likeSong, setSongDetail } from "../../redux/songDetailSlice";
-import BasicPopover from "../Utils/Popover/BasicPopover";
-import { AddCircleOutline } from "@mui/icons-material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { addLikeSong, removeLikeSong } from "../../redux/profileSlice";
-import LibraryPopover from "../Utils/Popover/LibraryPopover";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+import Track from "./Track.jsx";
 
 const Tracks = ({
   tracks,
@@ -69,9 +60,10 @@ const Tracks = ({
             }}
           ></div>
         </div>
-        {type !== "like" ? (
+        {type === "like" && ""}
+        {type !== "like" && (
           <>
-            {["album", "playlist"].includes(type) ? (
+            {["album", "playlist"].includes(type) && (
               <div
                 onClick={
                   type === "playlist"
@@ -79,7 +71,7 @@ const Tracks = ({
                     : () => console.log(type)
                 }
               >
-                {follow ? (
+                {follow && (
                   <CheckCircleOutlineIcon
                     style={{
                       width: "2rem",
@@ -91,7 +83,8 @@ const Tracks = ({
                     }}
                     className="check_follow"
                   />
-                ) : (
+                )}
+                {!follow && (
                   <AddCircleOutlineIcon
                     style={{
                       width: "2rem",
@@ -104,7 +97,8 @@ const Tracks = ({
                   />
                 )}
               </div>
-            ) : (
+            )}
+            {!["album", "playlist"].includes(type) && (
               <Button
                 onClick={handleFollowClick}
                 style={{
@@ -128,8 +122,6 @@ const Tracks = ({
               <span>&#9679;</span>
             </div>
           </>
-        ) : (
-          ""
         )}
       </div>
       <h2 style={{ marginTop: "20px" }}>Top Track</h2>
@@ -149,183 +141,6 @@ const Tracks = ({
             />
           ))}
       </div>
-    </div>
-  );
-};
-
-const Track = ({
-  track,
-  count,
-  id,
-  type,
-  requiredPlaylist,
-  setRequiredPlaylist,
-  setTracks,
-  colorGradient,
-}) => {
-  const [hover, setHover] = useState(false);
-  const dispatch = useDispatch();
-  const [like, setLike] = useState();
-  const [error, setError] = useState(false);
-  const value = useMemo(() => {
-    const minute = Math.floor(
-      (track.duration_ms || track.track.duration_ms) / (60 * 1000)
-    );
-    const second = (track.duration_ms || track.track.duration_ms) % 60;
-    return `${minute}:${second}`;
-  }, []);
-  const { songDetail, songLike } = useSelector((state) => state.songDetail);
-  const token = localStorage.getItem("access_token");
-  const { isDarkMode } = useTheme();
-  const handleMouseOver = () => {
-    setHover(true);
-  };
-  const handleMouseOut = () => {
-    setHover(false);
-  };
-  const header = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const songDetailUrl = `https://api.spotify.com/v1/tracks/${id}`;
-  const handleSongClick = () => {
-    axios
-      .get(songDetailUrl, header)
-      .then((res) => {
-        dispatch(setSongDetail({ data: res.data }));
-        localStorage.setItem("songDetail", JSON.stringify(res.data));
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const checkSavedSong = () => {
-    const checkSaveSongUrl = `https://api.spotify.com/v1/me/tracks/contains?ids=${id}`;
-
-    axios
-      .get(checkSaveSongUrl, header)
-      .then((res) => {
-        setLike(res.data[0]);
-      })
-      .catch((err) => {
-        setError(err.response.data.error.message);
-      });
-  };
-
-  useEffect(() => {
-    if (songDetail && songDetail.id === id) {
-      checkSavedSong();
-    }
-  }, [songLike]);
-
-  useEffect(() => {
-    checkSavedSong();
-  }, []);
-
-  const handleLikeClick = () => {
-    const songLikeUrl = `https://api.spotify.com/v1/me/tracks?ids=${id}`;
-    header.headers["Content-Type"] = "application/json";
-    if (like) {
-      axios
-        .delete(songLikeUrl, header)
-        .then((res) => {
-          setLike(false);
-          if (songDetail.id === id) {
-            dispatch(likeSong({ data: false }));
-          }
-          dispatch(removeLikeSong({ id: id }));
-        })
-        .catch((err) => setError(err.response.data.error.message));
-    } else {
-      axios
-        .put(songLikeUrl, null, header)
-        .then((res) => {
-          setLike(true);
-          if (songDetail.id === id) {
-            dispatch(likeSong({ data: true }));
-          }
-          dispatch(addLikeSong({ item: { track: track.track || track } }));
-        })
-        .catch((err) => setError(err.response.data.error.message));
-    }
-  };
-  return (
-    <div
-      className={`track_card ${!isDarkMode ? "light_hover" : ""}`}
-      onMouseEnter={handleMouseOver}
-      onMouseLeave={handleMouseOut}
-      id={id}
-    >
-      <div style={{ width: "600px" }} onClick={handleSongClick}>
-        <h3 style={{ textAlign: "right" }}>{count}</h3>
-        {type === "album" ? (
-          ""
-        ) : (
-          <Avatar
-            sx={{ width: 36, height: 36 }}
-            alt="Spotify logo"
-            src={
-              track.album
-                ? track.album.images[0].url
-                : track.track.album.images[0].url
-            }
-            variant="square"
-          ></Avatar>
-        )}
-        <h4 style={{ color: `${isDarkMode ? "#fff" : "#000"}` }}>
-          {track.name || track.track.name}
-        </h4>
-      </div>
-      <span>{track.popularity}</span>
-      {hover ? (
-        // <BasicPopover>
-        // <div onClick={handleLikeClick}>
-        <>
-          {like ? (
-            <CheckCircleIcon
-              style={{
-                color: "lightGreen",
-                borderRadius: "50%",
-                cursor: "pointer",
-                width: "1.2rem",
-                height: "1.2rem",
-              }}
-              onClick={handleLikeClick}
-            />
-          ) : (
-            <AddCircleOutline
-              style={{
-                width: "1.2rem",
-                height: "1.2rem",
-                borderRadius: "50%",
-                color: "grey",
-                cursor: "pointer",
-              }}
-              onClick={handleLikeClick}
-              className="check_follow"
-            />
-          )}
-          <LibraryPopover
-            track={track}
-            requiredPlaylist={requiredPlaylist}
-            setRequiredPlaylist={setRequiredPlaylist}
-            setTracks={setTracks}
-            colorGradient={colorGradient}
-          >
-            <div className="search_add">
-              <h3>Add</h3>
-            </div>
-          </LibraryPopover>
-        </>
-      ) : (
-        // </div>
-        // </BasicPopover>
-        <>
-          <div style={{ width: "1.2rem", height: "1.2rem" }}></div>
-          <div style={{ width: "4rem", height: "1.2rem" }}></div>
-        </>
-      )}
-      <h3 style={{ width: "1.2rem" }}>{value}</h3>
     </div>
   );
 };

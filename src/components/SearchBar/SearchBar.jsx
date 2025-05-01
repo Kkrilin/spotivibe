@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  // const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   // debounced with funtion
@@ -40,7 +39,6 @@ const SearchBar = () => {
             backgroundColor: "rgb(67, 66, 66)",
             borderRadius: "50%",
             marginRight: "10px",
-            // padding:'5px',
           }}
         >
           <HomeFilled
@@ -74,8 +72,6 @@ const SearchBar = () => {
           className={styles.search_Input}
           type="text"
           placeholder="Search..."
-          // value={search}
-          // onInput={(e) => setSearch(e.target.value)}
           onChange={(e) => handleSearch(e.target.value)}
         />
       </div>

@@ -12,6 +12,13 @@ import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
 import SearchForPlaylistAdd from "../Search/SearchForPlaylistAdd.jsx";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+import {
+  checkPlaylistFollowUrl,
+  followPlaylistUrl,
+  getHeader,
+  playListItemUrl,
+  playListUrl,
+} from "../../config/index.js";
 
 const PlayLists = () => {
   const { playlists } = useSelector((state) => state.profile);
@@ -28,16 +35,8 @@ const PlayLists = () => {
   const { id } = param;
   const indexRef = useRef(null);
   const index = indexRef.current;
-  const token = localStorage.getItem("access_token", "access_token");
-  const playListItemUrl = `https://api.spotify.com/v1/playlists/${id}/tracks`;
-  const playListUrl = `https://api.spotify.com/v1/playlists/${id}`;
-  const checkFollowUrl = `https://api.spotify.com/v1/playlists/${id}/followers/contains`;
-  const followUrl = `https://api.spotify.com/v1/playlists/${id}/followers`;
-  const header = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const token = localStorage.getItem("access_token");
+  const header = getHeader(token);
 
   const data = {
     public: true,
@@ -46,11 +45,11 @@ const PlayLists = () => {
     header.headers["Content-Type"] = "application/json";
     try {
       if (follow) {
-        await axios.delete(followUrl, header);
+        await axios.delete(followPlaylistUrl(id), header);
         dispatch(removePlaylist({ id }));
         setFollow(false);
       } else {
-        await axios.put(followUrl, data, header);
+        await axios.put(followPlaylistUrl(id), data, header);
         dispatch(addPlaylist({ data: requiredPlaylist }));
         setFollow(true);
       }
@@ -64,11 +63,14 @@ const PlayLists = () => {
       try {
         let playlist = playlists.find((pl) => pl.id === id);
         if (!playlist) {
-          const playListResponse = await axios.get(playListUrl, header);
+          const playListResponse = await axios.get(playListUrl(id), header);
           playlist = playListResponse.data;
         }
-        const followCheckResponse = await axios.get(checkFollowUrl, header);
-        const response = await axios.get(playListItemUrl, header);
+        const followCheckResponse = await axios.get(
+          checkPlaylistFollowUrl(id),
+          header
+        );
+        const response = await axios.get(playListItemUrl(id), header);
         setRequiredPlaylist(playlist);
         setFollow(followCheckResponse.data[0]);
         setTracks(response.data.items);
@@ -152,9 +154,8 @@ const PlayLists = () => {
           minHeight: "52.7vh",
         }}
       >
-        {loading ? (
-          <TrackSkeleton />
-        ) : (
+        {loading && <TrackSkeleton />}
+        {!loading && (
           <Tracks
             handleFollowClick={handleFollowClick}
             follow={follow}

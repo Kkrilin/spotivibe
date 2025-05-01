@@ -1,24 +1,20 @@
 import { Avatar } from "@mui/material";
 import { useTheme } from "../Context/ThemeProvider";
 import axios from "axios";
+import { getHeader, removeAddItemUrl } from "../../config";
 
 const SearchTracks = ({ track, playListId, setTracks }) => {
   const { isDarkMode } = useTheme();
 
   const token = localStorage.getItem("access_token");
-  const addItemUrl = `https://api.spotify.com/v1/playlists/${playListId}/tracks`;
-  const header = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  };
+  const header = getHeader(token);
+  header.headers["Content-Type"] = "application/json";
   const body = {
     uris: [`spotify:track:${track.id}`],
   };
   const handleAddClick = () => {
     axios
-      .post(addItemUrl, body, header)
+      .post(removeAddItemUrl(playListId), body, header)
       .then(() => {
         setTracks((state) => {
           return [...state, { track }];

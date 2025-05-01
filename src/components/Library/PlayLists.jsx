@@ -23,7 +23,6 @@ const PlayLists = ({ search }) => {
     try {
       const response = await axios.get(myPlaylisturl, header);
       dispatch(setPlalists({ data: response.data.items }));
-      console.log(3333333333);
     } catch (error) {
       setError(error.response.data.error.message);
     } finally {

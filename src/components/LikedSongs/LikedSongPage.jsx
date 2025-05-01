@@ -4,7 +4,8 @@ import Scrollable from "../Utils/Scrollable";
 import Tracks from "../Tracks/Tracks";
 import { getColorGradientPair } from "../../utils/colors";
 import { useTheme } from "../Context/ThemeProvider.jsx";
-const LikedSongs = () => {
+
+const LikedSongPage = () => {
   const { likedSongs, data: mydata } = useSelector((state) => state.profile);
   const { isDarkMode } = useTheme();
   const gradientPairs = getColorGradientPair(isDarkMode);
@@ -91,4 +92,4 @@ const LikedSongs = () => {
   );
 };
 
-export default LikedSongs;
+export default LikedSongPage;

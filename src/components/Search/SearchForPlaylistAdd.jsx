@@ -5,6 +5,7 @@ import { Stack } from "@mui/material";
 import { useTheme } from "../Context/ThemeProvider.jsx";
 import CircularLoader from "../Utils/CircularLoader.jsx";
 import SearchTracks from "./SearchTracks.jsx";
+import { getHeader, songSearchUrl } from "../../config/index.js";
 
 const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
   const { isDarkMode } = useTheme();
@@ -16,17 +17,12 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
   const timer = useRef(null);
 
   const accessToken = localStorage.getItem("access_token");
-  const searchUrl = `https://api.spotify.com/v1/search?q=${search}&type=track`;
-  const header = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
+  const header = getHeader(accessToken);
 
   const searchSongForPlayList = () => {
     setLoading(true);
     axios
-      .get(searchUrl, header)
+      .get(songSearchUrl(search), header)
       .then((res) => {
         setError("");
         if (res.status !== 200) {
@@ -48,15 +44,12 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
       setSearchResult({});
       return;
     }
-
     if (timer.current) {
       clearTimeout(timer.current);
     }
-
     timer.current = setTimeout(() => {
       searchSongForPlayList();
     }, 500);
-
     return () => {
       clearTimeout(timer.current);
       setSearchResult({});

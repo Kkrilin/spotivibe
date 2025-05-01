@@ -1,12 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addPlaylist } from "../../redux/profileSlice";
-import { useDispatch } from "react-redux";
 import { Search } from "@mui/icons-material";
-import { Avatar } from "@mui/material";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+import { createUrl } from "../../config/index.js";
+import CheckBoxPlaylist from "./CheckBoxPlaylist.jsx";
+import { useState } from "react";
+
 const AlterPlayList = ({
   handleClose,
   track,
@@ -24,7 +25,6 @@ const AlterPlayList = ({
 
   const token = localStorage.getItem("access_token");
   const createPlaylist = async () => {
-    const createUrl = `https://api.spotify.com/v1/users/${userId}/playlists`;
     const header = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ const AlterPlayList = ({
       public: true,
     };
     try {
-      const createResponse = await axios.post(createUrl, body, header);
+      const createResponse = await axios.post(createUrl(userId), body, header);
       const playlistId = createResponse.data.id;
       if (playlistId) {
         navigate(`/playlist/${playlistId}`);
@@ -73,7 +73,13 @@ const AlterPlayList = ({
         padding: "1rem",
       }}
     >
-      <h6>Add to Playlist</h6>
+      <h6
+        style={{
+          color: `${isDarkMode ? "white" : "black"}`,
+        }}
+      >
+        Add to Playlist
+      </h6>
       <div
         style={{
           display: "flex",
@@ -160,142 +166,6 @@ const AlterPlayList = ({
         Ok
       </h5>
       <form onSubmit={handleSubmit} className="alterPlaylist_form"></form>
-    </div>
-  );
-};
-
-const CheckBoxPlaylist = ({
-  pList,
-  trackId,
-  requiredPlaylist,
-  handleClose,
-  setTracks,
-}) => {
-  const [playlist, setPlaylist] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [check, setCheck] = useState(false);
-  const token = localStorage.getItem("access_token");
-  const { isDarkMode } = useTheme();
-
-  const playListUrl = `https://api.spotify.com/v1/playlists/${pList.id}`;
-  const header = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  useEffect(() => {
-    const fetchPlayList = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(playListUrl, header);
-        setPlaylist(response.data);
-        const itemCheck =
-          response.data.tracks &&
-          response.data.tracks.items.find((item) => item.track.id === trackId);
-        setCheck(itemCheck ? true : false);
-      } catch (error) {
-        setError(error.response.data.error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPlayList();
-  }, []);
-
-  const removeAddItemUrl = `https://api.spotify.com/v1/playlists/${pList.id}/tracks`;
-
-  const body = {
-    uris: [`spotify:track:${trackId}`],
-    position: 0,
-  };
-
-  const deletePayload = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    data: {
-      tracks: [
-        {
-          uri: `spotify:track:${trackId}`,
-        },
-      ],
-      // snapshot_id: `${playlist.snapshot_id}`,
-    },
-  };
-  const handleCheck = async () => {
-    header.headers["Content-Type"] = "application/json";
-    try {
-      if (check) {
-        body.snapshot_id = `${playlist.snapshot_id}`;
-        const removeResonse = await axios.delete(
-          removeAddItemUrl,
-          deletePayload
-        );
-        setCheck(false);
-        if (pList.id === requiredPlaylist.id) {
-          setTracks((prev) => {
-            const updatedTracks = prev.filter(
-              (item) => item.id || item.track.id !== trackId
-            );
-            return updatedTracks;
-          });
-          handleClose();
-        }
-      } else {
-        const addResonse = await axios.post(removeAddItemUrl, body, header);
-        setCheck(true);
-      }
-    } catch (error) {
-      console.log("Error:", error.response?.data || error.message);
-    }
-  };
-
-  return (
-    <div
-      className={`small_card ${!isDarkMode ? "light_hover" : ""}`}
-      style={{
-        justifyContent: "space-between",
-        height: "50px",
-        alignItems: "center",
-      }}
-    >
-      <label
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          color: "#fff",
-
-          width: "100%",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <Avatar
-            sx={{ width: 40, height: 40 }}
-            alt="Spotify logo"
-            src={
-              playlist.images &&
-              playlist.images.length &&
-              playlist.images[0].url
-            }
-            variant="rounded"
-          />
-          <h5
-            className="name"
-            style={{ color: `${isDarkMode ? "#fff" : "#000"}` }}
-          >
-            {playlist.name}
-          </h5>
-        </div>
-        <input
-          style={{ width: "20px", height: "20px", borderRadius: "50%" }}
-          type="checkbox"
-          checked={check ? true : false}
-          onChange={handleCheck}
-        />
-      </label>
     </div>
   );
 };

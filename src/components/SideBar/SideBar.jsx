@@ -69,7 +69,6 @@ const SideBar = () => {
               display: "flex",
               justifyContent: "space-between",
               flexDirection: "column",
-              // alignItems: "center",
               padding: "1rem",
             }}
           >
@@ -94,10 +93,8 @@ const SideBar = () => {
           <div
             style={{
               display: "flex",
-              // justifyContent: "space-between",
               flexDirection: "column",
               gap: "1rem",
-              // alignItems: "center",
               padding: "2rem",
               backgroundColor: `${!isDarkMode ? "#97ad9b" : "#1F1F1F"}`,
               margin: "1rem 1rem 0 1rem",

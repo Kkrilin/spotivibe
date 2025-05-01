@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addPlaylist } from "../../redux/profileSlice";
 import { useDispatch } from "react-redux";
+import { createUrl, getHeader } from "../../config";
 
 const CreatePlayList = ({ handleClose }) => {
   const [name, setName] = useState("");
@@ -24,20 +25,15 @@ const CreatePlayList = ({ handleClose }) => {
 
   const token = localStorage.getItem("access_token");
   const createPlaylist = async () => {
-    const createUrl = `https://api.spotify.com/v1/users/${userId}/playlists`;
-    const header = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    };
+    const header = getHeader(token);
+    header.headers["Content-Type"] = "application/json";
     const body = {
       name,
       description,
       public: true,
     };
     try {
-      const createResponse = await axios.post(createUrl, body, header);
+      const createResponse = await axios.post(createUrl(userId), body, header);
       const playlistId = createResponse.data.id;
       if (playlistId) {
         navigate(`/playlist/${playlistId}`);

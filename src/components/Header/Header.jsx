@@ -9,6 +9,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "../Context/ThemeProvider";
 import config from "../../config/config";
+
 function Header() {
   const { isDarkMode, toggleTheme } = useTheme();
   const profileData = useSelector((state) => state.profile);
@@ -16,11 +17,11 @@ function Header() {
 
   const imgUrl = profileData.data.images && profileData.data.images[0].url;
   const { clientId } = config;
-  
+
   const getRefreshToken = async () => {
     // refresh token that has been previously stored
     const refreshToken = localStorage.getItem("refresh_token");
-    const url = "https://accounts.spotify.com/api/token";
+    const { tokenUrl } = config;
 
     const payload = {
       method: "POST",
@@ -33,7 +34,7 @@ function Header() {
         client_id: clientId,
       }),
     };
-    const body = await fetch(url, payload);
+    const body = await fetch(tokenUrl, payload);
     const response = await body.json();
 
     localStorage.setItem("access_token", response.access_token);
@@ -71,12 +72,6 @@ function Header() {
       />
       <div></div>
       <SearchBar />
-      {/* {login ? (
-      ) : ( */}
-      {/* <Typography variant="h4">
-        Welcome To <span style={{ color: "lightgreen" }}>SpotiVibe</span>
-      </Typography> */}
-      {/* )} */}
       <div style={{ display: "flex", alignItems: "center" }}>
         <button
           style={{
@@ -133,20 +128,19 @@ function Header() {
           </button>
         </div>
         <div onClick={toggleTheme}>
-          {isDarkMode ? (
+          {isDarkMode && (
             <LightModeIcon sx={{ marginRight: "20px", cursor: "pointer" }} />
-          ) : (
+          )}
+          {!isDarkMode && (
             <DarkModeIcon sx={{ marginRight: "20px", cursor: "pointer" }} />
           )}
         </div>
-        {/* <NotificationsIcon sx={{ marginRight: "10px" }} /> */}
-        {imgUrl ? (
+        {imgUrl && (
           <Link to="/user">
             <Avatar alt="Spotify logo" src={imgUrl} />
           </Link>
-        ) : (
-          <Avatar sx={{ bgcolor: lightGreen[500] }}>S</Avatar>
         )}
+        {!imgUrl && <Avatar sx={{ bgcolor: lightGreen[500] }}>S</Avatar>}
       </div>
     </header>
   );
