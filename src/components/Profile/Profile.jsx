@@ -12,7 +12,6 @@ import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
 import { useTheme } from "../Context/ThemeProvider.jsx";
 
-
 const Profile = () => {
   const { artists, playlists, ...profileData } = useSelector(
     (state) => state.profile
@@ -28,8 +27,6 @@ const Profile = () => {
   const profileUrl = "https://api.spotify.com/v1/me";
   const accessToken = localStorage.getItem("access_token");
 
-  console.log("profile", accessToken);
-
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -44,7 +41,6 @@ const Profile = () => {
       }
       indexRef.current = Math.floor(Math.random() * gradientPairs.length);
     } catch (error) {
-      setLoading(false);
       setError(error.response.data.error.message);
     } finally {
       setLoading(false);
@@ -53,9 +49,11 @@ const Profile = () => {
   useEffect(() => {
     fetchData();
   }, [globalCount, accessToken]);
+
   if (error) {
     return <h1 style={{ color: "red" }}>{error}</h1>;
   }
+
   return (
     <Scrollable
       name={profileData.data.display_name}

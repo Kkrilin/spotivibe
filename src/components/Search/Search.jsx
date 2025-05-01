@@ -1,5 +1,5 @@
 import axios from "axios";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AlbumCard from "../Album/AlbumCard";
 import { Artist } from "../Library/Artists";
@@ -24,6 +24,7 @@ const Search = () => {
   const { isDarkMode } = useTheme();
   const gradientPairs = getColorGradientPair(isDarkMode);
   const index = Math.floor(Math.random() * gradientPairs.length);
+
   // Allowed values: "album", "artist", "playlist", "track",
   const searchUrl = `https://api.spotify.com/v1/search?q=${search}&type=album,track,artist,playlist`;
   const header = {
@@ -81,7 +82,7 @@ const Search = () => {
             )}
           </Stack>
         </div>
-        <div style={{ padding: "1rem 0 0 2rem"  }}>
+        <div style={{ padding: "1rem 0 0 2rem" }}>
           {loading ? (
             <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
           ) : (

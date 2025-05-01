@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import config from "../../config/config";
+
 const Authorised = () => {
   const navigate = useNavigate();
   const codeVerifier = localStorage.getItem("code_verifier");
@@ -11,12 +12,11 @@ const Authorised = () => {
   const getToken = async (code) => {
     const payload = {
       url: tokenUrl,
-      method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       data: new URLSearchParams({
-        client_id: localStorage.getItem("clientId"),
+        client_id: config.clientId,
         grant_type: "authorization_code",
         code,
         redirect_uri: redirectUri,
@@ -36,8 +36,7 @@ const Authorised = () => {
       getToken(authCode)
         .then((res) => {
           localStorage.setItem("access_token", res.data.access_token);
-          localStorage.removeItem("clientId");
-          navigate(`/user`, { state: { tokenData: res.data } });
+          navigate(`/user`, { replace: true });
         })
         .catch((err) => console.log(err));
     }

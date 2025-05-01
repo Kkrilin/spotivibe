@@ -8,7 +8,6 @@ import { getColorGradientPair } from "../../utils/colors";
 import { useTheme } from "../Context/ThemeProvider.jsx";
 
 const HomeScreen = () => {
-  const [featuredPlaylist, setFeaturedPlaylist] = useState();
   const [newRelease, setNewRelease] = useState([]);
   const { globalCount } = useSelector((state) => state.refresh);
   const { isDarkMode } = useTheme();
@@ -16,19 +15,15 @@ const HomeScreen = () => {
   const gradientPairs = getColorGradientPair(isDarkMode);
   const indexRef = useRef(null);
   const index = indexRef.current;
-  const featurePlaylistUrl =
-    "https://api.spotify.com/v1/browse/featured-playlists";
+
   const header = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   };
   const newReleasesAlbumUrl = "https://api.spotify.com/v1/browse/new-releases";
+
   useEffect(() => {
-    // axios
-    //   .get(featurePlaylistUrl, header)
-    //   .then((res) => console.log(res.data))
-    //   .catch((err) => console.log(err));
     axios
       .get(newReleasesAlbumUrl, header)
       .then((res) => {
@@ -43,7 +38,7 @@ const HomeScreen = () => {
       <div
         style={{
           backgroundImage: `${index && gradientPairs[index][0]}`,
-          height:"100%",
+          height: "100%",
           padding: "2rem",
         }}
       >

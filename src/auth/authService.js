@@ -28,7 +28,6 @@ async function redirectToSpotifyAuthorize(clientId, redirectUri) {
 
   // generated in the previous step
   window.localStorage.setItem("code_verifier", codeVerifier);
-  window.localStorage.setItem("clientId", clientId);
 
   const params = {
     response_type: "code",

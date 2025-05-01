@@ -14,7 +14,7 @@ import SearchForPlaylistAdd from "../Search/SearchForPlaylistAdd.jsx";
 import { useTheme } from "../Context/ThemeProvider.jsx";
 
 const PlayLists = () => {
-  const { playlists, data: mydata } = useSelector((state) => state.profile);
+  const { playlists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -46,11 +46,11 @@ const PlayLists = () => {
     header.headers["Content-Type"] = "application/json";
     try {
       if (follow) {
-        const unfollowResponse = await axios.delete(followUrl, header);
+        await axios.delete(followUrl, header);
         dispatch(removePlaylist({ id }));
         setFollow(false);
       } else {
-        const followResponse = await axios.put(followUrl, data, header);
+        await axios.put(followUrl, data, header);
         dispatch(addPlaylist({ data: requiredPlaylist }));
         setFollow(true);
       }

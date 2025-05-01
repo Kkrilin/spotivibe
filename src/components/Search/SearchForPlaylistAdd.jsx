@@ -1,18 +1,20 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Search } from "@mui/icons-material";
-import { Avatar, Stack } from "@mui/material";
-import { addItemToPlaylist } from "../../redux/profileSlice";
-import { useDispatch } from "react-redux";
+import { Stack } from "@mui/material";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+import CircularLoader from "../Utils/CircularLoader.jsx";
+import SearchTracks from "./SearchTracks.jsx";
+
 const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
   const { isDarkMode } = useTheme();
   const [searchResult, setSearchResult] = useState({});
   const [find, setFind] = useState(false);
   const [search, setSearch] = useState("");
-  // const globalCount = useSelector((state) => state.refresh.globalCount);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const timer = useRef(null);
+
   const accessToken = localStorage.getItem("access_token");
   const searchUrl = `https://api.spotify.com/v1/search?q=${search}&type=track`;
   const header = {
@@ -46,8 +48,19 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
       setSearchResult({});
       return;
     }
-    let timer = setTimeout(() => searchSongForPlayList(), 500);
-    return () => clearTimeout(timer);
+
+    if (timer.current) {
+      clearTimeout(timer.current);
+    }
+
+    timer.current = setTimeout(() => {
+      searchSongForPlayList();
+    }, 500);
+
+    return () => {
+      clearTimeout(timer.current);
+      setSearchResult({});
+    };
   }, [search]);
 
   if (error) {
@@ -94,12 +107,14 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                // width: "100%",
               }}
             >
               <h2>Let's find something for your playlist</h2>
               <div
-                onClick={() => setFind((state) => !state)}
+                onClick={() => {
+                  setFind((state) => !state);
+                  setSearch("");
+                }}
                 style={{
                   marginRight: "2rem",
                   fontSize: "2rem",
@@ -145,7 +160,9 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
           <div style={{ paddingLeft: "2rem" }}>
             <Stack>
               <div style={{ padding: "1.5rem" }}>
-                {searchResult.tracks &&
+                {loading && <CircularLoader />}
+                {!loading &&
+                  searchResult.tracks &&
                   searchResult.tracks.items.map((item, i) => (
                     <SearchTracks
                       track={item}
@@ -160,74 +177,6 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
         </>
       )}
     </>
-  );
-};
-
-const SearchTracks = ({ track, playListId, setTracks }) => {
-  const dispatch = useDispatch();
-  const { isDarkMode } = useTheme();
-
-  const token = localStorage.getItem("access_token");
-  const addItemUrl = `https://api.spotify.com/v1/playlists/${playListId}/tracks`;
-  const header = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  };
-  const body = {
-    uris: [`spotify:track:${track.id}`],
-  };
-  const handleAddClick = () => {
-    axios
-      .post(addItemUrl, body, header)
-      .then((res) => {
-        setTracks((state) => {
-          return [...state, { track }];
-        });
-        // dispatch(addItemToPlaylist({ plId: playListId, item: track }));
-      })
-      .catch((err) => console.log(err));
-  };
-  return (
-    <div className={`track_card ${!isDarkMode ? "light_hover" : ""}`}>
-      <div style={{ width: "600px" }}>
-        <Avatar
-          sx={{ width: 36, height: 36 }}
-          alt="Spotify logo"
-          src={
-            track.album
-              ? track.album.images[0].url
-              : track.track.album.images[0].url
-          }
-          variant="square"
-        ></Avatar>
-        <div>
-          <h5
-            className="name"
-            style={{
-              fontWeight: "500",
-              color: `${isDarkMode ? "#837f7f" : "#000"}`,
-            }}
-          >
-            {track.name || track.track.name}
-          </h5>
-          <h6
-            className="type"
-            style={{
-              fontWeight: "400",
-              fontSize: "0.8rem",
-              color: `${isDarkMode ? "#837f7f" : "#000"}`,
-            }}
-          >
-            {track.artists.map((ar) => ar.name).join(", ")}
-          </h6>
-        </div>
-      </div>
-      <div onClick={handleAddClick} className="search_add">
-        <h3>Add</h3>
-      </div>
-    </div>
   );
 };
 

@@ -27,7 +27,7 @@ const Album = () => {
       Authorization: `Bearer ${token}`,
     },
   };
-  // const gradientPairs =
+
   const index = Math.floor(Math.random() * gradientPairs.length);
   const fetchAlbum = async () => {
     setLoading(true);
@@ -43,6 +43,7 @@ const Album = () => {
   useEffect(() => {
     fetchAlbum();
   }, [id, globalCount]);
+  
   if (error) {
     return <div>{error}</div>;
   }

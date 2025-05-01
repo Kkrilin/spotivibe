@@ -32,15 +32,16 @@ const Artists = () => {
   const dispatch = useDispatch();
   const indexRef = useRef(null);
   const index = indexRef.current;
+
+  const token = localStorage.getItem("access_token");
   const artistTopTracks = `https://api.spotify.com/v1/artists/${id}/top-tracks`;
   const artistUrl = `https://api.spotify.com/v1/artists/${id}`;
   const checkFollowUrl = `https://api.spotify.com/v1/me/following/contains?type=artist&ids=${id}`;
-  const token = localStorage.getItem("access_token");
   const followUrl = `https://api.spotify.com/v1/me/following?type=artist&ids=${id}`;
+
   const header = {
     headers: {
       Authorization: `Bearer ${token}`,
-      // "Content-Type": "application/json",
     },
   };
   const data = {
@@ -50,11 +51,11 @@ const Artists = () => {
     header.headers["Content-Type"] = "application/json";
     try {
       if (follow) {
-        const unfollowResponse = await axios.delete(followUrl, header);
+        await axios.delete(followUrl, header);
         dispatch(removeArtist({ id }));
         setFollow(false);
       } else {
-        const followResponse = await axios.put(followUrl, data, header);
+        await axios.put(followUrl, data, header);
         dispatch(addArtist({ data: requiredArtist }));
         setFollow(true);
       }
@@ -185,7 +186,7 @@ const Artists = () => {
             colorGradient={index && gradientPairs[index][1]}
           />
         )}
-        <div style={{padding: "1rem 0 0 2rem" }}>
+        <div style={{ padding: "1rem 0 0 2rem" }}>
           {loading ? (
             <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
           ) : (
@@ -201,7 +202,7 @@ const Artists = () => {
             )}
           </Stack>
         </div>
-        <div style={{padding: "1rem 0 0 2rem" }}>
+        <div style={{ padding: "1rem 0 0 2rem" }}>
           {loading ? (
             <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
           ) : (
