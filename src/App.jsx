@@ -3,7 +3,7 @@ import Login from "./pages/Login.jsx";
 import "./App.css";
 import HomeScreen from "./components/HomeScreen/HomeScreen.jsx";
 import Authorised from "./components/Authorised/Authorised.jsx";
-import Profile from "./components/Profile/Profile.jsx";
+import ProfilePage from "./components/Profile/ProfilePage.jsx";
 import Artists from "./components/Artists/Artists.jsx";
 import Playlists from "./components/Playlists/Playlists.jsx";
 import HomePage from "./pages/HomePage.jsx";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/authorised" element={<Authorised />} />
             <Route path="/" element={<ProtectedRoute ><HomePage /></ProtectedRoute>}>
-              <Route index path="user" element={<Profile />}></Route>
+              <Route index path="user" element={<ProfilePage />}></Route>
               <Route path="home" element={<HomeScreen />}></Route>
               <Route path="artist/:id" element={<Artists />} />
               <Route path="playlist/:id" element={<Playlists />} />

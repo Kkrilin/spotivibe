@@ -251,9 +251,6 @@ const CheckBoxPlaylist = ({
       console.log("Error:", error.response?.data || error.message);
     }
   };
-  //   useEffect(() => {
-  //     handleCheck();
-  //   }, [pList.id, trackId]);
 
   return (
     <div

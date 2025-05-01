@@ -2,8 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AlbumCard from "../Album/AlbumCard";
-import { Artist } from "../Library/Artists";
-import { Playlist } from "../Library/PlayLists";
 import Tracks from "../Tracks/Tracks";
 import Scrollable from "../Utils/Scrollable";
 import { Skeleton, Stack } from "@mui/material";
@@ -12,6 +10,8 @@ import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
 import { useSelector } from "react-redux";
 import { getColorGradientPair } from "../../utils/colors";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+import Artist from "../Library/Artist.jsx";
+import Playlist from "../Library/PlayList.jsx";
 
 const Search = () => {
   const [searchResult, setSearchResult] = useState({});

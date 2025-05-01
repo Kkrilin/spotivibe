@@ -7,16 +7,18 @@ const Authorised = () => {
   const navigate = useNavigate();
   const codeVerifier = localStorage.getItem("code_verifier");
   const tokenUrl = "https://accounts.spotify.com/api/token";
-  const { redirectUri } = config;
+  const { redirectUri, clientId } = config;
 
   const getToken = async (code) => {
     const payload = {
+      method: "post",
       url: tokenUrl,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
+
       data: new URLSearchParams({
-        client_id: config.clientId,
+        client_id: clientId,
         grant_type: "authorization_code",
         code,
         redirect_uri: redirectUri,
@@ -24,7 +26,7 @@ const Authorised = () => {
       }),
     };
     const response = await axios(payload);
-    localStorage.setItem("access_token", response.access_token);
+    localStorage.setItem("access_token", response.data.access_token);
     localStorage.setItem("refresh_token", response.data.refresh_token);
     return response;
   };
@@ -34,8 +36,7 @@ const Authorised = () => {
     const authCode = urlParams.get("code");
     if (authCode) {
       getToken(authCode)
-        .then((res) => {
-          localStorage.setItem("access_token", res.data.access_token);
+        .then(() => {
           navigate(`/user`, { replace: true });
         })
         .catch((err) => console.log(err));

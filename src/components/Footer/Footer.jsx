@@ -45,7 +45,6 @@ const Footer = () => {
   useEffect(() => {
     if (!songDetail) {
       const song = JSON.parse(localStorage.getItem("songDetail"));
-      console.log(song);
       if (song) {
         dispatch(setSongDetail({ data: song }));
       }

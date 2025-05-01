@@ -7,11 +7,11 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "./components/Context/ThemeProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <ThemeProvider>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ThemeProvider>
-  </StrictMode>
+  // <StrictMode>
+  <ThemeProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ThemeProvider>
+  // </StrictMode>
 );

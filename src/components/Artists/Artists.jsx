@@ -8,12 +8,12 @@ import Tracks from "../Tracks/Tracks";
 import { useDispatch } from "react-redux";
 import { addArtist, removeArtist } from "../../redux/profileSlice";
 import AlbumCard from "../Album/AlbumCard";
-import { Artist } from "../Library/Artists";
 import { getColorGradientPair } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton.jsx";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+import Artist from "../Library/Artist.jsx";
 
 const Artists = () => {
   const { artists } = useSelector((state) => state.profile);

@@ -11,7 +11,6 @@ export const CardSkeleton = ({ profile, type }) => {
                 : { width: 50, height: 50, bgcolor: "grey.800" }
             }
             variant={type === "playlist" ? "rounded" : "circular"}
-            
           />
           <div>
             <Skeleton
