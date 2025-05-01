@@ -1,12 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { TextField, Skeleton, Avatar, Stack } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../Loader/Loader.jsx";
-import { setProfileData } from "../../redux/profileSlice.js";
 import axios from "axios";
-import Artists from "../Artists/Artists.jsx";
-import Playlists from "../Playlists/Playlists.jsx";
+import { Skeleton, Avatar, Stack } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfileData } from "../../redux/profileSlice.js";
 import { Playlist } from "../Library/PlayLists.jsx";
 import { Artist } from "../Library/Artists.jsx";
 import Scrollable from "../Utils/Scrollable.jsx";
@@ -15,6 +11,8 @@ import { getColorGradientPair } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+
+
 const Profile = () => {
   const { artists, playlists, ...profileData } = useSelector(
     (state) => state.profile
@@ -27,9 +25,10 @@ const Profile = () => {
   const dispatch = useDispatch();
   const indexRef = useRef(null);
   const index = indexRef.current;
-
   const profileUrl = "https://api.spotify.com/v1/me";
   const accessToken = localStorage.getItem("access_token");
+
+  console.log("profile", accessToken);
 
   const fetchData = async () => {
     setLoading(true);
@@ -41,7 +40,7 @@ const Profile = () => {
       });
       if (response.status === 200) {
         dispatch(setProfileData({ data: response.data }));
-        localStorage.setItem("userId", response.data.id);
+        localStorage.setItem("profile", JSON.stringify(response.data));
       }
       indexRef.current = Math.floor(Math.random() * gradientPairs.length);
     } catch (error) {
@@ -53,7 +52,7 @@ const Profile = () => {
   };
   useEffect(() => {
     fetchData();
-  }, [globalCount]);
+  }, [globalCount, accessToken]);
   if (error) {
     return <h1 style={{ color: "red" }}>{error}</h1>;
   }

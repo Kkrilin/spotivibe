@@ -8,31 +8,13 @@ import profileReducer from "./profileSlice.js";
 import songDetailReducer from "./songDetailSlice.js";
 import refreshReducer from "./refreshSlice.js";
 
-const userPersistConfig = {
-  key: "profile",
-  storage,
-  whitelist: ["data"],
-};
-
-const songDetailPersist = {
-  key: "songDetail",
-  storage,
-  whitelist: ["songDetail", "songLike"],
-};
-const persistUserReducer = persistReducer(userPersistConfig, profileReducer);
-const persistSongDetailReducer = persistReducer(
-  songDetailPersist,
-  songDetailReducer
-);
 const store = configureStore({
   reducer: {
     login: loginReducer,
-    profile: persistUserReducer,
-    songDetail: persistSongDetailReducer,
+    profile: profileReducer,
+    songDetail: songDetailReducer,
     refresh: refreshReducer,
   },
 });
 
 export default store;
-
-export const persistor = persistStore(store);

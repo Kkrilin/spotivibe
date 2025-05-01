@@ -180,7 +180,6 @@ const Track = ({
   const handleMouseOver = () => {
     setHover(true);
   };
-
   const handleMouseOut = () => {
     setHover(false);
   };
@@ -195,6 +194,7 @@ const Track = ({
       .get(songDetailUrl, header)
       .then((res) => {
         dispatch(setSongDetail({ data: res.data }));
+        localStorage.setItem("songDetail", JSON.stringify(res.data));
       })
       .catch((err) => console.log(err));
   };
@@ -297,7 +297,7 @@ const Track = ({
               style={{
                 width: "1.2rem",
                 height: "1.2rem",
-                marginLeft: "10px",
+                borderRadius: "50%",
                 color: "grey",
                 cursor: "pointer",
               }}
@@ -321,8 +321,8 @@ const Track = ({
         // </div>
         // </BasicPopover>
         <>
-          <div style={{ width: "1.4rem" }}></div>
-          <div style={{ width: "1.8rem" }}></div>
+          <div style={{ width: "1.2rem", height: "1.2rem" }}></div>
+          <div style={{ width: "4rem", height: "1.2rem" }}></div>
         </>
       )}
       <h3 style={{ width: "1.2rem" }}>{value}</h3>

@@ -5,12 +5,13 @@ import { Shuffle, SkipBack, SkipForward, Play } from "lucide-react";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { AddCircleOutline } from "@mui/icons-material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { likeSong } from "../../redux/songDetailSlice";
+import { likeSong, setSongDetail } from "../../redux/songDetailSlice";
 import { addLikeSong, removeLikeSong } from "../../redux/profileSlice";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTheme } from "../Context/ThemeProvider";
 import axios from "axios";
+
 const Footer = () => {
   const { songDetail, songLike } = useSelector((state) => state.songDetail);
   const { globalCount } = useSelector((state) => state.refresh);
@@ -32,7 +33,6 @@ const Footer = () => {
         dispatch(likeSong({ data: res.data[0] }));
       })
       .catch((err) => {
-        // setError(err.response.data.error.message);
         console.log(err);
       });
   };
@@ -41,6 +41,16 @@ const Footer = () => {
       checkSavedSong();
     }
   }, [songDetail, globalCount]);
+
+  useEffect(() => {
+    if (!songDetail) {
+      const song = JSON.parse(localStorage.getItem("songDetail"));
+      console.log(song);
+      if (song) {
+        dispatch(setSongDetail({ data: song }));
+      }
+    }
+  }, []);
 
   const handleLikeClick = () => {
     const songLikeUrl = `https://api.spotify.com/v1/me/tracks?ids=${songDetail.id}`;

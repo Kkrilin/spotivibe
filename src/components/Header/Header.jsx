@@ -2,9 +2,7 @@ import { Avatar } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
 import SearchBar from "../SearchBar/SearchBar";
 import { useSelector } from "react-redux";
-import { Typography } from "@mui/material";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -14,9 +12,11 @@ import config from "../../config/config";
 function Header() {
   const { isDarkMode, toggleTheme } = useTheme();
   const profileData = useSelector((state) => state.profile);
+  const navigate = useNavigate();
+
   const imgUrl = profileData.data.images && profileData.data.images[0].url;
   const { clientId } = config;
-  const navigate = useNavigate();
+  
   const getRefreshToken = async () => {
     // refresh token that has been previously stored
     const refreshToken = localStorage.getItem("refresh_token");
@@ -46,7 +46,7 @@ function Header() {
     getRefreshToken()
       .then(() => {
         console.log("Access token refreshed successfully");
-        navigate("user/");
+        navigate("/user");
       })
       .catch((error) => {
         console.error("Error refreshing access token:", error);

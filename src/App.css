@@ -236,7 +236,7 @@ input::placeholder {
   margin-right: 10px; */
   flex: 1;
   border-radius: 8px;
-  background-color: var(--background-base);
+  /* background-color: var(--background-base); */
   overflow-y: auto;
 }
 /* left sroll */
@@ -256,29 +256,25 @@ input::placeholder {
   background-color: transparent;
 }
 
-.scroll::-webkit-scrollbar-track {
-  /* box-shadow: inset 0 0 5px grey; */
-  /* border-radius: 10px; */
+/* Always reserve scrollbar space */
+.scroll::-webkit-scrollbar {
   width: 0px;
-
   background-color: transparent;
 }
 
-/* hover scroll */
-.scroll:hover::-webkit-scrollbar {
-  width: 10px;
+/* Hide everything by default */
+.scroll::-webkit-scrollbar-track,
+.scroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
-/* Track */
+/* On hover, style the scrollbar */
 .scroll:hover::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
 
-/* Handle */
 .scroll:hover::-webkit-scrollbar-thumb {
-  /* height: 2rem; */
-  background-color: transparent;
   background-color: hsla(0, 0%, 100%, 0.3);
   border-radius: 4px;
 }
@@ -446,11 +442,12 @@ a {
 }
 .search_add {
   border-radius: 69999px;
-  height: 2rem;
   background-color: #000;
   box-shadow: 0 0 0 0.5px #fff;
-  padding: 0 1rem;
+  width: 4rem;
   border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
 }
 
 .search_add h3 {
