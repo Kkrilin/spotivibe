@@ -125,8 +125,8 @@ const Tracks = ({
         )}
       </div>
       <h2 style={{ marginTop: "20px" }}>Top Track</h2>
-      <div style={{ padding: "1.5rem" }}>
-        {tracks.length &&
+      <div style={{ padding: "1.5rem", maxWidth: "1350px" }}>
+        {tracks.length > 0 &&
           tracks.map((track, i) => (
             <Track
               type={type}
