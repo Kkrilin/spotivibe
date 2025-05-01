@@ -4,6 +4,7 @@ import { setPlalists } from "../../redux/profileSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
 import Playlist from "./PlayList.jsx";
+import { getHeader, userPlaylistUrl } from "../../config/index.js";
 
 const PlayLists = ({ search }) => {
   const { playlists } = useSelector((state) => state.profile);
@@ -13,19 +14,16 @@ const PlayLists = ({ search }) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("access_token");
 
-  const profile = JSON.parse(localStorage.getItem("profile"));
+  const userId = localStorage.getItem("userId");
+  const header = getHeader(token);
 
   const fetchPlayList = async () => {
     setLoading(true);
+    const myPlaylisturl = userPlaylistUrl(userId);
     try {
-      const userPlaylistUrl = `https://api.spotify.com/v1/users/${profile.id}/playlists`;
-      const header = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await axios.get(userPlaylistUrl, header);
+      const response = await axios.get(myPlaylisturl, header);
       dispatch(setPlalists({ data: response.data.items }));
+      console.log(3333333333);
     } catch (error) {
       setError(error.response.data.error.message);
     } finally {
@@ -34,8 +32,9 @@ const PlayLists = ({ search }) => {
   };
 
   useEffect(() => {
+    if (!userId) return;
     fetchPlayList();
-  }, [globalCount]);
+  }, [globalCount, userId]);
 
   let filteredPlaylist = playlists;
 

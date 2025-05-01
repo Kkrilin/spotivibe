@@ -1,6 +1,6 @@
 import config from "./config";
 
-const spotifybaseUrl = config.apiBaseUrl;
+const spotifyBaseUrl = config.apiBaseUrl; // https://api.spotify.com/v1
 
 const accessToken = localStorage.getItem("access_token");
 export const getHeader = (token) => {
@@ -16,4 +16,8 @@ export const header = {
   },
 };
 
-export const profileUrl = `${spotifybaseUrl}/me`;
+export const profileUrl = `${spotifyBaseUrl}/me`;
+
+export const followedArtistUrl = `${spotifyBaseUrl}/me/following?type=artist`;
+export const userPlaylistUrl = (userId) =>
+  `${spotifyBaseUrl}/users/${userId}/playlists`;

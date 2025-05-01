@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { setArtists } from "../../redux/profileSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
-import Artist from './Artist.jsx';
+import Artist from "./Artist.jsx";
+import { followedArtistUrl, getHeader } from "../../config/index.js";
 
 const Artists = ({ search }) => {
   const { artists } = useSelector((state) => state.profile);
@@ -12,13 +13,8 @@ const Artists = ({ search }) => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const token = localStorage.getItem("access_token", "access_token");
-  const followedArtistUrl =
-    "https://api.spotify.com/v1/me/following?type=artist";
-  const header = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+
+  const header = getHeader(token);
 
   const fetchArtist = async () => {
     setLoading(true);
@@ -28,7 +24,6 @@ const Artists = ({ search }) => {
     } catch (error) {
       setError(error.response.data.error.message);
     } finally {
-      // setTimeout(() => setLoading(false), 5000);
       setLoading(false);
     }
   };

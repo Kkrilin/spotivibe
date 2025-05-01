@@ -49,8 +49,6 @@ const Library = () => {
             >
               <SearchIcon
                 style={{
-                  // width: "1.8rem",
-                  // height: "1.8rem",
                   left: "0",
                   color: `${isDarkMode ? "#777676" : "#000"}`,
                   fontWeight: "800",
@@ -99,8 +97,6 @@ const Library = () => {
           <LikedSong />
           {(filter === "artist" || !filter) && <Artists search={search} />}
           {(filter === "playlist" || !filter) && <PlayLists search={search} />}
-          {/* <Artists />
-        <PlayLists /> */}
         </div>
       </div>
     </div>

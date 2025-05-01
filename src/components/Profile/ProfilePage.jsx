@@ -32,6 +32,7 @@ const ProfilePage = () => {
       if (response.status === 200) {
         dispatch(setProfileData({ data: response.data }));
         localStorage.setItem("profile", JSON.stringify(response.data));
+        localStorage.setItem("userId", response.data.id);
       }
       indexRef.current = Math.floor(Math.random() * gradientPairs.length);
     } catch (error) {
