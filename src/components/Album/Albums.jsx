@@ -9,6 +9,8 @@ import { getColorGradientPair } from "../../utils/colors";
 import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
 import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
 import { useTheme } from "../Context/ThemeProvider.jsx";
+
+
 const Album = () => {
   const [albums, setAlbum] = useState(null);
   const { globalCount } = useSelector((state) => state.refresh);
@@ -18,7 +20,7 @@ const Album = () => {
   const { id } = param;
   const { isDarkMode } = useTheme();
   const gradientPairs = getColorGradientPair(isDarkMode);
-  const token = localStorage.getItem("access_token", "access_token");
+  const token = localStorage.getItem("access_token");
   const albumUrl = `https://api.spotify.com/v1/albums/${id}`;
   const header = {
     headers: {

@@ -213,7 +213,7 @@ const Track = ({
   };
 
   useEffect(() => {
-    if (songDetail.id === id) {
+    if (songDetail && songDetail.id === id) {
       checkSavedSong();
     }
   }, [songLike]);
