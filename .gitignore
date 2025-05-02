@@ -134,3 +134,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Do NOT ignore .husky/
+# Optional: ignore auto-generated internal file
+.husky/_/*
