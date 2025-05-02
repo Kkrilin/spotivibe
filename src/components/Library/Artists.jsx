@@ -22,7 +22,7 @@ function Artists({ search }) {
       const response = await axios.get(followedArtistUrl, header);
       dispatch(setArtists({ data: response.data.artists.items }));
     } catch (error) {
-      setError(error.response.data.error.message);
+      setError(error.response?.data?.error?.message);
     } finally {
       setLoading(false);
     }

@@ -31,7 +31,7 @@ function AlbumPage() {
       const response = await axios.get(albumUrl(id), header);
       setAlbum(response.data);
     } catch (error) {
-      setError(error.response.data.error.message);
+      setError(error.response?.data?.error?.message);
     } finally {
       setLoading(false);
     }

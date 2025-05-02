@@ -30,7 +30,7 @@ function CheckBoxPlaylist({ pList, trackId, requiredPlaylist, handleClose, setTr
           response.data.tracks.items.find((item) => item.track.id === trackId);
         setCheck(!!itemCheck);
       } catch (error) {
-        setError(error.response.data.error.message);
+        setError(error.response?.data?.error?.message);
       } finally {
         setLoading(false);
       }

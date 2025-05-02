@@ -53,7 +53,7 @@ function PlayLists() {
         setFollow(true);
       }
     } catch (error) {
-      setError(error.response.data.error.message);
+      setError(error.response?.data?.error?.message);
     }
   };
   useEffect(() => {
@@ -73,7 +73,7 @@ function PlayLists() {
         indexRef.current = Math.floor(Math.random() * gradientPairs.length);
       } catch (error) {
         setLoading(false);
-        setError(error.response.data.error.message);
+        setError(error.response?.data?.error?.message);
       } finally {
         setLoading(false);
       }

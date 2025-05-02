@@ -24,7 +24,7 @@ function LikedSong() {
       const response = await axios.get(likedUrl, header);
       dispatch(setLikedSongs({ data: response.data.items }));
     } catch (error) {
-      setError(error.response.data.error.message);
+      setError(error.response?.data?.error?.message);
     } finally {
       setLoading(false);
     }
