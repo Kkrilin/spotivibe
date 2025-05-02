@@ -12,7 +12,7 @@ import { useTheme } from '../Context/ThemeProvider.jsx';
 import { albumUrl, getHeader } from '../../config/index.js';
 import AlbumProfile from './AlbumProfile.jsx';
 
-const AlbumPage = () => {
+function AlbumPage() {
   const [albums, setAlbum] = useState(null);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
@@ -68,6 +68,6 @@ const AlbumPage = () => {
       </div>
     </Scrollable>
   );
-};
+}
 
 export default AlbumPage;

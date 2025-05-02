@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { setPlalists } from '../../redux/profileSlice.js';
 import { useSelector, useDispatch } from 'react-redux';
+import { setPlalists } from '../../redux/profileSlice.js';
 import CardSkeleton from '../Utils/SkeletonLoader/CardSkeleton.jsx';
 import Playlist from './PlayList.jsx';
 import { getHeader, userPlaylistUrl } from '../../config/index.js';
 
-const PlayLists = ({ search }) => {
+function PlayLists({ search }) {
   const { playlists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
@@ -48,12 +48,12 @@ const PlayLists = ({ search }) => {
   return (
     <>
       {loading ? (
-        <CardSkeleton type={'playlist'} />
+        <CardSkeleton type="playlist" />
       ) : (
         filteredPlaylist.map((item, index) => <Playlist key={index} item={item} />)
       )}
     </>
   );
-};
+}
 
 export default PlayLists;

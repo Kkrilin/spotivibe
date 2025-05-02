@@ -50,7 +50,7 @@ export default function Profile({
           >
             {playlists.length} Public PlayLists
           </span>
-          <span className="dot_separator"></span>
+          <span className="dot_separator" />
           <span
             style={{
               color: `${isDarkMode ? '#837f7f' : '#000'}`,

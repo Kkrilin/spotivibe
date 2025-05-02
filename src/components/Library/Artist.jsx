@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../Context/ThemeProvider';
 
-const Artist = ({ item, profile }) => {
+function Artist({ item, profile }) {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
   return (
@@ -47,6 +47,6 @@ const Artist = ({ item, profile }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Artist;

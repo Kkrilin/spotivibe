@@ -7,7 +7,7 @@ import CircularLoader from '../Utils/CircularLoader.jsx';
 import SearchTracks from './SearchTracks.jsx';
 import { getHeader, songSearchUrl } from '../../config/index.js';
 
-const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
+function SearchForPlaylistAdd({ playListId, setTracks }) {
   const { isDarkMode } = useTheme();
   const [searchResult, setSearchResult] = useState({});
   const [find, setFind] = useState(false);
@@ -68,7 +68,7 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
     <>
       {!find && (
         <>
-          <hr style={{ borderTop: '0.04rem solid grey', margin: '0 2rem' }}></hr>
+          <hr style={{ borderTop: '0.04rem solid grey', margin: '0 2rem' }} />
           <div style={{ display: 'flex', justifyContent: 'end' }}>
             <h4
               style={{
@@ -89,7 +89,7 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
       )}
       {find && (
         <>
-          <hr style={{ borderTop: '0.04rem solid grey', margin: '0 2rem' }}></hr>
+          <hr style={{ borderTop: '0.04rem solid grey', margin: '0 2rem' }} />
           <div style={{ paddingLeft: '2rem', paddingTop: '2rem' }}>
             <div
               style={{
@@ -167,6 +167,6 @@ const SearchForPlaylistAdd = ({ playListId, setTracks }) => {
       )}
     </>
   );
-};
+}
 
 export default SearchForPlaylistAdd;

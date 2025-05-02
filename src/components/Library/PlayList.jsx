@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../Context/ThemeProvider';
 import { Avatar } from '@mui/material';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import { deepOrange } from '@mui/material/colors';
+import { useTheme } from '../Context/ThemeProvider';
 
-const Playlist = ({ item, profile }) => {
+function Playlist({ item, profile }) {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
   return (
@@ -72,6 +72,6 @@ const Playlist = ({ item, profile }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Playlist;

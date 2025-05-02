@@ -16,19 +16,18 @@ export default function ProfileBottom({ index, gradientPairs, loading, playlists
       <div>
         {loading ? <Skeleton variant="text" sx={{ fontSize: '1rem' }} /> : <h2>Public Playlist</h2>}
         <HorizontalScroll>
-          <Stack direction={'row'} spacing={2}>
-            {loading && <CardSkeleton profile={true} type="playlist" />}
-            {!loading &&
-              playlists.map((item) => <Playlist key={item.id} item={item} profile={true} />)}
+          <Stack direction="row" spacing={2}>
+            {loading && <CardSkeleton profile type="playlist" />}
+            {!loading && playlists.map((item) => <Playlist key={item.id} item={item} profile />)}
           </Stack>
         </HorizontalScroll>
       </div>
       <div style={{ marginTop: '2rem' }}>
         {loading ? <Skeleton variant="text" sx={{ fontSize: '1rem' }} /> : <h2>Following</h2>}
         <HorizontalScroll>
-          <Stack direction={'row'} spacing={2}>
-            {loading && <CardSkeleton profile={true} />}
-            {!loading && artists.map((item) => <Artist item={item} profile={true} />)}
+          <Stack direction="row" spacing={2}>
+            {loading && <CardSkeleton profile />}
+            {!loading && artists.map((item) => <Artist item={item} profile />)}
           </Stack>
         </HorizontalScroll>
       </div>

@@ -1,20 +1,20 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Skeleton, Stack } from '@mui/material';
+import { useSelector } from 'react-redux';
 import AlbumCard from '../Album/AlbumCard';
 import Tracks from '../Tracks/Tracks';
 import Scrollable from '../Utils/Scrollable';
-import { Skeleton, Stack } from '@mui/material';
 import CardSkeleton from '../Utils/SkeletonLoader/CardSkeleton';
 import TrackSkeleton from '../Utils/SkeletonLoader/TrackSkeleton';
-import { useSelector } from 'react-redux';
 import { getColorGradientPair } from '../../utils/colors';
 import { useTheme } from '../Context/ThemeProvider.jsx';
 import Artist from '../Library/Artist.jsx';
 import Playlist from '../Library/PlayList.jsx';
 import { getHeader, searchUrl } from '../../config/index.js';
 
-const Search = () => {
+function Search() {
   const [searchResult, setSearchResult] = useState({});
   const globalCount = useSelector((state) => state.refresh.globalCount);
   const params = useParams();
@@ -63,9 +63,9 @@ const Search = () => {
       >
         <div style={{ padding: '2rem 0 0 2rem' }}>
           {loading ? <Skeleton variant="text" sx={{ fontSize: '2rem' }} /> : <h3>Albums</h3>}
-          <Stack className="horizontal_scroll" direction={'row'}>
+          <Stack className="horizontal_scroll" direction="row">
             {loading ? (
-              <CardSkeleton profile={true} type="playlist" />
+              <CardSkeleton profile type="playlist" />
             ) : (
               searchResult.albums.items
                 .filter((item) => item)
@@ -75,25 +75,25 @@ const Search = () => {
         </div>
         <div style={{ padding: '1rem 0 0 2rem' }}>
           {loading ? <Skeleton variant="text" sx={{ fontSize: '2rem' }} /> : <h3>Playlists</h3>}
-          <Stack className="horizontal_scroll" direction={'row'}>
+          <Stack className="horizontal_scroll" direction="row">
             {loading ? (
-              <CardSkeleton profile={true} type="playlist" />
+              <CardSkeleton profile type="playlist" />
             ) : (
               searchResult.playlists.items
                 .filter((item) => item)
-                .map((item) => <Playlist item={item} profile={true} />)
+                .map((item) => <Playlist item={item} profile />)
             )}
           </Stack>
         </div>
         <div style={{ padding: '1rem 0 0 2rem' }}>
           {loading ? <Skeleton variant="text" sx={{ fontSize: '2rem' }} /> : <h3>Artists</h3>}
-          <Stack className="horizontal_scroll" direction={'row'}>
+          <Stack className="horizontal_scroll" direction="row">
             {loading ? (
-              <CardSkeleton profile={true} />
+              <CardSkeleton profile />
             ) : (
               searchResult.artists.items
                 .filter((item) => item)
-                .map((item) => <Artist item={item} profile={true} />)
+                .map((item) => <Artist item={item} profile />)
             )}
           </Stack>
         </div>
@@ -110,6 +110,6 @@ const Search = () => {
       </div>
     </Scrollable>
   );
-};
+}
 
 export default Search;

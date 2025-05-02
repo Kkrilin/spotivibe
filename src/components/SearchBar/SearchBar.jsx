@@ -1,9 +1,8 @@
 import { Search, HomeFilled } from '@mui/icons-material';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './SearchBar.module.css';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
-const SearchBar = () => {
+function SearchBar() {
   const navigate = useNavigate();
 
   // debounced with funtion
@@ -75,6 +74,6 @@ const SearchBar = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SearchBar;

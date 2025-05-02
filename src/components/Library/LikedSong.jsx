@@ -2,12 +2,12 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Avatar } from '@mui/material';
 import { setLikedSongs } from '../../redux/profileSlice.js';
 import { useTheme } from '../Context/ThemeProvider.jsx';
 import { getHeader, likedUrl } from '../../config/index.js';
-import { Avatar } from '@mui/material';
 
-const LikedSong = () => {
+function LikedSong() {
   const { likedSongs } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
@@ -83,6 +83,6 @@ const LikedSong = () => {
       )}
     </>
   );
-};
+}
 
 export default LikedSong;

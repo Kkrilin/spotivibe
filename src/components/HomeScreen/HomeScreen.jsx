@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 import HorizontalScroll from '../Utils/HorizontalScroll.jsx';
 import AlbumCard from '../Album/AlbumCard.jsx';
-import axios from 'axios';
 import Scrollable from '../Utils/Scrollable.jsx';
-import { useSelector } from 'react-redux';
 import { getColorGradientPair } from '../../utils/colors';
 import { useTheme } from '../Context/ThemeProvider.jsx';
 import { getHeader, newReleasesAlbumUrl } from '../../config/index.js';
 
-const HomeScreen = () => {
+function HomeScreen() {
   const [newRelease, setNewRelease] = useState([]);
   const { globalCount } = useSelector((state) => state.refresh);
   const { isDarkMode } = useTheme();
@@ -50,6 +50,6 @@ const HomeScreen = () => {
       </div>
     </Scrollable>
   );
-};
+}
 
 export default HomeScreen;

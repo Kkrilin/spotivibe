@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useTheme } from '../Context/ThemeProvider';
 import { Avatar } from '@mui/material';
+import { useTheme } from '../Context/ThemeProvider';
 import {
   getHeader,
   playListUrl,
@@ -9,7 +9,7 @@ import {
   removeItemfromPlaylistPayload,
 } from '../../config';
 
-const CheckBoxPlaylist = ({ pList, trackId, requiredPlaylist, handleClose, setTracks }) => {
+function CheckBoxPlaylist({ pList, trackId, requiredPlaylist, handleClose, setTracks }) {
   const [playlist, setPlaylist] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const CheckBoxPlaylist = ({ pList, trackId, requiredPlaylist, handleClose, setTr
         const itemCheck =
           response.data.tracks &&
           response.data.tracks.items.find((item) => item.track.id === trackId);
-        setCheck(itemCheck ? true : false);
+        setCheck(!!itemCheck);
       } catch (error) {
         setError(error.response.data.error.message);
       } finally {
@@ -101,12 +101,12 @@ const CheckBoxPlaylist = ({ pList, trackId, requiredPlaylist, handleClose, setTr
         <input
           style={{ width: '20px', height: '20px', borderRadius: '50%' }}
           type="checkbox"
-          checked={check ? true : false}
+          checked={!!check}
           onChange={handleCheck}
         />
       </label>
     </div>
   );
-};
+}
 
 export default CheckBoxPlaylist;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Scrollable = ({ children, name, bgColor }) => {
+function Scrollable({ children, name, bgColor }) {
   const [scrollHeight, setScrollHeight] = useState(0);
   const handleScroll = (e) => {
     if (e.target.scrollTop > 200) {
@@ -25,6 +25,6 @@ const Scrollable = ({ children, name, bgColor }) => {
       {children}
     </div>
   );
-};
+}
 
 export default Scrollable;

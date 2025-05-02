@@ -1,13 +1,13 @@
-import Artists from './Artists.jsx';
-import PlayLists from './PlayLists.jsx';
-import Filter from './Filter.jsx';
 import SearchIcon from '@mui/icons-material/Search';
 import ListIcon from '@mui/icons-material/List';
 import { useState } from 'react';
+import Artists from './Artists.jsx';
+import PlayLists from './PlayLists.jsx';
+import Filter from './Filter.jsx';
 import LikedSong from './LikedSong.jsx';
 import { useTheme } from '../Context/ThemeProvider.jsx';
 
-const Library = () => {
+function Library() {
   const [filter, setFilter] = useState('');
   const { isDarkMode } = useTheme();
   const [search, setSearch] = useState('');
@@ -96,6 +96,6 @@ const Library = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Library;

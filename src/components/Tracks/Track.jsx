@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { likeSong, setSongDetail } from '../../redux/songDetailSlice';
 import axios from 'axios';
-import { checkSaveSongUrl, getHeader, songDetailUrl, songLikeUrl } from '../../config';
-import { addLikeSong, removeLikeSong } from '../../redux/profileSlice';
 import { Avatar } from '@mui/material';
 import { AddCircleOutline } from '@mui/icons-material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { addLikeSong, removeLikeSong } from '../../redux/profileSlice';
+import { checkSaveSongUrl, getHeader, songDetailUrl, songLikeUrl } from '../../config';
+import { likeSong, setSongDetail } from '../../redux/songDetailSlice';
 import LibraryPopover from '../Utils/Popover/LibraryPopover';
 import { useTheme } from '../Context/ThemeProvider';
 
-const Track = ({
+function Track({
   track,
   count,
   id,
@@ -19,7 +19,7 @@ const Track = ({
   setRequiredPlaylist,
   setTracks,
   colorGradient,
-}) => {
+}) {
   const [hover, setHover] = useState(false);
   const dispatch = useDispatch();
   const [like, setLike] = useState();
@@ -81,7 +81,7 @@ const Track = ({
           if (songDetail.id === id) {
             dispatch(likeSong({ data: false }));
           }
-          dispatch(removeLikeSong({ id: id }));
+          dispatch(removeLikeSong({ id }));
         })
         .catch((err) => setError(err.response.data.error.message));
     } else {
@@ -114,7 +114,7 @@ const Track = ({
             alt="Spotify logo"
             src={track.album ? track.album.images[0].url : track.track.album.images[0].url}
             variant="square"
-          ></Avatar>
+          />
         )}
         <h4 style={{ color: `${isDarkMode ? '#fff' : '#000'}` }}>
           {track.name || track.track.name}
@@ -162,13 +162,13 @@ const Track = ({
       )}
       {!hover && (
         <>
-          <div style={{ width: '1.2rem', height: '1.2rem' }}></div>
-          <div style={{ width: '4rem', height: '1.2rem' }}></div>
+          <div style={{ width: '1.2rem', height: '1.2rem' }} />
+          <div style={{ width: '4rem', height: '1.2rem' }} />
         </>
       )}
       <h3 style={{ width: '1.2rem' }}>{value}</h3>
     </div>
   );
-};
+}
 
 export default Track;

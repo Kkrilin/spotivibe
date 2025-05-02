@@ -3,7 +3,7 @@ import { createContext, useState, useContext } from 'react';
 
 const RefreshContext = createContext();
 
-export const RefreshProvider = ({ children }) => {
+export function RefreshProvider({ children }) {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const triggerGlobalRefresh = () => {
@@ -18,6 +18,6 @@ export const RefreshProvider = ({ children }) => {
       {children}
     </RefreshContext.Provider>
   );
-};
+}
 
 export const useRefresh = () => useContext(RefreshContext);

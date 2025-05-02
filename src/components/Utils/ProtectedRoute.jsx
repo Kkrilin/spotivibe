@@ -17,7 +17,7 @@ function ProtectedRoute({ children, redirectPath = '/' }) {
     }
   }, []);
 
-  return isAuthenticated ? children : <Navigate to={redirectPath} replace={true} />;
+  return isAuthenticated ? children : <Navigate to={redirectPath} replace />;
 }
 
 export default ProtectedRoute;

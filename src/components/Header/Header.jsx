@@ -1,12 +1,11 @@
 import { Avatar } from '@mui/material';
 import { lightGreen } from '@mui/material/colors';
-import SearchBar from '../SearchBar/SearchBar';
 import { useSelector } from 'react-redux';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import SearchBar from '../SearchBar/SearchBar';
 import { useTheme } from '../Context/ThemeProvider';
 import config from '../../config/config';
 
@@ -70,7 +69,7 @@ function Header() {
         alt="Spotify logo"
         src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_Green.png"
       />
-      <div></div>
+      <div />
       <SearchBar />
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <button

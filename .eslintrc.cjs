@@ -1,8 +1,12 @@
 module.exports = {
   root: true,
-  parser: '@babel/eslint-parser', // Updated parser
+  parser: 'espree', // Updated parser
   parserOptions: {
-    requireConfigFile: false,
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   env: {
     browser: true,

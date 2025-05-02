@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { setArtists } from '../../redux/profileSlice.js';
 import { useSelector, useDispatch } from 'react-redux';
+import { setArtists } from '../../redux/profileSlice.js';
 import CardSkeleton from '../Utils/SkeletonLoader/CardSkeleton.jsx';
 import Artist from './Artist.jsx';
 import { followedArtistUrl, getHeader } from '../../config/index.js';
 
-const Artists = ({ search }) => {
+function Artists({ search }) {
   const { artists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
@@ -50,6 +50,6 @@ const Artists = ({ search }) => {
       )}
     </>
   );
-};
+}
 
 export default Artists;

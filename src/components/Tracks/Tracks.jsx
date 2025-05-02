@@ -4,7 +4,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useTheme } from '../Context/ThemeProvider.jsx';
 import Track from './Track.jsx';
 
-const Tracks = ({
+function Tracks({
   tracks,
   colorGradient,
   type,
@@ -13,7 +13,7 @@ const Tracks = ({
   requiredPlaylist,
   setRequiredPlaylist,
   setTracks,
-}) => {
+}) {
   const { isDarkMode } = useTheme();
   if (['playlist_search', 'search'].includes(type)) {
     return (
@@ -50,7 +50,7 @@ const Tracks = ({
               borderBottom: '9px solid transparent',
               //   position: "absolute",
             }}
-          ></div>
+          />
         </div>
         {type === 'like' && ''}
         {type !== 'like' && (
@@ -127,6 +127,6 @@ const Tracks = ({
       </div>
     </div>
   );
-};
+}
 
 export default Tracks;

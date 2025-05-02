@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Avatar } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import { closeSongDetail } from '../../redux/songDetailSlice';
 import { useTheme } from '../Context/ThemeProvider';
-const SideBar = () => {
+
+function SideBar() {
   const { songDetail, sideBarStyle } = useSelector((state) => state.songDetail);
   const dispatch = useDispatch();
   const { isDarkMode } = useTheme();
@@ -115,6 +115,6 @@ const SideBar = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SideBar;

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Avatar, Typography, Skeleton } from '@mui/material';
 import { useTheme } from '../Context/ThemeProvider.jsx';
 
-const AlbumCard = ({ item }) => {
+function AlbumCard({ item }) {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
   return (
@@ -21,10 +21,7 @@ const AlbumCard = ({ item }) => {
             variant="rounded"
           />
         ) : (
-          <Avatar
-            sx={{ bgcolor: deepOrange[500], width: 48, height: 48 }}
-            variant="square"
-          ></Avatar>
+          <Avatar sx={{ bgcolor: deepOrange[500], width: 48, height: 48 }} variant="square" />
         ))}
       <div>
         {item ? (
@@ -44,6 +41,6 @@ const AlbumCard = ({ item }) => {
       </div>
     </div>
   );
-};
+}
 
 export default AlbumCard;

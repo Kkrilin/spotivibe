@@ -1,10 +1,11 @@
-import Library from '../components/Library/Library';
 import { Outlet } from 'react-router-dom';
+import Library from '../components/Library/Library';
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import SideBar from '../components/SideBar/SideBar.jsx';
 import { useTheme } from '../components/Context/ThemeProvider.jsx';
-const HomePage = () => {
+
+function HomePage() {
   const { isDarkMode } = useTheme();
 
   return (
@@ -24,6 +25,6 @@ const HomePage = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default HomePage;

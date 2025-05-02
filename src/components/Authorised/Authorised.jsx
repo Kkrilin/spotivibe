@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import config from '../../config/config';
 
-const Authorised = () => {
+function Authorised() {
   const navigate = useNavigate();
   const codeVerifier = localStorage.getItem('code_verifier');
   const { redirectUri, clientId, tokenUrl } = config;
@@ -47,6 +47,6 @@ const Authorised = () => {
       <h1>redirecting to Profile Home page....</h1>
     </div>
   );
-};
+}
 
 export default Authorised;

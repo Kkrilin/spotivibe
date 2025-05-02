@@ -5,7 +5,7 @@ import Tracks from '../Tracks/Tracks';
 import { getColorGradientPair } from '../../utils/colors';
 import { useTheme } from '../Context/ThemeProvider.jsx';
 
-const LikedSongPage = () => {
+function LikedSongPage() {
   const { likedSongs, data: mydata } = useSelector((state) => state.profile);
   const { isDarkMode } = useTheme();
   const gradientPairs = getColorGradientPair(isDarkMode);
@@ -88,6 +88,6 @@ const LikedSongPage = () => {
       </div>
     </Scrollable>
   );
-};
+}
 
 export default LikedSongPage;

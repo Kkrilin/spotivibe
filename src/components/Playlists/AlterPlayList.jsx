@@ -1,21 +1,21 @@
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addPlaylist } from '../../redux/profileSlice';
 import { Search } from '@mui/icons-material';
+import { useState } from 'react';
+import { addPlaylist } from '../../redux/profileSlice';
 import { useTheme } from '../Context/ThemeProvider.jsx';
 import { createUrl } from '../../config/index.js';
 import CheckBoxPlaylist from './CheckBoxPlaylist.jsx';
-import { useState } from 'react';
 
-const AlterPlayList = ({
+function AlterPlayList({
   handleClose,
   track,
   requiredPlaylist,
   setRequiredPlaylist,
   setTracks,
   colorGradient,
-}) => {
+}) {
   const { data, playlists } = useSelector((state) => state.profile);
   const [searchPlaylist, setSearchPlaylist] = useState('');
   const { isDarkMode } = useTheme();
@@ -163,9 +163,9 @@ const AlterPlayList = ({
       >
         Ok
       </h5>
-      <form onSubmit={handleSubmit} className="alterPlaylist_form"></form>
+      <form onSubmit={handleSubmit} className="alterPlaylist_form" />
     </div>
   );
-};
+}
 
 export default AlterPlayList;

@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { useEffect } from 'react';
 import redirectToSpotifyAuthorize from '../auth/authService';
 import config from '../config/config';
-import { useEffect } from 'react';
 
-const Login = () => {
+function Login() {
   const { redirectUri, clientId } = config;
 
   const navigate = useNavigate();
@@ -48,6 +48,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;

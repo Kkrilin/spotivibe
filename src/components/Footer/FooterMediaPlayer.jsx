@@ -43,7 +43,7 @@ export default function FooterMediaPlayer() {
               backgroundColor: '#FFF',
               borderRadius: '10px',
             }}
-          ></div>
+          />
         </div>
         <span style={{ fontSize: '12px' }}>5:20</span>
       </div>

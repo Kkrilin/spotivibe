@@ -1,5 +1,6 @@
 import { Skeleton } from '@mui/material';
-export const CardSkeleton = ({ profile, type }) => {
+
+export function CardSkeleton({ profile, type }) {
   return (
     <>
       {Array.from(new Array(3)).map((_, id) => (
@@ -23,6 +24,6 @@ export const CardSkeleton = ({ profile, type }) => {
       ))}
     </>
   );
-};
+}
 
 export default CardSkeleton;

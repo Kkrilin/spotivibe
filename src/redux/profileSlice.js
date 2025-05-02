@@ -43,9 +43,8 @@ const profileSlice = createSlice({
         if (pl.id === action.payload.plId) {
           pl.push(action.payload.item);
           return pl;
-        } else {
-          return pl;
         }
+        return pl;
       });
     },
     removeItemToPlaylist(state, action) {
@@ -53,9 +52,8 @@ const profileSlice = createSlice({
         if (pl.id === action.payload.plId) {
           pl.push(action.payload.item);
           return pl;
-        } else {
-          return pl;
         }
+        return pl;
       });
     },
     setLikedSongs(state, action) {

@@ -1,5 +1,6 @@
 import { Skeleton } from '@mui/material';
-export const TrackSkeleton = () => {
+
+export function TrackSkeleton() {
   return (
     <div className="">
       <div style={{ padding: '1.5rem' }}>
@@ -18,6 +19,6 @@ export const TrackSkeleton = () => {
       </div>
     </div>
   );
-};
+}
 
 export default TrackSkeleton;

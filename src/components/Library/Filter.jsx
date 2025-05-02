@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import BasicPopover from '../Utils/Popover/BasicPopover';
 import { useTheme } from '../Context/ThemeProvider';
 
-const Filter = ({ handleFilterClick, filter }) => {
+function Filter({ handleFilterClick, filter }) {
   const { isDarkMode } = useTheme();
   return (
     <Stack>
@@ -45,6 +45,6 @@ const Filter = ({ handleFilterClick, filter }) => {
       </div>
     </Stack>
   );
-};
+}
 
 export default Filter;

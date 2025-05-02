@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { likeSong, setSongDetail } from '../../redux/songDetailSlice';
-import { addLikeSong, removeLikeSong } from '../../redux/profileSlice';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { useEffect } from 'react';
-import { useTheme } from '../Context/ThemeProvider';
 import axios from 'axios';
+import { likeSong, setSongDetail } from '../../redux/songDetailSlice';
+import { addLikeSong, removeLikeSong } from '../../redux/profileSlice';
+import { useTheme } from '../Context/ThemeProvider';
 import { checkSaveSongUrl, getHeader, songLikeUrl } from '../../config/index';
 import FooterLeft from './FooterLeft';
 import FooterMediaPlayer from './FooterMediaPlayer';
 
-const Footer = () => {
+function Footer() {
   const { songDetail, songLike } = useSelector((state) => state.songDetail);
   const { globalCount } = useSelector((state) => state.refresh);
   const dispatch = useDispatch();
@@ -106,12 +106,12 @@ const Footer = () => {
                 backgroundColor: '#FFF',
                 borderRadius: '10px',
               }}
-            ></div>
+            />
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Footer;

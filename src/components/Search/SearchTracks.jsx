@@ -1,9 +1,9 @@
 import { Avatar } from '@mui/material';
-import { useTheme } from '../Context/ThemeProvider';
 import axios from 'axios';
+import { useTheme } from '../Context/ThemeProvider';
 import { getHeader, removeAddItemUrl } from '../../config';
 
-const SearchTracks = ({ track, playListId, setTracks }) => {
+function SearchTracks({ track, playListId, setTracks }) {
   const { isDarkMode } = useTheme();
 
   const token = localStorage.getItem('access_token');
@@ -30,7 +30,7 @@ const SearchTracks = ({ track, playListId, setTracks }) => {
           alt="Spotify logo"
           src={track.album ? track.album.images[0].url : track.track.album.images[0].url}
           variant="square"
-        ></Avatar>
+        />
         <div>
           <h5
             className="name"
@@ -58,6 +58,6 @@ const SearchTracks = ({ track, playListId, setTracks }) => {
       </div>
     </div>
   );
-};
+}
 
 export default SearchTracks;

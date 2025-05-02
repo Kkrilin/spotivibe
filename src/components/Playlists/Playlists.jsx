@@ -1,8 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, Skeleton } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Scrollable from '../Utils/Scrollable';
 import Tracks from '../Tracks/Tracks';
@@ -20,7 +19,7 @@ import {
   playListUrl,
 } from '../../config/index.js';
 
-const PlayLists = () => {
+function PlayLists() {
   const { playlists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
@@ -165,6 +164,6 @@ const PlayLists = () => {
       </div>
     </Scrollable>
   );
-};
+}
 
 export default PlayLists;

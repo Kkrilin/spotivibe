@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addPlaylist } from '../../redux/profileSlice';
-import { useDispatch } from 'react-redux';
 import { createUrl, getHeader } from '../../config';
 
-const CreatePlayList = ({ handleClose }) => {
+function CreatePlayList({ handleClose }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const { data } = useSelector((state) => state.profile);
@@ -79,6 +78,6 @@ const CreatePlayList = ({ handleClose }) => {
       </div>
     </form>
   );
-};
+}
 
 export default CreatePlayList;

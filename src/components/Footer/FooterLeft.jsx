@@ -21,7 +21,7 @@ export default function FooterLeft({ songDetail, isDarkMode, handleLikeClick, so
           variant="rounded"
         />
       ) : (
-        <Avatar sx={{ bgcolor: deepOrange[500], width: 60, height: 60 }} variant="rounded"></Avatar>
+        <Avatar sx={{ bgcolor: deepOrange[500], width: 60, height: 60 }} variant="rounded" />
       )}
 
       <div style={{ marginLeft: '1rem' }}>

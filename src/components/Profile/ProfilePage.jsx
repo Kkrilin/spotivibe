@@ -10,7 +10,7 @@ import { profileUrl, getHeader } from '../../config/index.js';
 import Profile from './Profile.jsx';
 import ProfileBottom from './ProfileBottom.jsx';
 
-const ProfilePage = () => {
+function ProfilePage() {
   const { artists, playlists, ...profileData } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [error, setError] = useState('');
@@ -70,6 +70,6 @@ const ProfilePage = () => {
       />
     </Scrollable>
   );
-};
+}
 
 export default ProfilePage;

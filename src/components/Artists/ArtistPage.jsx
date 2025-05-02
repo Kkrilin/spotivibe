@@ -1,11 +1,10 @@
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, Skeleton, Stack } from '@mui/material';
 import axios from 'axios';
 import Scrollable from '../Utils/Scrollable.jsx';
 import Tracks from '../Tracks/Tracks.jsx';
-import { useDispatch } from 'react-redux';
 import { addArtist, removeArtist } from '../../redux/profileSlice.js';
 import AlbumCard from '../Album/AlbumCard.jsx';
 import { getColorGradientPair } from '../../utils/colors.js';
@@ -26,7 +25,7 @@ import {
 import ArtistProfile from './ArtistProfile.jsx';
 import ArtistBottom from './ArtistBottom.jsx';
 
-const ArtistPage = () => {
+function ArtistPage() {
   const { artists } = useSelector((state) => state.profile);
   const [artistAlbums, setArtistsAlbum] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -150,6 +149,6 @@ const ArtistPage = () => {
       />
     </Scrollable>
   );
-};
+}
 
 export default ArtistPage;
