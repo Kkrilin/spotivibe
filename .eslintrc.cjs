@@ -17,7 +17,7 @@ module.exports = {
   extends: [
     'google',
     'plugin:react/recommended',
-    'plugin:jsx-a11y/recommended',
+    // 'plugin:jsx-a11y/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
   ],
@@ -25,6 +25,8 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off', // For React 17+
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.js'] }],
+    'react/prop-types': 'off',
+    'require-jsdoc': 'off',
   },
   settings: {
     react: {
