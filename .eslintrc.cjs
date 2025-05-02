@@ -15,7 +15,6 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', 'jsx-a11y', 'import', 'prettier'],
   extends: [
-    'airbnb',
     'google',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
