@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
-import { Avatar, Skeleton } from "@mui/material";
-import Scrollable from "../Utils/Scrollable";
-import Tracks from "../Tracks/Tracks";
-import { getColorGradientPair } from "../../utils/colors";
-import { useTheme } from "../Context/ThemeProvider.jsx";
+import { useSelector } from 'react-redux';
+import { Avatar, Skeleton } from '@mui/material';
+import Scrollable from '../Utils/Scrollable';
+import Tracks from '../Tracks/Tracks';
+import { getColorGradientPair } from '../../utils/colors';
+import { useTheme } from '../Context/ThemeProvider.jsx';
 
 const LikedSongPage = () => {
   const { likedSongs, data: mydata } = useSelector((state) => state.profile);
@@ -24,7 +24,7 @@ const LikedSongPage = () => {
             sx={{
               width: 220,
               height: 220,
-              borderRadius: "8px",
+              borderRadius: '8px',
             }}
             style={{ backgroundImage: `${gradientPairs[index][1]}` }}
             alt="Spotify logo"
@@ -33,42 +33,40 @@ const LikedSongPage = () => {
         </div>
         <div
           style={{
-            marginLeft: "12px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            fontFamily: "Helvetica Neue",
+            marginLeft: '12px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            fontFamily: 'Helvetica Neue',
           }}
         >
-          <h6 style={{ fontSize: "24px" }}>Playlist</h6>
-          <h6 style={{ fontSize: "6rem" }}>Liked Songs</h6>
-          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <h6 style={{ fontSize: '24px' }}>Playlist</h6>
+          <h6 style={{ fontSize: '6rem' }}>Liked Songs</h6>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             <span>
               <Avatar
                 sx={{ width: 30, height: 30 }}
                 alt="Spotify logo"
-                src={
-                  mydata.images && mydata.images.length && mydata.images[0].url
-                }
+                src={mydata.images && mydata.images.length && mydata.images[0].url}
               />
             </span>
             <span
               className="name"
               style={{
-                color: `${isDarkMode ? "#837f7f" : "#000"}`,
+                color: `${isDarkMode ? '#837f7f' : '#000'}`,
               }}
             >
-              {" "}
+              {' '}
               {mydata.display_name}
             </span>
-            <span className="dot_separator" style={{ color: "#fff" }}>
-              {" "}
+            <span className="dot_separator" style={{ color: '#fff' }}>
+              {' '}
             </span>
             <span
               className="type"
               style={{
-                color: `${isDarkMode ? "#837f7f" : "#000"}`,
-                fontWeight: "400",
+                color: `${isDarkMode ? '#837f7f' : '#000'}`,
+                fontWeight: '400',
               }}
             >
               {likedSongs.length} songs

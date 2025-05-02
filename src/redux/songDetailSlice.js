@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   songDetail: null,
@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const songDetailSlice = createSlice({
-  name: "songDetail",
+  name: 'songDetail',
   initialState,
   reducers: {
     setSongDetail(state, action) {
@@ -19,17 +19,17 @@ const songDetailSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.sideBarStyle = {
-        width: "26rem",
-        animation: "show 0.8s forwards",
+        width: '26rem',
+        animation: 'show 0.8s forwards',
       };
     },
     closeSongDetail(state) {
       state.open = false;
       // state.songDetail = null;
       state.sideBarStyle = {
-        marginLeft: "-10px",
-        width: "0rem",
-        animation: "hide 0.4s backwards",
+        marginLeft: '-10px',
+        width: '0rem',
+        animation: 'hide 0.4s backwards',
       };
     },
     likeSong(state, action) {
@@ -38,7 +38,6 @@ const songDetailSlice = createSlice({
   },
 });
 
-export const { setSongDetail, closeSongDetail, likeSong } =
-  songDetailSlice.actions;
+export const { setSongDetail, closeSongDetail, likeSong } = songDetailSlice.actions;
 
 export default songDetailSlice.reducer;

@@ -1,19 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import { likeSong, setSongDetail } from "../../redux/songDetailSlice";
-import { addLikeSong, removeLikeSong } from "../../redux/profileSlice";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import { useEffect } from "react";
-import { useTheme } from "../Context/ThemeProvider";
-import axios from "axios";
-import { checkSaveSongUrl, getHeader, songLikeUrl } from "../../config/index";
-import FooterLeft from "./FooterLeft";
-import FooterMediaPlayer from "./FooterMediaPlayer";
+import { useDispatch, useSelector } from 'react-redux';
+import { likeSong, setSongDetail } from '../../redux/songDetailSlice';
+import { addLikeSong, removeLikeSong } from '../../redux/profileSlice';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import { useEffect } from 'react';
+import { useTheme } from '../Context/ThemeProvider';
+import axios from 'axios';
+import { checkSaveSongUrl, getHeader, songLikeUrl } from '../../config/index';
+import FooterLeft from './FooterLeft';
+import FooterMediaPlayer from './FooterMediaPlayer';
 
 const Footer = () => {
   const { songDetail, songLike } = useSelector((state) => state.songDetail);
   const { globalCount } = useSelector((state) => state.refresh);
   const dispatch = useDispatch();
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
   const { isDarkMode } = useTheme();
 
   const header = getHeader(token);
@@ -36,7 +36,7 @@ const Footer = () => {
 
   useEffect(() => {
     if (!songDetail) {
-      const song = JSON.parse(localStorage.getItem("songDetail"));
+      const song = JSON.parse(localStorage.getItem('songDetail'));
       if (song) {
         dispatch(setSongDetail({ data: song }));
       }
@@ -44,7 +44,7 @@ const Footer = () => {
   }, []);
 
   const handleLikeClick = () => {
-    header.headers["Content-Type"] = "application/json";
+    header.headers['Content-Type'] = 'application/json';
     if (songLike) {
       axios
         .delete(songLikeUrl(songDetail.id), header)
@@ -66,12 +66,12 @@ const Footer = () => {
   return (
     <div
       style={{
-        height: "10vh",
-        marginTop: "4px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: `${isDarkMode ? "#121212" : "#97ad9b"}`,
+        height: '10vh',
+        marginTop: '4px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: `${isDarkMode ? '#121212' : '#97ad9b'}`,
       }}
     >
       <FooterLeft
@@ -83,28 +83,28 @@ const Footer = () => {
       <FooterMediaPlayer />
       <div
         style={{
-          width: "20rem",
-          display: "flex",
-          alignItems: "center",
-          gap: "1rem",
+          width: '20rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
         }}
       >
         <VolumeUpIcon />
         <div>
           <div
             style={{
-              width: "10rem",
-              height: "0.2rem",
-              backgroundColor: "#2A2A2A",
-              borderRadius: "10px",
+              width: '10rem',
+              height: '0.2rem',
+              backgroundColor: '#2A2A2A',
+              borderRadius: '10px',
             }}
           >
             <div
               style={{
-                width: "4rem",
-                height: "0.2rem",
-                backgroundColor: "#FFF",
-                borderRadius: "10px",
+                width: '4rem',
+                height: '0.2rem',
+                backgroundColor: '#FFF',
+                borderRadius: '10px',
               }}
             ></div>
           </div>

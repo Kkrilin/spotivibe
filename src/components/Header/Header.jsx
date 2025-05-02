@@ -1,14 +1,14 @@
-import { Avatar } from "@mui/material";
-import { lightGreen } from "@mui/material/colors";
-import SearchBar from "../SearchBar/SearchBar";
-import { useSelector } from "react-redux";
-import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import { useTheme } from "../Context/ThemeProvider";
-import config from "../../config/config";
+import { Avatar } from '@mui/material';
+import { lightGreen } from '@mui/material/colors';
+import SearchBar from '../SearchBar/SearchBar';
+import { useSelector } from 'react-redux';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { useTheme } from '../Context/ThemeProvider';
+import config from '../../config/config';
 
 function Header() {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -20,16 +20,16 @@ function Header() {
 
   const getRefreshToken = async () => {
     // refresh token that has been previously stored
-    const refreshToken = localStorage.getItem("refresh_token");
+    const refreshToken = localStorage.getItem('refresh_token');
     const { tokenUrl } = config;
 
     const payload = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        grant_type: "refresh_token",
+        grant_type: 'refresh_token',
         refresh_token: refreshToken,
         client_id: clientId,
       }),
@@ -37,33 +37,33 @@ function Header() {
     const body = await fetch(tokenUrl, payload);
     const response = await body.json();
 
-    localStorage.setItem("access_token", response.access_token);
-    localStorage.setItem("expire_in", response.expires_in);
+    localStorage.setItem('access_token', response.access_token);
+    localStorage.setItem('expire_in', response.expires_in);
     if (response.refresh_token) {
-      localStorage.setItem("refresh_token", response.refresh_token);
+      localStorage.setItem('refresh_token', response.refresh_token);
     }
   };
   const handleRefreshClick = () => {
     getRefreshToken()
       .then(() => {
-        console.log("Access token refreshed successfully");
-        navigate("/user");
+        console.log('Access token refreshed successfully');
+        navigate('/user');
       })
       .catch((error) => {
-        console.error("Error refreshing access token:", error);
+        console.error('Error refreshing access token:', error);
       });
-    console.log("Refresh Access Token clicked");
+    console.log('Refresh Access Token clicked');
   };
 
   return (
     <header
       style={{
-        display: "flex",
-        padding: " 0rem 1rem",
-        justifyContent: "space-between",
-        alignItems: "center",
-        width: "100vw",
-        height: "7vh",
+        display: 'flex',
+        padding: ' 0rem 1rem',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100vw',
+        height: '7vh',
       }}
     >
       <Avatar
@@ -72,18 +72,18 @@ function Header() {
       />
       <div></div>
       <SearchBar />
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <button
           style={{
-            fontSize: "0.8rem",
-            color: `${isDarkMode ? "#000" : "#fff"}`,
-            backgroundColor: `${isDarkMode ? "#fff" : "#000"}`,
-            fontWeight: "bold",
-            padding: " 4px 10px",
-            border: "none",
-            borderRadius: "9999px",
-            marginRight: "10px",
-            cursor: "pointer",
+            fontSize: '0.8rem',
+            color: `${isDarkMode ? '#000' : '#fff'}`,
+            backgroundColor: `${isDarkMode ? '#fff' : '#000'}`,
+            fontWeight: 'bold',
+            padding: ' 4px 10px',
+            border: 'none',
+            borderRadius: '9999px',
+            marginRight: '10px',
+            cursor: 'pointer',
           }}
           onClick={handleRefreshClick}
         >
@@ -91,49 +91,45 @@ function Header() {
         </button>
         <button
           style={{
-            fontSize: "1rem",
-            color: `${isDarkMode ? "#000" : "#fff"}`,
-            backgroundColor: `${isDarkMode ? "#fff" : "#000"}`,
-            fontWeight: "bold",
-            padding: " 4px 10px",
-            border: "none",
-            borderRadius: "9999px",
+            fontSize: '1rem',
+            color: `${isDarkMode ? '#000' : '#fff'}`,
+            backgroundColor: `${isDarkMode ? '#fff' : '#000'}`,
+            fontWeight: 'bold',
+            padding: ' 4px 10px',
+            border: 'none',
+            borderRadius: '9999px',
           }}
         >
           Explore Premium
         </button>
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            backgroundColor: `${isDarkMode ? "#000" : "#fff"}`,
-            padding: "4px 10px",
-            margin: "10px",
+            display: 'flex',
+            alignItems: 'center',
+            backgroundColor: `${isDarkMode ? '#000' : '#fff'}`,
+            padding: '4px 10px',
+            margin: '10px',
           }}
         >
           <ArrowCircleDownIcon color="grey" />
           <button
             style={{
-              border: "none",
-              color: "grey",
-              backgroundColor: "#fff",
-              margin: "0 10px",
-              fontSize: "1rem",
-              fontWeight: "600",
-              padding: "4px 10px",
-              borderRadius: "9999px",
+              border: 'none',
+              color: 'grey',
+              backgroundColor: '#fff',
+              margin: '0 10px',
+              fontSize: '1rem',
+              fontWeight: '600',
+              padding: '4px 10px',
+              borderRadius: '9999px',
             }}
           >
             Install App
           </button>
         </div>
         <div onClick={toggleTheme}>
-          {isDarkMode && (
-            <LightModeIcon sx={{ marginRight: "20px", cursor: "pointer" }} />
-          )}
-          {!isDarkMode && (
-            <DarkModeIcon sx={{ marginRight: "20px", cursor: "pointer" }} />
-          )}
+          {isDarkMode && <LightModeIcon sx={{ marginRight: '20px', cursor: 'pointer' }} />}
+          {!isDarkMode && <DarkModeIcon sx={{ marginRight: '20px', cursor: 'pointer' }} />}
         </div>
         {imgUrl && (
           <Link to="/user">

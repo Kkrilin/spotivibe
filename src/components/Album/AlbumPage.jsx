@@ -1,16 +1,16 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { Avatar, Skeleton } from "@mui/material";
-import axios from "axios";
-import Scrollable from "../Utils/Scrollable.jsx";
-import Tracks from "../Tracks/Tracks.jsx";
-import { getColorGradientPair } from "../../utils/colors.js";
-import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
-import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton.jsx";
-import { useTheme } from "../Context/ThemeProvider.jsx";
-import { albumUrl, getHeader } from "../../config/index.js";
-import AlbumProfile from "./AlbumProfile.jsx";
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { Avatar, Skeleton } from '@mui/material';
+import axios from 'axios';
+import Scrollable from '../Utils/Scrollable.jsx';
+import Tracks from '../Tracks/Tracks.jsx';
+import { getColorGradientPair } from '../../utils/colors.js';
+import ProfileSkeleton from '../Utils/SkeletonLoader/ProfileSkeleton.jsx';
+import TrackSkeleton from '../Utils/SkeletonLoader/TrackSkeleton.jsx';
+import { useTheme } from '../Context/ThemeProvider.jsx';
+import { albumUrl, getHeader } from '../../config/index.js';
+import AlbumProfile from './AlbumProfile.jsx';
 
 const AlbumPage = () => {
   const [albums, setAlbum] = useState(null);
@@ -21,7 +21,7 @@ const AlbumPage = () => {
   const { id } = param;
   const { isDarkMode } = useTheme();
   const gradientPairs = getColorGradientPair(isDarkMode);
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
   const header = getHeader(token);
 
   const index = Math.floor(Math.random() * gradientPairs.length);
@@ -48,16 +48,12 @@ const AlbumPage = () => {
       {loading ? (
         <ProfileSkeleton />
       ) : (
-        <AlbumProfile
-          gradientPairs={gradientPairs}
-          index={index}
-          albums={albums}
-        />
+        <AlbumProfile gradientPairs={gradientPairs} index={index} albums={albums} />
       )}
       <div
         style={{
           backgroundImage: `${index && gradientPairs[index][1]}`,
-          padding: "2rem",
+          padding: '2rem',
         }}
       >
         {loading ? (

@@ -1,30 +1,30 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect, useState, useRef } from "react";
-import { Avatar, Skeleton } from "@mui/material";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import Scrollable from "../Utils/Scrollable";
-import Tracks from "../Tracks/Tracks";
-import { addPlaylist, removePlaylist } from "../../redux/profileSlice";
-import { getColorGradientPair } from "../../utils/colors";
-import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
-import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
-import SearchForPlaylistAdd from "../Search/SearchForPlaylistAdd.jsx";
-import { useTheme } from "../Context/ThemeProvider.jsx";
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect, useState, useRef } from 'react';
+import { Avatar, Skeleton } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import Scrollable from '../Utils/Scrollable';
+import Tracks from '../Tracks/Tracks';
+import { addPlaylist, removePlaylist } from '../../redux/profileSlice';
+import { getColorGradientPair } from '../../utils/colors';
+import ProfileSkeleton from '../Utils/SkeletonLoader/ProfileSkeleton.jsx';
+import TrackSkeleton from '../Utils/SkeletonLoader/TrackSkeleton';
+import SearchForPlaylistAdd from '../Search/SearchForPlaylistAdd.jsx';
+import { useTheme } from '../Context/ThemeProvider.jsx';
 import {
   checkPlaylistFollowUrl,
   followPlaylistUrl,
   getHeader,
   playListItemUrl,
   playListUrl,
-} from "../../config/index.js";
+} from '../../config/index.js';
 
 const PlayLists = () => {
   const { playlists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [tracks, setTracks] = useState([]);
   const [follow, setFollow] = useState(false);
   const param = useParams();
@@ -35,14 +35,14 @@ const PlayLists = () => {
   const { id } = param;
   const indexRef = useRef(null);
   const index = indexRef.current;
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
   const header = getHeader(token);
 
   const data = {
     public: true,
   };
   const handleFollowClick = async () => {
-    header.headers["Content-Type"] = "application/json";
+    header.headers['Content-Type'] = 'application/json';
     try {
       if (follow) {
         await axios.delete(followPlaylistUrl(id), header);
@@ -66,10 +66,7 @@ const PlayLists = () => {
           const playListResponse = await axios.get(playListUrl(id), header);
           playlist = playListResponse.data;
         }
-        const followCheckResponse = await axios.get(
-          checkPlaylistFollowUrl(id),
-          header
-        );
+        const followCheckResponse = await axios.get(checkPlaylistFollowUrl(id), header);
         const response = await axios.get(playListItemUrl(id), header);
         setRequiredPlaylist(playlist);
         setFollow(followCheckResponse.data[0]);
@@ -87,8 +84,8 @@ const PlayLists = () => {
 
   if (error) {
     return (
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <h2 style={{ color: "#fff" }}>{error}</h2>
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h2 style={{ color: '#fff' }}>{error}</h2>
       </div>
     );
   }
@@ -109,7 +106,7 @@ const PlayLists = () => {
         >
           <div>
             <Avatar
-              sx={{ width: 220, height: 220, borderRadius: "8px" }}
+              sx={{ width: 220, height: 220, borderRadius: '8px' }}
               alt="Spotify logo"
               src={
                 requiredPlaylist.images &&
@@ -121,28 +118,25 @@ const PlayLists = () => {
           </div>
           <div
             style={{
-              marginLeft: "12px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              fontFamily: "Helvetica Neue",
+              marginLeft: '12px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              fontFamily: 'Helvetica Neue',
             }}
           >
-            <h6 style={{ fontSize: "24px" }}>
+            <h6 style={{ fontSize: '24px' }}>
               {requiredPlaylist.owner && requiredPlaylist.owner.display_name}
             </h6>
-            <h6 style={{ fontSize: "6rem" }}>{requiredPlaylist.name}</h6>
+            <h6 style={{ fontSize: '6rem' }}>{requiredPlaylist.name}</h6>
             <span
               style={{
-                fontSize: "14px",
-                color: `${isDarkMode ? "#fff" : "#000"}`,
-                fontWeight: "bold",
+                fontSize: '14px',
+                color: `${isDarkMode ? '#fff' : '#000'}`,
+                fontWeight: 'bold',
               }}
             >
-              followers :{" "}
-              {(requiredPlaylist.followers &&
-                requiredPlaylist.followers.total) ||
-                0}
+              followers : {(requiredPlaylist.followers && requiredPlaylist.followers.total) || 0}
             </span>
           </div>
         </div>
@@ -151,7 +145,7 @@ const PlayLists = () => {
         className="artist_Bottom_container"
         style={{
           backgroundImage: `${index && gradientPairs[index][1]}`,
-          minHeight: "52.7vh",
+          minHeight: '52.7vh',
         }}
       >
         {loading && <TrackSkeleton />}
@@ -167,9 +161,7 @@ const PlayLists = () => {
             setTracks={setTracks}
           />
         )}
-        {!loading && (
-          <SearchForPlaylistAdd playListId={id} setTracks={setTracks} />
-        )}
+        {!loading && <SearchForPlaylistAdd playListId={id} setTracks={setTracks} />}
       </div>
     </Scrollable>
   );

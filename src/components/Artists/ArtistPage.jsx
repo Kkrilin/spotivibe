@@ -1,19 +1,19 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect, useState, useRef } from "react";
-import { Avatar, Skeleton, Stack } from "@mui/material";
-import axios from "axios";
-import Scrollable from "../Utils/Scrollable.jsx";
-import Tracks from "../Tracks/Tracks.jsx";
-import { useDispatch } from "react-redux";
-import { addArtist, removeArtist } from "../../redux/profileSlice.js";
-import AlbumCard from "../Album/AlbumCard.jsx";
-import { getColorGradientPair } from "../../utils/colors.js";
-import ProfileSkeleton from "../Utils/SkeletonLoader/ProfileSkeleton.jsx";
-import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
-import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton.jsx";
-import { useTheme } from "../Context/ThemeProvider.jsx";
-import Artist from "../Library/Artist.jsx";
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect, useState, useRef } from 'react';
+import { Avatar, Skeleton, Stack } from '@mui/material';
+import axios from 'axios';
+import Scrollable from '../Utils/Scrollable.jsx';
+import Tracks from '../Tracks/Tracks.jsx';
+import { useDispatch } from 'react-redux';
+import { addArtist, removeArtist } from '../../redux/profileSlice.js';
+import AlbumCard from '../Album/AlbumCard.jsx';
+import { getColorGradientPair } from '../../utils/colors.js';
+import ProfileSkeleton from '../Utils/SkeletonLoader/ProfileSkeleton.jsx';
+import CardSkeleton from '../Utils/SkeletonLoader/CardSkeleton.jsx';
+import TrackSkeleton from '../Utils/SkeletonLoader/TrackSkeleton.jsx';
+import { useTheme } from '../Context/ThemeProvider.jsx';
+import Artist from '../Library/Artist.jsx';
 import {
   artistAlbumUrl,
   artistRelatedArtist,
@@ -22,15 +22,15 @@ import {
   checkFollowUrl,
   followUrl,
   getHeader,
-} from "../../config/index.js";
-import ArtistProfile from "./ArtistProfile.jsx";
-import ArtistBottom from "./ArtistBottom.jsx";
+} from '../../config/index.js';
+import ArtistProfile from './ArtistProfile.jsx';
+import ArtistBottom from './ArtistBottom.jsx';
 
 const ArtistPage = () => {
   const { artists } = useSelector((state) => state.profile);
   const [artistAlbums, setArtistsAlbum] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [artistRelatedArtists, setArtistRelatedArtists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [follow, setFollow] = useState(false);
@@ -44,14 +44,14 @@ const ArtistPage = () => {
   const indexRef = useRef(null);
   const index = indexRef.current;
 
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
 
   const header = getHeader(token);
   const data = {
     ids: [id],
   };
   const handleFollowClick = async () => {
-    header.headers["Content-Type"] = "application/json";
+    header.headers['Content-Type'] = 'application/json';
     try {
       if (follow) {
         await axios.delete(followUrl(id), header);
@@ -121,17 +121,14 @@ const ArtistPage = () => {
 
   if (error) {
     return (
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <h2 style={{ color: "#fff" }}>{error}</h2>
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h2 style={{ color: '#fff' }}>{error}</h2>
       </div>
     );
   }
 
   return (
-    <Scrollable
-      name={requiredArtist.name}
-      bgColor={index && gradientPairs[index][0]}
-    >
+    <Scrollable name={requiredArtist.name} bgColor={index && gradientPairs[index][0]}>
       {loading ? (
         <ProfileSkeleton />
       ) : (

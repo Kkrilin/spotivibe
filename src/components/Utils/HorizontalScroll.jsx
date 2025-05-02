@@ -1,6 +1,5 @@
 const HorizontalScroll = ({ children }) => {
-    return <div className="horizontal_scroll">{children}</div>;
-  };
-  
-  export default HorizontalScroll;
-  
+  return <div className="horizontal_scroll">{children}</div>;
+};
+
+export default HorizontalScroll;

@@ -1,10 +1,10 @@
-import React from "react";
-import TrackSkeleton from "../Utils/SkeletonLoader/TrackSkeleton";
-import Tracks from "../Tracks/Tracks";
-import { Skeleton, Stack } from "@mui/material";
-import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton";
-import AlbumCard from "../Album/AlbumCard";
-import Artist from "../Library/Artist";
+import React from 'react';
+import TrackSkeleton from '../Utils/SkeletonLoader/TrackSkeleton';
+import Tracks from '../Tracks/Tracks';
+import { Skeleton, Stack } from '@mui/material';
+import CardSkeleton from '../Utils/SkeletonLoader/CardSkeleton';
+import AlbumCard from '../Album/AlbumCard';
+import Artist from '../Library/Artist';
 
 export default function ArtistBottom({
   index,
@@ -17,9 +17,7 @@ export default function ArtistBottom({
   artistRelatedArtists,
 }) {
   const requiredAristAlbum = artistAlbums.filter((item) => item);
-  const requiredArtistRelatedArtists = artistRelatedArtists.filter(
-    (item) => item
-  );
+  const requiredArtistRelatedArtists = artistRelatedArtists.filter((item) => item);
 
   return (
     <div
@@ -37,30 +35,19 @@ export default function ArtistBottom({
           colorGradient={index && gradientPairs[index][1]}
         />
       )}
-      <div style={{ padding: "1rem 0 0 2rem" }}>
-        {loading ? (
-          <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-        ) : (
-          <h3>Albums</h3>
-        )}
-        <Stack className="horizontal_scroll" direction={"row"}>
+      <div style={{ padding: '1rem 0 0 2rem' }}>
+        {loading ? <Skeleton variant="text" sx={{ fontSize: '1rem' }} /> : <h3>Albums</h3>}
+        <Stack className="horizontal_scroll" direction={'row'}>
           {loading && <CardSkeleton profile={true} type="playlist" />}
-          {!loading &&
-            requiredAristAlbum.map((item) => <AlbumCard item={item} />)}
+          {!loading && requiredAristAlbum.map((item) => <AlbumCard item={item} />)}
         </Stack>
       </div>
-      <div style={{ padding: "1rem 0 0 2rem" }}>
-        {loading ? (
-          <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-        ) : (
-          <h3>Artists</h3>
-        )}
-        <Stack className="horizontal_scroll" direction={"row"}>
+      <div style={{ padding: '1rem 0 0 2rem' }}>
+        {loading ? <Skeleton variant="text" sx={{ fontSize: '1rem' }} /> : <h3>Artists</h3>}
+        <Stack className="horizontal_scroll" direction={'row'}>
           {loading && <CardSkeleton profile={true} type="playlist" />}
           {!loading &&
-            requiredArtistRelatedArtists.map((item) => (
-              <Artist item={item} profile={true} />
-            ))}
+            requiredArtistRelatedArtists.map((item) => <Artist item={item} profile={true} />)}
         </Stack>
       </div>
     </div>

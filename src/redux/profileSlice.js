@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: {},
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 const profileSlice = createSlice({
-  name: "profile",
+  name: 'profile',
   initialState,
   reducers: {
     setProfileData(state, action) {
@@ -27,9 +27,7 @@ const profileSlice = createSlice({
       state.artists.push(action.payload.data);
     },
     removeArtist(state, action) {
-      state.artists = state.artists.filter(
-        (art) => art.id !== action.payload.id
-      );
+      state.artists = state.artists.filter((art) => art.id !== action.payload.id);
     },
     setPlalists(state, action) {
       state.playlists = action.payload.data;
@@ -38,9 +36,7 @@ const profileSlice = createSlice({
       state.playlists.push(action.payload.data);
     },
     removePlaylist(state, action) {
-      state.playlists = state.playlists.filter(
-        (pl) => pl.id !== action.payload.id
-      );
+      state.playlists = state.playlists.filter((pl) => pl.id !== action.payload.id);
     },
     addItemToPlaylist(state, action) {
       state.playlists = state.playlists.map((pl) => {

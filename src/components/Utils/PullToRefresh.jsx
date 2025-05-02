@@ -1,6 +1,6 @@
-import ReactPullToRefresh from "react-pull-to-refresh";
-import { useDispatch } from "react-redux";
-import { triggerRefresh } from "../../redux/refreshSlice";
+import ReactPullToRefresh from 'react-pull-to-refresh';
+import { useDispatch } from 'react-redux';
+import { triggerRefresh } from '../../redux/refreshSlice';
 
 function PullToRefresh({ children }) {
   const dispatch = useDispatch();
@@ -15,14 +15,12 @@ function PullToRefresh({ children }) {
     <ReactPullToRefresh
       onRefresh={handleRefresh}
       pullingcontent={
-        <div style={{ textAlign: "center", color: "#fff",backgroundColor: "#000" }}>
+        <div style={{ textAlign: 'center', color: '#fff', backgroundColor: '#000' }}>
           ⬇️ Pull down to refresh
         </div>
       }
       releasingcontent={
-        <div style={{ textAlign: "center", color: "#fff" }}>
-          ⬆️ Release to refresh
-        </div>
+        <div style={{ textAlign: 'center', color: '#fff' }}>⬆️ Release to refresh</div>
       }
     >
       {children}

@@ -1,18 +1,19 @@
-import { deepOrange } from "@mui/material/colors";
-import { useNavigate } from "react-router-dom";
-import { Avatar, Typography, Skeleton } from "@mui/material";
-import { useTheme } from "../Context/ThemeProvider.jsx";
+import { deepOrange } from '@mui/material/colors';
+import { useNavigate } from 'react-router-dom';
+import { Avatar, Typography, Skeleton } from '@mui/material';
+import { useTheme } from '../Context/ThemeProvider.jsx';
 
 const AlbumCard = ({ item }) => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
   return (
     <div
-      className={`big_card ${!isDarkMode ? "light_hover" : ""}`}
+      className={`big_card ${!isDarkMode ? 'light_hover' : ''}`}
       onClick={() => navigate(`/album/${item.id}`)}
     >
-      {item ? (
-        item.images ? (
+      {!item && <Skeleton sx={{ bgcolor: 'grey.900' }} variant="square" width={64} height={64} />}
+      {item &&
+        (item.images ? (
           <Avatar
             sx={{ width: 180, height: 180 }}
             alt="Spotify logo"
@@ -24,36 +25,21 @@ const AlbumCard = ({ item }) => {
             sx={{ bgcolor: deepOrange[500], width: 48, height: 48 }}
             variant="square"
           ></Avatar>
-        )
-      ) : (
-        <Skeleton
-          sx={{ bgcolor: "grey.900" }}
-          variant="square"
-          width={64}
-          height={64}
-        />
-      )}
+        ))}
       <div>
         {item ? (
-          <Typography style={{ width: "10rem", fontSize: "1rem" }} variant="h6">
+          <Typography style={{ width: '10rem', fontSize: '1rem' }} variant="h6">
             {item.name}
           </Typography>
         ) : (
-          <Skeleton
-            sx={{ bgcolor: "grey.800", fontSize: "1rem" }}
-            variant="text"
-            width={64}
-          />
+          <Skeleton sx={{ bgcolor: 'grey.800', fontSize: '1rem' }} variant="text" width={64} />
         )}
         {item ? (
-          <Typography style={{ fontSize: "0.8rem" }} variant="h6">
+          <Typography style={{ fontSize: '0.8rem' }} variant="h6">
             {item.type}
           </Typography>
         ) : (
-          <Skeleton
-            sx={{ bgcolor: "grey.800", fontSize: "1rem" }}
-            variant="text"
-          />
+          <Skeleton sx={{ bgcolor: 'grey.800', fontSize: '1rem' }} variant="text" />
         )}
       </div>
     </div>

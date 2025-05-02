@@ -1,20 +1,20 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { setPlalists } from "../../redux/profileSlice.js";
-import { useSelector, useDispatch } from "react-redux";
-import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
-import Playlist from "./PlayList.jsx";
-import { getHeader, userPlaylistUrl } from "../../config/index.js";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { setPlalists } from '../../redux/profileSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
+import CardSkeleton from '../Utils/SkeletonLoader/CardSkeleton.jsx';
+import Playlist from './PlayList.jsx';
+import { getHeader, userPlaylistUrl } from '../../config/index.js';
 
 const PlayLists = ({ search }) => {
   const { playlists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
 
-  const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem('userId');
   const header = getHeader(token);
 
   const fetchPlayList = async () => {
@@ -48,11 +48,9 @@ const PlayLists = ({ search }) => {
   return (
     <>
       {loading ? (
-        <CardSkeleton type={"playlist"} />
+        <CardSkeleton type={'playlist'} />
       ) : (
-        filteredPlaylist.map((item, index) => (
-          <Playlist key={index} item={item} />
-        ))
+        filteredPlaylist.map((item, index) => <Playlist key={index} item={item} />)
       )}
     </>
   );

@@ -1,8 +1,8 @@
 // refreshSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const refreshSlice = createSlice({
-  name: "refresh",
+  name: 'refresh',
   initialState: { globalCount: 0 },
   reducers: {
     triggerRefresh: (state) => {

@@ -1,7 +1,7 @@
-import * as React from "react";
-import Popover from "@mui/material/Popover";
-import Button from "@mui/material/Button";
-import CreatePlayList from "../../Playlists/CreatePlaylist";
+import * as React from 'react';
+import Popover from '@mui/material/Popover';
+import Button from '@mui/material/Button';
+import CreatePlayList from '../../Playlists/CreatePlaylist';
 
 export default function BasicPopover({ children }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -15,7 +15,7 @@ export default function BasicPopover({ children }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? 'simple-popover' : undefined;
 
   return (
     <div>
@@ -35,12 +35,12 @@ export default function BasicPopover({ children }) {
         anchorReference="anchorPosition"
         anchorPosition={{ top: 120, left: 200 }}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <CreatePlayList handleClose={handleClose} />

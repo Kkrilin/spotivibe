@@ -1,12 +1,12 @@
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { addPlaylist } from "../../redux/profileSlice";
-import { Search } from "@mui/icons-material";
-import { useTheme } from "../Context/ThemeProvider.jsx";
-import { createUrl } from "../../config/index.js";
-import CheckBoxPlaylist from "./CheckBoxPlaylist.jsx";
-import { useState } from "react";
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addPlaylist } from '../../redux/profileSlice';
+import { Search } from '@mui/icons-material';
+import { useTheme } from '../Context/ThemeProvider.jsx';
+import { createUrl } from '../../config/index.js';
+import CheckBoxPlaylist from './CheckBoxPlaylist.jsx';
+import { useState } from 'react';
 
 const AlterPlayList = ({
   handleClose,
@@ -17,23 +17,23 @@ const AlterPlayList = ({
   colorGradient,
 }) => {
   const { data, playlists } = useSelector((state) => state.profile);
-  const [searchPlaylist, setSearchPlaylist] = useState("");
+  const [searchPlaylist, setSearchPlaylist] = useState('');
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = data.id;
 
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
   const createPlaylist = async () => {
     const header = {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
     const body = {
       name: track.name || track.track.name,
-      description: "",
+      description: '',
       public: true,
     };
     try {
@@ -44,7 +44,7 @@ const AlterPlayList = ({
         dispatch(addPlaylist({ data: createResponse.data }));
       }
     } catch (error) {
-      console.log("Error:", error.response?.data || error.message);
+      console.log('Error:', error.response?.data || error.message);
     }
   };
 
@@ -54,9 +54,7 @@ const AlterPlayList = ({
     handleClose();
   };
 
-  let filteredPLaylists = playlists.filter(
-    (pList) => data.id === pList.owner.id
-  );
+  let filteredPLaylists = playlists.filter((pList) => data.id === pList.owner.id);
 
   if (searchPlaylist) {
     filteredPLaylists = filteredPLaylists.filter((playlist) =>
@@ -68,34 +66,34 @@ const AlterPlayList = ({
     <div
       className="alterPlaylist_container"
       style={{
-        width: "16vw",
-        backgroundColor: `${isDarkMode ? "#181818" : colorGradient}`,
-        padding: "1rem",
+        width: '16vw',
+        backgroundColor: `${isDarkMode ? '#181818' : colorGradient}`,
+        padding: '1rem',
       }}
     >
       <h6
         style={{
-          color: `${isDarkMode ? "white" : "black"}`,
+          color: `${isDarkMode ? 'white' : 'black'}`,
         }}
       >
         Add to Playlist
       </h6>
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          position: "relative",
-          marginTop: "1rem",
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          marginTop: '1rem',
         }}
       >
         <Search
           style={{
-            width: "1rem",
-            height: "1.5rem",
-            position: "absolute",
-            marginLeft: "0.4rem",
-            color: "#777676",
-            fontWeight: "800",
+            width: '1rem',
+            height: '1.5rem',
+            position: 'absolute',
+            marginLeft: '0.4rem',
+            color: '#777676',
+            fontWeight: '800',
           }}
         />
         <input
@@ -104,29 +102,29 @@ const AlterPlayList = ({
           value={searchPlaylist}
           onChange={(e) => setSearchPlaylist(e.target.value)}
           style={{
-            borderRadius: "4px",
-            height: "2rem",
-            paddingLeft: "3rem",
-            backgroundColor: "#2A2A2A",
-            color: "#fff",
+            borderRadius: '4px',
+            height: '2rem',
+            paddingLeft: '3rem',
+            backgroundColor: '#2A2A2A',
+            color: '#fff',
           }}
         />
       </div>
       <div
-        style={{ margin: "1rem", display: "flex", alignItems: "center" }}
+        style={{ margin: '1rem', display: 'flex', alignItems: 'center' }}
         className="create small_card"
         onClick={handleSubmit}
       >
         <span className="plus">+</span>
-        <span style={{ color: "#fff" }}>New playlist</span>
+        <span style={{ color: '#fff' }}>New playlist</span>
       </div>
       <hr />
       <div
         style={{
-          overflowY: "scroll",
-          height: "20vh",
-          marginTop: "0.8rem",
-          marginBottom: "0.8rem",
+          overflowY: 'scroll',
+          height: '20vh',
+          marginTop: '0.8rem',
+          marginBottom: '0.8rem',
         }}
       >
         {filteredPLaylists.map((playlist) => (
@@ -146,20 +144,20 @@ const AlterPlayList = ({
 
       <h5
         style={{
-          textAlign: "right",
-          marginTop: "1rem",
-          color: `${isDarkMode ? "#fff" : "#000"}`,
-          fontSize: "1rem",
-          backgroundColor: `${isDarkMode ? "#000" : "#fff"}`,
+          textAlign: 'right',
+          marginTop: '1rem',
+          color: `${isDarkMode ? '#fff' : '#000'}`,
+          fontSize: '1rem',
+          backgroundColor: `${isDarkMode ? '#000' : '#fff'}`,
           // width: "2rem",
-          cursor: "pointer",
-          padding: "0.5rem",
-          borderRadius: "4px",
-          fontWeight: "600",
-          border: "1px solid #000",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          cursor: 'pointer',
+          padding: '0.5rem',
+          borderRadius: '4px',
+          fontWeight: '600',
+          border: '1px solid #000',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
         onClick={() => handleClose()}
       >

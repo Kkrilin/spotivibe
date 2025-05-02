@@ -1,18 +1,18 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { setArtists } from "../../redux/profileSlice.js";
-import { useSelector, useDispatch } from "react-redux";
-import CardSkeleton from "../Utils/SkeletonLoader/CardSkeleton.jsx";
-import Artist from "./Artist.jsx";
-import { followedArtistUrl, getHeader } from "../../config/index.js";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { setArtists } from '../../redux/profileSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
+import CardSkeleton from '../Utils/SkeletonLoader/CardSkeleton.jsx';
+import Artist from './Artist.jsx';
+import { followedArtistUrl, getHeader } from '../../config/index.js';
 
 const Artists = ({ search }) => {
   const { artists } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
-  const token = localStorage.getItem("access_token", "access_token");
+  const token = localStorage.getItem('access_token', 'access_token');
 
   const header = getHeader(token);
 
@@ -34,9 +34,7 @@ const Artists = ({ search }) => {
 
   let filteredArtists = artists;
   if (search) {
-    filteredArtists = artists.filter((ar) =>
-      ar.name.toLowerCase().includes(search.toLowerCase())
-    );
+    filteredArtists = artists.filter((ar) => ar.name.toLowerCase().includes(search.toLowerCase()));
   }
 
   if (error) {
@@ -48,9 +46,7 @@ const Artists = ({ search }) => {
       {loading ? (
         <CardSkeleton />
       ) : (
-        filteredArtists.map((item, index) => (
-          <Artist key={index} item={item} loading={loading} />
-        ))
+        filteredArtists.map((item, index) => <Artist key={index} item={item} loading={loading} />)
       )}
     </>
   );

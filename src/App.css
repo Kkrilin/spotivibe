@@ -40,7 +40,7 @@ body {
   overscroll-behavior-y: none;
   overflow: hidden;
   scroll-behavior: smooth;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 300;
   font-style: normal;
 }
@@ -66,7 +66,7 @@ label {
 }
 
 input {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   width: 25rem;
   height: 3rem;
   font-size: 1rem;

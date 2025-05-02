@@ -1,21 +1,21 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setLikedSongs } from "../../redux/profileSlice.js";
-import { useTheme } from "../Context/ThemeProvider.jsx";
-import { getHeader, likedUrl } from "../../config/index.js";
-import { Avatar } from "@mui/material";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setLikedSongs } from '../../redux/profileSlice.js';
+import { useTheme } from '../Context/ThemeProvider.jsx';
+import { getHeader, likedUrl } from '../../config/index.js';
+import { Avatar } from '@mui/material';
 
 const LikedSong = () => {
   const { likedSongs } = useSelector((state) => state.profile);
   const { globalCount } = useSelector((state) => state.refresh);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
   const header = getHeader(token);
 
   const fetchLikedSong = async () => {
@@ -41,11 +41,11 @@ const LikedSong = () => {
     <>
       {!loading && likedSongs.length && (
         <div
-          className={`small_card ${!isDarkMode ? "light_hover" : ""}`}
+          className={`small_card ${!isDarkMode ? 'light_hover' : ''}`}
           onClick={() => navigate(`/collection/tracks`)}
         >
           <Avatar
-            sx={{ bgcolor: "#311F76", width: 50, height: 50 }}
+            sx={{ bgcolor: '#311F76', width: 50, height: 50 }}
             alt="Spotify logo"
             variant="rounded"
           />
@@ -53,17 +53,17 @@ const LikedSong = () => {
             <span
               className="name"
               style={{
-                color: `${isDarkMode ? "#e0dfdf" : "#000"}`,
+                color: `${isDarkMode ? '#e0dfdf' : '#000'}`,
               }}
             >
-              {" "}
+              {' '}
               Liked Songs
             </span>
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span
                 className="type"
                 style={{
-                  color: `${isDarkMode ? "#837f7f" : "#000"}`,
+                  color: `${isDarkMode ? '#837f7f' : '#000'}`,
                 }}
               >
                 playlist
@@ -72,7 +72,7 @@ const LikedSong = () => {
               <span
                 className="type"
                 style={{
-                  color: `${isDarkMode ? "#837f7f" : "#000"}`,
+                  color: `${isDarkMode ? '#837f7f' : '#000'}`,
                 }}
               >
                 {likedSongs.length} songs

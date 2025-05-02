@@ -1,7 +1,7 @@
-import * as React from "react";
-import Popover from "@mui/material/Popover";
-import Button from "@mui/material/Button";
-import AlterPlayList from "../../Playlists/AlterPlayList";
+import * as React from 'react';
+import Popover from '@mui/material/Popover';
+import Button from '@mui/material/Button';
+import AlterPlayList from '../../Playlists/AlterPlayList';
 
 export default function LibraryPopover({
   children,
@@ -9,7 +9,7 @@ export default function LibraryPopover({
   requiredPlaylist,
   setRequiredPlaylist,
   setTracks,
-  colorGradient
+  colorGradient,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -22,7 +22,7 @@ export default function LibraryPopover({
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? 'simple-popover' : undefined;
 
   return (
     <div>
@@ -42,12 +42,12 @@ export default function LibraryPopover({
         anchorReference="anchorPosition"
         anchorPosition={{ top: 200, left: 1400 }}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
       >
         <AlterPlayList

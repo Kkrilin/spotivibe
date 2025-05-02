@@ -1,6 +1,6 @@
-import { Avatar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useTheme } from "../Context/ThemeProvider";
+import { Avatar } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../Context/ThemeProvider';
 
 const Artist = ({ item, profile }) => {
   const navigate = useNavigate();
@@ -9,12 +9,12 @@ const Artist = ({ item, profile }) => {
     <div
       className={
         profile
-          ? `big_card ${!isDarkMode ? "light_hover" : ""}`
-          : `small_card ${!isDarkMode ? "light_hover" : ""}`
+          ? `big_card ${!isDarkMode ? 'light_hover' : ''}`
+          : `small_card ${!isDarkMode ? 'light_hover' : ''}`
       }
       onClick={() => navigate(`/artist/${item.id}`)}
       style={{
-        color: `${isDarkMode ? "#fff" : "#000"}`,
+        color: `${isDarkMode ? '#fff' : '#000'}`,
       }}
     >
       <Avatar
@@ -24,13 +24,13 @@ const Artist = ({ item, profile }) => {
       />
       <div
         style={{
-          marginTop: `${profile ? "10px" : ""}`,
+          marginTop: `${profile ? '10px' : ''}`,
         }}
       >
         <h6
           className="name"
           style={{
-            color: `${isDarkMode ? "#e0dfdf" : "#000"}`,
+            color: `${isDarkMode ? '#e0dfdf' : '#000'}`,
           }}
         >
           {item.name.substring(0, 20)}
@@ -39,7 +39,7 @@ const Artist = ({ item, profile }) => {
         <h6
           className="type"
           style={{
-            color: `${isDarkMode ? "#837f7f" : "#000"}`,
+            color: `${isDarkMode ? '#837f7f' : '#000'}`,
           }}
         >
           {item.type}

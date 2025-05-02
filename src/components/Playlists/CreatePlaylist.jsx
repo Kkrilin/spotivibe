@@ -1,32 +1,32 @@
-import axios from "axios";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { addPlaylist } from "../../redux/profileSlice";
-import { useDispatch } from "react-redux";
-import { createUrl, getHeader } from "../../config";
+import axios from 'axios';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addPlaylist } from '../../redux/profileSlice';
+import { useDispatch } from 'react-redux';
+import { createUrl, getHeader } from '../../config';
 
 const CreatePlayList = ({ handleClose }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const { data } = useSelector((state) => state.profile);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = data.id;
   const handleInputChange = (e) => {
-    if (e.target.id === "name") {
+    if (e.target.id === 'name') {
       setName(e.target.value);
     }
 
-    if (e.target.id === "description") {
+    if (e.target.id === 'description') {
       setDescription(e.target.value);
     }
   };
 
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
   const createPlaylist = async () => {
     const header = getHeader(token);
-    header.headers["Content-Type"] = "application/json";
+    header.headers['Content-Type'] = 'application/json';
     const body = {
       name,
       description,
@@ -40,7 +40,7 @@ const CreatePlayList = ({ handleClose }) => {
         dispatch(addPlaylist({ data: createResponse.data }));
       }
     } catch (error) {
-      console.log("Error:", error.response?.data || error.message);
+      console.log('Error:', error.response?.data || error.message);
     }
   };
 
@@ -51,10 +51,7 @@ const CreatePlayList = ({ handleClose }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="createPlaylist_form creatPlaylist_container"
-    >
+    <form onSubmit={handleSubmit} className="createPlaylist_form creatPlaylist_container">
       <div className="playlist_name">
         <label htmlFor="name">Name</label>
         <input
@@ -75,9 +72,7 @@ const CreatePlayList = ({ handleClose }) => {
           onChange={handleInputChange}
         />
       </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
-      >
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
         <button className="playlistSave_button" type="submit">
           Save
         </button>

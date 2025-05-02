@@ -1,5 +1,5 @@
-import { Avatar } from "@mui/material";
-import React from "react";
+import { Avatar } from '@mui/material';
+import React from 'react';
 
 export default function Profile({
   index,
@@ -25,27 +25,27 @@ export default function Profile({
       </div>
       <div
         style={{
-          marginLeft: "12px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
+          marginLeft: '12px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
         }}
       >
-        <h6 style={{ fontSize: "14px", fontWeight: "500" }}>Profile</h6>
-        <h6 style={{ fontSize: "6rem" }}>{profileData.data.display_name}</h6>
+        <h6 style={{ fontSize: '14px', fontWeight: '500' }}>Profile</h6>
+        <h6 style={{ fontSize: '6rem' }}>{profileData.data.display_name}</h6>
         <span
           style={{
-            fontSize: "14px",
-            color: "#D5B4BC",
-            fontWeight: "500",
-            display: "flex",
-            alignItems: "center",
-            gap: "4px",
+            fontSize: '14px',
+            color: '#D5B4BC',
+            fontWeight: '500',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
           }}
         >
           <span
             style={{
-              color: `${isDarkMode ? "#837f7f" : "#000"}`,
+              color: `${isDarkMode ? '#837f7f' : '#000'}`,
             }}
           >
             {playlists.length} Public PlayLists
@@ -53,8 +53,8 @@ export default function Profile({
           <span className="dot_separator"></span>
           <span
             style={{
-              color: `${isDarkMode ? "#837f7f" : "#000"}`,
-              fontWeight: "400",
+              color: `${isDarkMode ? '#837f7f' : '#000'}`,
+              fontWeight: '400',
             }}
           >
             {artists.length} Following
